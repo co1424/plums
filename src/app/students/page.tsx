@@ -1,15 +1,15 @@
-import Student from '@/data/student.model';
-import Student from './Student';
+import Student from '@/components/Student';
+import StudentInterface from '@/data/student.model';
 
 
 function Students() {
-  const students = [
+  const students: StudentInterface[] = [
     { firstName: 'Bill', lastName: 'Smith', iNumber: '134098678', major: 'Computer Science' },
     { firstName: 'Tom', lastName: 'Jones', iNumber: '11-444-3333', major: 'Computer Science' },
   ];
   return (
     <main>
-      {students.map((student) => {
+      {students.map((student: StudentInterface ) => {
         return (
           <Student
             firstName={student.firstName}

@@ -1,6 +1,6 @@
-import Student from "@/data/student.model";
+import StudentInterface from "@/data/student.model";
 
-function Student(props: Student) {
+function Student(props: StudentInterface) {
   return (
     <section>
       <div>First Name: {props.firstName}</div>
