@@ -1,17 +1,33 @@
+'use client';
+
 import Student from '@/components/Student';
 import StudentInterface from '@/data/student.model';
-
+import { useEffect, useState } from 'react';
+import students from '@/data/mock-students';
 
 function Students() {
-  const students: StudentInterface[] = [
-    { firstName: 'Bill', lastName: 'Smith', iNumber: '134098678', major: 'Computer Science' },
-    { firstName: 'Tom', lastName: 'Jones', iNumber: '11-444-3333', major: 'Computer Science' },
-  ];
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+
+  useEffect(() => {
+    fetch('./data/students.json').then((result) => result.json);
+  }, []);
+
+  useEffect(() => {}, [isLoggedIn]);
+
+  function logIn() {
+    setIsLoggedIn(true);
+  }
+
   return (
     <main>
-      {students.map((student: StudentInterface ) => {
+      {isLoggedIn && ( //This is another way to do an IF STATEMENT.
+        <div>Welcome!</div>
+      )}
+
+      {students.map((student: StudentInterface) => {
         return (
           <Student
+            key={student.iNumber}
             firstName={student.firstName}
             lastName={student.lastName}
             iNumber={student.iNumber}
