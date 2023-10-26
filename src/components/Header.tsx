@@ -6,9 +6,9 @@ function Header() {
     <nav>
         <ul>
             <li>Home</li>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>sdfg</li>
+            <li>sdf</li>
+            <li>sdfg</li>
         </ul>
     </nav>
 </header>

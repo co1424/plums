@@ -17,11 +17,8 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-image: url("../../public/images/top_main.png"), url("../../public/images/bottom_main.png");
+  background-position-y: 0px , 600px;
+  background-repeat: no-repeat, no-repeat;
 }
+
