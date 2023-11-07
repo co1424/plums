@@ -4,10 +4,8 @@ export const metadata: Metadata = {
   title: 'Welcome',
 };
 
-export default function WelcomeLayout({
-  children,
-}: {
-  children: React.ReactNode;
+export default function WelcomeLayout({children,}: {
+children: React.ReactNode;
 }) {
   return (
     children
