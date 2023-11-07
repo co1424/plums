@@ -2,18 +2,10 @@ import exp from "constants";
 
 function Header() {
   return (
-<header>
-    <nav>
-        <ul>
-            <li>Home</li>
-            <li>sdfg</li>
-            <li>sdf</li>
-            <li>sdfg</li>
-        </ul>
-    </nav>
-</header>
+    <header>
+      <h1 className="my-28 mb-12 text-center text-4xl font-bold px-14  ">LEARN YOUR WAY</h1>
+    </header>
   );
 }
-
 
 export default Header;

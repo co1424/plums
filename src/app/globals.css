@@ -17,8 +17,10 @@
 }
 
 body {
-  background-image: url("../../public/images/top_main.png"), url("../../public/images/bottom_main.png");
-  background-position-y: 0px , 600px;
+  background-image: url("../../public/images/topMain.svg"), url("../../public/images/bottomMain.svg");
+  background-position-y: 0px , 550px;
   background-repeat: no-repeat, no-repeat;
+  min-width: 100vw;
+  height: auto;
 }
 
