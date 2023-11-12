@@ -20,7 +20,8 @@ function Welcome() {
       <h2 className='text-xl font-bold'>Your existing topics:</h2>
       <br />
       <Flowbite theme={{ theme: buttonTheme }}>
-      <button className={`mb-4 ${buttonTheme.button.color.primary}`}>TypeScript</button>
+        <a href={'/topic'}>
+      <button className={`mb-4 ${buttonTheme.button.color.primary}`}>TypeScript</button></a>
       </Flowbite>
       <Flowbite theme={{ theme: buttonTheme }}>
       <button className={`mb-4 ${buttonTheme.button.color.primary}`}>TailwindCSS</button>

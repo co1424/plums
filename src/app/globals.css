@@ -16,11 +16,19 @@
   }
 }
 
-body {
+/* body {
   background-image: url("../../public/images/topMain.svg"), url("../../public/images/bottomMain.svg");
   background-position-y: 0px , 550px;
   background-repeat: no-repeat, no-repeat;
   min-width: 100vw;
   height: auto;
+} */
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #FAF5FF;
 }
+
 

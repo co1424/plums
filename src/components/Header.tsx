@@ -1,5 +1,6 @@
 import exp from "constants";
 
+
 const purpleBackgroundColor = {
   backgroundColor: 'rgba(250, 245, 255, 1)',
 };

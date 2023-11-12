@@ -5,6 +5,8 @@ import { Inter } from 'next/font/google'
 import Footer from '@/components/Footer'
 import 'primeicons/primeicons.css';
         
+import fav from "./favicon.ico"
+
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -24,7 +26,6 @@ export default function RootLayout({
         
         <Header/> 
         {children}
-
         <Footer/>     
       
       </body>
