@@ -28,20 +28,7 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
+  background: #FAF5FF;
 }
 
-/* .topMain,
-.bottomMain {
-  position: absolute;
-  width: 100%;
-  z-index: 1;
-}
-
-.topMain {
-  top: 0;
-}
-
-.bottomMain {
-  bottom: 0;
-} */
 
