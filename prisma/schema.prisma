@@ -1,11 +1,64 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
 
 generator client {
   provider = "prisma-client-js"
 }
 
-datasource db {
-  provider = "mongodbj"
-  url      = env("DATABASE_URL")
+model Tag {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  name    String
+  description     String
+  image     String
+  author   User      @relation(fields: [authorId], references: [id])
+  authorId String    @db.ObjectId
+  noteIDs String[]   @db.ObjectId
+  notes  Note[] @relation(fields: [noteIDs], references: [id])
+}
+
+model User {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  email   String   @unique
+  name    String?
+  tags   Tag[]
+  notes Note[]
+}
+
+model Note {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  content String
+  tagIds  String[] @db.ObjectId
+  tags Tag[]   @relation(fields: [tagIds], references: [id])
+  author   User      @relation(fields: [authorId], references: [id])
+  authorId String    @db.ObjectId
+  images Image[]
+  files File[]
+  urls Url[]
+}
+
+
+model Image {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  note   Note      @relation(fields: [noteId], references: [id])
+  noteId String    @db.ObjectId
+  image String
+  description String
+}
+
+model File {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  note   Note      @relation(fields: [noteId], references: [id])
+  noteId String    @db.ObjectId
+  file String
+  description String
+}
+
+model Url {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  note   Note      @relation(fields: [noteId], references: [id])
+  noteId String    @db.ObjectId
+  url String
+  description String
 }

@@ -1,6 +1,7 @@
 I used ```npm i -D prisma``` to install prisma then I used ```npx prisma init``` to initialize it which created the prisma folder into my directory
 
-every time there's a change in the schema.prisma file we need to run ```npx prisma migrate dev``` 
+every time there's a change in the schema.prisma file we need to run ```prisma generate``` 
+the first time we follow this process we need to install ```npm install @prisma/client```
 
 
 
