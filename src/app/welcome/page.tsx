@@ -1,22 +1,36 @@
 'use client';
 import React from 'react';
+import 'primeicons/primeicons.css';
+import { useState } from 'react';
 import {Flowbite, Button} from 'flowbite-react';
 import {buttonTheme} from '../../components/themes'
+import CardModal from '../../components/Modal';
 
 function Welcome() {
+ 
+  const [openModal, setOpenModal] = useState(false);
   return (
+    <div>
     <main className="flex flex-col items-center justify-center ">
       <br />
       <br />
       <h1 className='text-xl font-bold'>Welcome!</h1>
       <br />
       <Flowbite theme={{ theme: buttonTheme }}>
-      <button className={`mb-4 ${buttonTheme.button.color.primary}`}>Add new topic</button>
-      <br />
-      <br />
-      <br />
-      <br />
+        
+        <Button
+          className={`${buttonTheme.button.color.primary}`}
+          onClick={() => setOpenModal(true)}
+        >
+          Create New Topic
+        </Button>
       </Flowbite>
+      {openModal && <CardModal onCloseModal={() => setOpenModal(false)} showCloseButton={false} />}
+      <br />
+      <br />
+      <br />
+      <br />
+      
       <h2 className='text-xl font-bold'>Your existing topics:</h2>
       <br />
       <Flowbite theme={{ theme: buttonTheme }}>
@@ -31,7 +45,9 @@ function Welcome() {
       </Flowbite>
 
     </main>
-  );
-}
+    </div>
+    )
+
+};
 
 export default Welcome;
