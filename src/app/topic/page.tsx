@@ -1,6 +1,7 @@
 import React from 'react'
 import notes from '../../data/mockNotes.json'
 import Note from '@/components/Note'
+import CardModal from '@/components/Modal'
 
 const Topic = () => {
   return (
