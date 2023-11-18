@@ -1,3 +1,15 @@
+I used ```npm i -D prisma``` to install prisma then I used ```npx prisma init``` to initialize it which created the prisma folder into my directory
+
+every time there's a change in the schema.prisma file we need to run ```npx prisma migrate dev``` 
+the first time we follow this process we need to install ```npm install @prisma/client```
+
+
+
+
+
+
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

@@ -5,9 +5,9 @@ import CardModal from '@/components/ModalNote';
 
 const Topic = () => {
   return (
-    <div className=" h-screen  overflow-y-auto">
-      <h1>Topic</h1>
-      <div className="flex flex-wrap gap-4 justify-center  mx-4">
+    <div className=' h-screen  overflow-y-auto'>
+      <div className='flex flex-wrap gap-4 justify-center  mx-4'>
+
         {notes.map((note) => {
           return <Note key={note.id} note={note} />;
         })}
