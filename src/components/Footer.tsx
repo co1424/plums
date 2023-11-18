@@ -8,6 +8,7 @@ function Footer() {
     width: "100%",
     textAlign: "center",
     padding: "15px",
+    backgroundColor: "white",
     
   };
 
