@@ -17,7 +17,7 @@ interface CardModalProps {
   showCloseButton?: boolean;
 }
 
-function CardModal({ onCloseModal, showCloseButton = true }: CardModalProps) {
+function CardModalNote({ onCloseModal, showCloseButton = true }: CardModalProps) {
   const [email, setEmail] = useState('');
 
   function onClose() {
@@ -104,4 +104,4 @@ function CardModal({ onCloseModal, showCloseButton = true }: CardModalProps) {
   );
 }
 
-export default CardModal;
+export default CardModalNote;

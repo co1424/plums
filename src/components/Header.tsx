@@ -10,7 +10,7 @@ const purpleBackgroundColor = {
 function Header() {
   return (
 <header>
-    <nav>
+    <nav className="p-5">
         <ul className="flex justify-between items-center">
             <li><a href="./welcome" className="pi pi-home" style={{ fontSize: '2rem', position: 'absolute', top: '0', left: '0', padding: '10px' }}></a></li>
             <li>

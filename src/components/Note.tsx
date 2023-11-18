@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import React from 'react';
-import CardModal from './Modal';
+import CardModal from './ModalNote';
 import { Flowbite, Button } from 'flowbite-react';
 import 'primeicons/primeicons.css';
 import { useState } from 'react';
@@ -26,7 +26,12 @@ const Note = ({ note }: any) => {
           View Details
         </Button>
       </Flowbite>
-      {openModal && <CardModal onCloseModal={() => setOpenModal(false)} showCloseButton={false} />}
+      {openModal && (
+        <CardModal
+          onCloseModal={() => setOpenModal(false)}
+          showCloseButton={false}
+        />
+      )}
     </div>
   );
 };
