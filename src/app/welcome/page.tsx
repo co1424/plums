@@ -3,11 +3,13 @@ import React from 'react';
 import 'primeicons/primeicons.css';
 import { useState } from 'react';
 import { Flowbite, Button } from 'flowbite-react';
-import { buttonTheme } from '../../components/themes';
-import CardModalNewTopic from '../../components/ModalNewTopic';
+import { buttonTheme } from '../components/themes';
+import CardModalNewTopic from '../components/ModalNewTopic';
+import TagList from '../components/TagList'; 
 
 function Welcome() {
   const [openModal, setOpenModal] = useState(false);
+
   return (
     <div>
       <main className="flex flex-col items-center justify-center ">
@@ -36,6 +38,9 @@ function Welcome() {
 
         <h2 className="text-xl font-bold">Your existing topics:</h2>
         <br />
+
+        <TagList/>
+
         <Flowbite theme={{ theme: buttonTheme }}>
           <a href={'/topic'}>
             <button className={`mb-4 ${buttonTheme.button.color.primary}`}>
@@ -43,16 +48,19 @@ function Welcome() {
             </button>
           </a>
         </Flowbite>
+
         <Flowbite theme={{ theme: buttonTheme }}>
           <button className={`mb-4 ${buttonTheme.button.color.primary}`}>
             TailwindCSS
           </button>
         </Flowbite>
+
         <Flowbite theme={{ theme: buttonTheme }} className="font-bold">
           <button className={`mb-4 ${buttonTheme.button.color.primary}`}>
             C#
           </button>
         </Flowbite>
+
       </main>
     </div>
   );

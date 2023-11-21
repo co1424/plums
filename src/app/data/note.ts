@@ -11,21 +11,21 @@ export async function getNotes() {
     }
 }
 
-export async function getNotesByTag(tag: String) {
-    try{
-        const notes = await prisma.note.findMany({
-            include: {
-                tags: {
-                    name: tag
-                }
-            }
-        })
-        return { notes }
-    }catch(error){
-        console.log("error at data/index/getNotes function: ",error)
-        return error
-    }
-}
+// export async function getNotesByTag(tag: String) {
+//     try{
+//         const notes = await prisma.note.findMany({
+//             include: {
+//                 tags: {
+//                     name: tag
+//                 }
+//             }
+//         })
+//         return { notes }
+//     }catch(error){
+//         console.log("error at data/index/getNotes function: ",error)
+//         return error
+//     }
+// }
 
 export async function createNote(note: Note) {
     try{
