@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import React from 'react';
-import CardModal from './ModalNote';
+import CardModal from './ModalEditNote';
 import { Flowbite, Button } from 'flowbite-react';
 import 'primeicons/primeicons.css';
 import { useState } from 'react';

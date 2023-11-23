@@ -1,6 +1,6 @@
 import React from 'react';
 import { Flowbite, Modal } from 'flowbite-react';
-import CardModal from '@/components/ModalNote';
+import CardModal from '@/components/ModalEditNote';
 
 const AddNewTopic = () => {
   return (
