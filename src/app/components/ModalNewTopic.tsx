@@ -38,8 +38,22 @@ function CardModalNewTopic ({ onCloseModal, showCloseButton = true }: CardModalP
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setImage(event.target.value);
+    const fileInput = event.target;
+    if (fileInput.files && fileInput.files.length > 0) {
+      const selectedFile = fileInput.files[0];
+      let fileReader = new FileReader();
+  
+      fileReader.onload = function (fileLoadedEvent) {
+        if (fileLoadedEvent.target) {
+          let srcData = fileLoadedEvent.target.result as string;
+          setImage(srcData);
+        }
+      };
+  
+      fileReader.readAsDataURL(selectedFile);
+    }
   };
+  
 
   const handleDescriptionChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setDescription(event.target.value);
@@ -77,11 +91,8 @@ function CardModalNewTopic ({ onCloseModal, showCloseButton = true }: CardModalP
     setName('');
     setDescription('');
   };
-
-
   return (
     <>
-
       <Modal show={true} size="md" onClose={onCloseModal} popup>
         <Modal.Header />
         <Modal.Body>
@@ -97,24 +108,15 @@ function CardModalNewTopic ({ onCloseModal, showCloseButton = true }: CardModalP
               name='name'
               placeholder="  Enter topic name"
               onChange={handleNameChange}
-              // value={inputs.name || ""}
               required
             />
             </div>
             
             <div id="upload-image">
               <Label htmlFor="file" value="Upload Image" />
-              {/* <FileInput 
+              <FileInput 
               onChange={handleImageChange} 
               id="file" 
-              helperText=" " /> */}
-              <TextInput
-              type="text"
-              id="img_name"
-              name='image'
-              placeholder="  Enter img name"
-              onChange={handleImageChange}
-              // value={inputs.image || ""}
               required
             />
             </div>
@@ -126,7 +128,6 @@ function CardModalNewTopic ({ onCloseModal, showCloseButton = true }: CardModalP
               name='description'
               placeholder="  Enter a tag/topic description here:"
               onChange={handleDescriptionChange}
-              // value={inputs.description || ""}
             />
             </div>
 
@@ -139,7 +140,7 @@ function CardModalNewTopic ({ onCloseModal, showCloseButton = true }: CardModalP
                 Close modal
               </Button>
             )}
-          
+
         <Flowbite theme={{ theme: buttonTheme }}>
       <button type="submit"  className={`mb-4 ${buttonTheme.button.color.primary}`}>Create</button>
       </Flowbite>

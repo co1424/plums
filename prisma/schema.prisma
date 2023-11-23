@@ -26,8 +26,9 @@ model User {
   notes Note[]
 }
 
-model Note {
+model Note {            
   id      String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
   content String
   tagIds  String[] @db.ObjectId
   tags Tag[]   @relation(fields: [tagIds], references: [id])
