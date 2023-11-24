@@ -45,7 +45,7 @@ model Image {
   note   Note      @relation(fields: [noteId], references: [id])
   noteId String    @db.ObjectId
   image String
-  description String
+  description String?
 }
 
 model File {
@@ -53,7 +53,7 @@ model File {
   note   Note      @relation(fields: [noteId], references: [id])
   noteId String    @db.ObjectId
   file String
-  description String
+  description String?
 }
 
 model Url {
@@ -61,5 +61,5 @@ model Url {
   note   Note      @relation(fields: [noteId], references: [id])
   noteId String    @db.ObjectId
   url String
-  description String
+  description String?
 }
