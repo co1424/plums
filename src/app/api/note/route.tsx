@@ -9,32 +9,42 @@ export const POST = async (req: NextRequest) => {
         const body = await req.json()
         console.log("here's the request content after req.json() in api/note", body)
         const { 
-            title,
-            url,
-            image,
-            file,
-            content,
-            selectedTags} = body;
-
+          title,
+          url,
+          urlNote,
+          image,
+          imageNote,
+          file,
+          fileNote,
+          content,
+          selectedTags } = body;
+            
+            //handle if tag is empty
             let tagInfoFormat;
-            if(selectedTags.length == 1){
-              tagInfoFormat = {id: selectedTags[0]}
-            } else if(selectedTags.length > 1){
+            if(selectedTags.length == 1){tagInfoFormat = {id: selectedTags[0]}} 
+            else if(selectedTags.length > 1){
               tagInfoFormat = []
               selectedTags.forEach((e:string) => {
                 tagInfoFormat.push({id:e}) ;
-              });
-            } else if (selectedTags.length == 0){
-              tagInfoFormat = {id: ""}
-            }
+              });}
+            // handle if images is empty
+            let imgInfoFormat;
+            if(image){imgInfoFormat = [{ image: image, description: imageNote }]}
+            //handle if files is empty
+            let fileInfoFormat;
+            if(file){fileInfoFormat = [{ file: file, description: fileNote }]}
+            //handle if urls is empty
+            let urlInfoFormat;
+            if(url){urlInfoFormat = [{ url: url, description: urlNote }]}
+
             const result = await prisma.note.create({
                 data: {
                   title,
                   content,
                   tags:   {connect: tagInfoFormat},
-                  images: { create: [{ image: image, description: "img description" }] },
-                  files: { create: [{ file: file, description: "file description" }] },
-                  urls: { create: [{ url: url, description: "url description" }] },
+                  images: { create: imgInfoFormat },
+                  files: { create: fileInfoFormat },
+                  urls: { create: urlInfoFormat },
                   authorId: "655bdd221f7696eacd122822", 
                 },
               });

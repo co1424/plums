@@ -28,8 +28,11 @@ function CardModalNote({ onCloseModal, showCloseButton = true }: CardModalProps)
   const [email, setEmail] = useState('');
   const [title, setTitle] = useState('');
   const [url, setUrl] = useState('');
+  const [urlNote, setUrlNote] = useState('');
   const [image, setImage] = useState('');
+  const [imageNote, setImageNote] = useState('');
   const [file, setFile] = useState('');
+  const [fileNote, setFileNote] = useState('');
   const [content, setContent] = useState('');
   const [tags, setTags] = useState<tagResponse[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -66,14 +69,15 @@ function CardModalNote({ onCloseModal, showCloseButton = true }: CardModalProps)
     setDropdownOpen(!isDropdownOpen);
   };
 
-
-
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
     console.log("handleTitleChange was called")
   };
   const handleUrlChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUrl(event.target.value);
+  };
+  const handleUrlNoteChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUrlNote(event.target.value);
   };
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const fileInput = event.target;
@@ -110,20 +114,16 @@ function CardModalNote({ onCloseModal, showCloseButton = true }: CardModalProps)
   const handleContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(event.target.value);
   };
+  const handleImageNoteChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setImageNote(event.target.value);
+  };
+  const handleFileNoteChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setFileNote(event.target.value);
+  };
 
   
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // console.log("handleSubmit was called!")
-    // const data = { 
-    //   "title": title,
-    //   "url": url,
-    //   "image": image,
-    //   "file": file,
-    //   "content": content,
-    //   "tagsIds": selectedTags
-    // }
-    // console.log(JSON.stringify({ data }))
 
     try {
       const response = await fetch('http://localhost:3000/api/note', {
@@ -133,8 +133,11 @@ function CardModalNote({ onCloseModal, showCloseButton = true }: CardModalProps)
         },
         body: JSON.stringify({ title,
           url,
+          urlNote,
           image,
+          imageNote,
           file,
+          fileNote,
           content,
           selectedTags }),
       });
@@ -142,7 +145,7 @@ function CardModalNote({ onCloseModal, showCloseButton = true }: CardModalProps)
       console.log("the answer from the api data with the note", data)
       if (response.ok) {
         console.log('Note created successfully:', data);
-        router.replace("/welcome"); // Use replace instead of refresh for client-side navigation
+        // router.replace("/welcome"); // Use replace instead of refresh for client-side navigation
       } else {
         console.error('Failed to create note:', data);
       }
@@ -160,7 +163,7 @@ function CardModalNote({ onCloseModal, showCloseButton = true }: CardModalProps)
         <Modal.Body>
           <form onSubmit={handleSubmit} className="space-y-6 p-4 bg-white dark:bg-gray-800 rounded-lg md:max-w-md mx-auto">
             
-            <div id='add-name'>
+            <div id='add-title'>
             <Label htmlFor="title">Title</Label>
             <TextInput
               type="text"
@@ -180,6 +183,16 @@ function CardModalNote({ onCloseModal, showCloseButton = true }: CardModalProps)
             />
             </div>
 
+            <div id='add-urlNote'>
+            <Label htmlFor="topic_url">URL Notes</Label>
+            <TextInput 
+            type="text" 
+            id="topic_urlNote" 
+            placeholder="Optional" 
+            onChange={handleUrlNoteChange}
+            />
+            </div>
+
             <div id="upload-image">
               <Label htmlFor="file" value="Upload Image" />
               <FileInput 
@@ -188,12 +201,30 @@ function CardModalNote({ onCloseModal, showCloseButton = true }: CardModalProps)
               />
             </div>
 
+            <div id='add-imageNote'>
+            <Label htmlFor="topic_notes">Image Notes</Label>
+            <Textarea
+              id="topic_imageNotes"
+              placeholder="Optional"
+              onChange={handleImageNoteChange}
+            />
+            </div>
+
             <div id="upload-file">
               <Label htmlFor="file" value="Upload File" />
               <FileInput 
               id="file" 
               onChange={handleFileChange}
               />
+            </div>
+
+            <div id='add-fileNote'>
+            <Label htmlFor="topic_notes">File Notes</Label>
+            <Textarea
+              id="topic_fileNotes"
+              placeholder="Optional"
+              onChange={handleFileNoteChange}
+            />
             </div>
 
             <div id='add-notes'>
