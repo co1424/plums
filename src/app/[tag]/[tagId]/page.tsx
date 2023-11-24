@@ -68,10 +68,8 @@ const tagIdObject = new ObjectId(tagId);
 
 const notes = await prisma.note.findMany({
   where: {
-    tags: {
-      some: {
-        id: tagIdObject.toHexString(),
-      },
+    tagIds: {
+      has: tagId,
     },
   },
 });
