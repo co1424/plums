@@ -64,8 +64,6 @@ console.log("I'm params",params)
 
 const {tagId} = params;
 
-const tagIdObject = new ObjectId(tagId);
-
 const notes = await prisma.note.findMany({
   where: {
     tagIds: {

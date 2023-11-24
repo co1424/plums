@@ -141,10 +141,10 @@ function CardModalNote({ onCloseModal, showCloseButton = true }: CardModalProps)
       const data = await response.json();
       console.log("the answer from the api data with the note", data)
       if (response.ok) {
-        console.log('Note created successfully:', data.message);
+        console.log('Note created successfully:', data);
         router.replace("/welcome"); // Use replace instead of refresh for client-side navigation
       } else {
-        console.error('Failed to create tag:', data.message);
+        console.error('Failed to create note:', data);
       }
     } catch (error) {
       console.error(error);
