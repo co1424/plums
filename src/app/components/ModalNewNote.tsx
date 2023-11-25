@@ -34,15 +34,15 @@ function CardModalNewNote({
         <Modal.Header />
         <Modal.Body>
           <form className="space-y-6 p-4 bg-white dark:bg-gray-800 rounded-lg md:max-w-md mx-auto">
-            <h2 className="text-xl font-medium text-black dark:text-white mb-4">
-              Create New Note
-            </h2>
+            
 
             <div id="add-notes">
               <Label htmlFor="topic_notes">Notes</Label>
+              
               <Textarea
                 id="topic_notes"
-                placeholder="Enter your personal notes here:"
+                placeholder="  Enter your personal notes here:"
+                rows={5}
               />
             </div>
             <div className='flex flex-row'>
