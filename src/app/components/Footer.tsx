@@ -13,7 +13,7 @@ function Footer() {
   };
 
   return (
-    <footer style={footerStyle}>
+    <footer className='w-full text-center p-4'>
       &copy; <em id="date">PLUMS </em>2023  
     </footer>
   );
