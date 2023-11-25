@@ -1,7 +1,7 @@
 import React from 'react';
-import notes from '../../data/mockNotes.json';
-import Note from '@/components/Note';
-import CardModal from '@/components/ModalEditNote';
+import notes from '../data/mockNotes.json';
+import Note from '@/app/components/Note';
+import CardModal from '@/app/components/ModalEditNote';
 
 const Topic = () => {
   return (

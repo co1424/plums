@@ -3,9 +3,10 @@ import React from 'react';
 import 'primeicons/primeicons.css';
 import { useState } from 'react';
 import { Flowbite, Button } from 'flowbite-react';
-import { buttonTheme } from '../../components/themes';
-import CardModalNewTopic from '../../components/ModalNewTopic';
-import CardModalNewNote from '../../components/ModalNewNote';
+import { buttonTheme } from '../components/themes';
+import CardModalNewTopic from '../components/ModalNewTopic';
+import CardModalNewNote from '../components/ModalNewNote';
+import TagList from '../components/TagList';
 
 function Welcome() {
   const [openModalNewTopic, setOpenModalNewTopic] = useState(false);
