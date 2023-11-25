@@ -1,0 +1,76 @@
+
+[
+    {
+      "_id":{"$oid": "655ebf2ed52ace573e56cdbd"},
+      "name": "Prisma",
+      "description": "Prisma is a modern database toolkit that makes it easy to work with databases in your application.",
+      "image": "",
+      "authorId": {
+        "$oid": "655bdd221f7696eacd122822"
+      },
+      "noteIDs": [{
+        "$oid": "655ea611d52ace573e56cda2"
+      }],
+      "notes": [
+        {
+          "_id": {
+            "$oid": "655ea611d52ace573e56cda2"
+          },
+          "title": "Introduction to Prisma",
+          "content": "Prisma is a powerful database toolkit that simplifies database interactions in applications. Learn how to integrate it for efficient data handling.",
+          "tagIds": ["655ebf2ed52ace573e56cdbd"],
+          "authorId": {
+            "$oid": "655bdd221f7696eacd122822"
+          },
+          "images": [],
+          "files": [],
+          "urls": [
+            {
+              "url": "https://prisma.io",
+              "description": "Prisma Official Website"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Tailwind",
+      "description": "Tailwind CSS is a utility-first CSS framework for rapidly building custom user interfaces.",
+      "image": "",
+      "authorId": {
+        "$oid": "655bdd221f7696eacd122822"
+      },
+      "noteIDs": [],
+      "notes": []
+    },
+    {
+      "name": "Typescript",
+      "description": "TypeScript is a superset of JavaScript that adds static types to the language.",
+      "image": "",
+      "authorId": {
+        "$oid": "655bdd221f7696eacd122822"
+      },
+      "noteIDs": [],
+      "notes": []
+    },
+    {
+      "name": "Nextjs",
+      "description": "Next.js is a React framework that enables functionality such as server-side rendering and generating static websites for React-based web applications.",
+      "image": "",
+      "authorId": {
+        "$oid": "655bdd221f7696eacd122822"
+      },
+      "noteIDs": [],
+      "notes": []
+    },
+    {
+      "name": "Reactjs",
+      "description": "React is a JavaScript library for building user interfaces.",
+      "image": "",
+      "authorId": {
+        "$oid": "655bdd221f7696eacd122822"
+      },
+      "noteIDs": [],
+      "notes": []
+    }
+]

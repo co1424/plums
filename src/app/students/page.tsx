@@ -1,9 +1,9 @@
 'use client';
 
-import Student from '@/components/Student';
-import StudentInterface from '@/data/student.model';
+import Student from '@/app/components/Student';
+import StudentInterface from '@/app/data/student.model';
 import { useEffect, useState } from 'react';
-import students from '@/data/mock-students';
+import students from '@/app/data/mock-students';
 
 function Students() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);

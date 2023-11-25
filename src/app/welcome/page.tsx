@@ -11,7 +11,6 @@ function Welcome() {
   const [openModalNewTopic, setOpenModalNewTopic] = useState(false);
   const [openModalNewNote, setOpenModalNewNote] = useState(false);
   return (
-    <div>
       <main className="flex flex-col items-center justify-center ">
         <br />
         <br />
@@ -52,25 +51,10 @@ function Welcome() {
 
         <h2 className="text-xl font-bold">Your existing topics:</h2>
         <br />
-        <Flowbite theme={{ theme: buttonTheme }}>
-          <a href={'/topic'}>
-            <button className={`mb-4 ${buttonTheme.button.color.primary}`}>
-              TypeScript
-            </button>
-          </a>
-        </Flowbite>
-        <Flowbite theme={{ theme: buttonTheme }}>
-          <button className={`mb-4 ${buttonTheme.button.color.primary}`}>
-            TailwindCSS
-          </button>
-        </Flowbite>
-        <Flowbite theme={{ theme: buttonTheme }} className="font-bold">
-          <button className={`mb-4 ${buttonTheme.button.color.primary}`}>
-            C#
-          </button>
-        </Flowbite>
+
+        <TagList/>
+
       </main>
-    </div>
   );
 }
 

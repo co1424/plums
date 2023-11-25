@@ -17,7 +17,7 @@ interface CardModalProps {
   showCloseButton?: boolean;
 }
 
-function CardModalNewTopic ({ onCloseModal, showCloseButton = true }: CardModalProps) {
+function CardModalNote({ onCloseModal, showCloseButton = true }: CardModalProps) {
   const [email, setEmail] = useState('');
 
   function onClose() {
@@ -33,28 +33,35 @@ function CardModalNewTopic ({ onCloseModal, showCloseButton = true }: CardModalP
         <Modal.Body>
           <div className="space-y-6 p-4 bg-white dark:bg-gray-800 rounded-lg md:max-w-md mx-auto">
             <h2 className="text-xl font-medium text-black dark:text-white mb-4">
-              Add New Topic/Tag
+              Your Topic
             </h2>
             <div id='add-name'>
-            <Label htmlFor="topic_name">Topic/Tag Name</Label>
+            <Label htmlFor="topic_name">Topic Name</Label>
             <TextInput
               type="text"
               id="topic_name"
               placeholder="  Enter topic name"
-              required
             />
             </div>
-            
+            <div id='add-url'>
+            <Label htmlFor="topic_url">Topic URL</Label>
+            <TextInput type="text" id="topic_url" placeholder="Enter new URL" />
+            </div>
+
             <div id="upload-image">
               <Label htmlFor="file" value="Upload Image" />
               <FileInput id="file" helperText="Add an image " />
             </div>
+            <div id="upload-file">
+              <Label htmlFor="file" value="Upload File" />
+              <FileInput id="file" helperText="Add a file " />
+            </div>
 
-            <div id='add-description'>
-            <Label htmlFor="topic_notes">Description</Label>
+            <div id='add-notes'>
+            <Label htmlFor="topic_notes">Notes</Label>
             <Textarea
               id="topic_notes"
-              placeholder="  Enter a tag/topic description here:"
+              placeholder="Enter your personal notes here:"
             />
             </div>
 
@@ -72,7 +79,7 @@ function CardModalNewTopic ({ onCloseModal, showCloseButton = true }: CardModalP
         </Modal.Body>
         <br />
         <Flowbite theme={{ theme: buttonTheme }}>
-      <button className={`mb-4 ${buttonTheme.button.color.primary}`}>Create</button>
+      <button className={`mb-4 ${buttonTheme.button.color.primary}`}>Update Topic</button>
       </Flowbite>
       </Modal>
 
@@ -97,4 +104,4 @@ function CardModalNewTopic ({ onCloseModal, showCloseButton = true }: CardModalP
   );
 }
 
-export default CardModalNewTopic;
+export default CardModalNote;

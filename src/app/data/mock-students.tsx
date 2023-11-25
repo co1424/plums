@@ -1,4 +1,4 @@
-import StudentInterface from "@/data/student.model";
+import StudentInterface from "@/app/data/student.model";
 
 const students: StudentInterface[] = [
     { firstName: 'Bill', lastName: 'Smith', iNumber: '134098678', major: 'Computer Science' },

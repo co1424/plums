@@ -1,4 +1,4 @@
-import StudentInterface from "@/data/student.model";
+import StudentInterface from "@/app/data/student.model";
 
 function Student(props: StudentInterface) {
   return (
