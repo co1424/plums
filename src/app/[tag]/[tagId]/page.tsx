@@ -1,41 +1,70 @@
-import React from 'react';
+"use client";
+import React, { useEffect, useState } from 'react';
 import Note from '@/app/components/Note';
 import prisma from "@/app/data";
 
 interface NoteProps {
-    params: {
-        tag: string
-        tagId: string
-    }
+  params: {
+    tag: string
+    tagId: string
+  }
 }
 
-const NotesByTopic = async ({ params }: NoteProps) => {
-console.log("I'm params passed to the findMany function at tag/id",params)
+interface NoteType {
+  id: string;
+  title: string;
+  content: string;
+  authorId: string;
+  images: { id: string; noteId: string; image: string; description: string | null }[];
+  files: { id: string; noteId: string; file: string; description: string | null }[];
+  urls: { id: string; noteId: string; url: string; description: string | null }[];
+}
 
-const {tagId} = params;
+const NotesByTopic = ({ params }: NoteProps) => {
+  const { tagId } = params;
+  const [notes, setNotes] = useState<NoteType[]>([]);
 
-const notes = await prisma.note.findMany({
-  where: {
-    tagIds: {
-      has: tagId,
-    },
-  },
-  include: {
-    images: true,
-    files: true,
-    urls: true,
-  }
-});
-  
+  const fetchNotes = async () => {
+    try {
+      const result = await fetch(`http://localhost:3000/api/note?tagId=${encodeURIComponent(tagId)}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
-console.log("I'm the result from the search of notes by tag", notes)
+      if (result.ok) {
+        const notesByTag = await result.json()
+        console.log("Notes by tag successfully fetched! tag/tagId/page")
+
+        setNotes(notesByTag.result);
+      }
+
+    } catch (error) {
+      console.error('Error fetching notes by tag tag/tagId/page', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchNotes();
+  }, [tagId]);
+
+  const handleNoteDelete = async (noteId: string) => {
+    try {
+      // If the deletion was successful, update the state to trigger a re-render
+      setNotes((prevNotes) => prevNotes.filter((note) => note.id !== noteId));
+    } catch (error) {
+      console.error('Error deleting note:', error);
+    }
+  };
+
+  console.log("I'm the result from the search of notes by tag at tag/tagId/page", notes)
 
   return (
     <div className=' h-screen  overflow-y-auto'>
       <div className='flex flex-wrap gap-4 justify-center  mx-4'>
-
         {notes.map((note) => {
-          return (<Note key={note.id} note={note} />);
+          return <Note key={note.id} note={note} onDelete={handleNoteDelete} />
         })}
       </div>
     </div>

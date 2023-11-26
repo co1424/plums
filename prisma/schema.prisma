@@ -63,3 +63,37 @@ model Url {
   url String
   description String?
 }
+
+
+// interface note{
+//   id: string
+//   title: string
+//   content: string
+//   tagIds: string[]
+//   authorId: string
+//   images: images
+//   files: files
+//   urls: urls
+// }
+// interface images{
+//   id: string
+//   noteId: string
+//   image: string
+//   description: string
+// }
+// interface files{
+//   id: string
+//   noteId: string
+//   file: string
+//   description: string
+// }
+// interface urls{
+//   id: string
+//   noteId: string
+//   url: string
+//   description: string
+// }
+// interface notes{
+//   note: note[]
+// }
+

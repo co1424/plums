@@ -7,9 +7,8 @@ import React from 'react'
 export const POST = async (req: NextRequest) => {
     try {
         const body = await req.json()
-        console.log("here's the request content after req.json() in api/tag", body)
         const { name, image, description} = body;
-        // console.log("and here's the tag name in api/tag", name)
+
         const result = await prisma.tag.create({ 
             data: {
                 name,

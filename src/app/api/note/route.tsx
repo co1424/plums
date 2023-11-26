@@ -72,3 +72,44 @@ export const DELETE = async (req: NextRequest) => {
      return NextResponse.json({message: "POST Error", err}, {status: 500})   
     }
 }
+
+
+
+interface NoteProps {
+  params: {
+    tag: string
+    tagId: string
+  }
+}
+
+export const GET = async (req: NextRequest) => {
+  try {
+    // Convert the URL string to a URL object
+    const url = new URL(req.url);
+    
+    // Extract the tagId from the search parameters
+    const tagId = url.searchParams.get('tagId');
+    
+
+    const result = await prisma.note.findMany({
+      where: {
+        tagIds: {
+          has: tagId,
+        },
+      },
+      include: {
+        images: true,
+        files: true,
+        urls: true,
+      },
+    });
+
+    return NextResponse.json({ result });
+  } catch (error) {
+    console.error('Error fetching notes by tag api/note/route', error);
+    return NextResponse.json({ message: 'Error fetching notes by tag', error }, { status: 500 });
+  }
+};
+
+
+

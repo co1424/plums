@@ -12,13 +12,13 @@ import FileRender from './FileRender';
 import { FaTrashAlt } from "react-icons/fa";
 import { TbTrash } from "react-icons/tb";
 
-const Note = ({ note }: any) => {
+const Note = ({ note, onDelete }: any) => {
   const { id, title, content, urls, images, files } = note;
   // const { id: urlId, url, description: urlDescription } = urls || {};
   // const { id: imageId, image, description: imageDescription } = images || {};
   // const { id: fileId, file, description: fileDescription } = files || {};
   const [openModal, setOpenModal] = useState(false);
-  const [isDelete, setIsDelete] = useState(false);
+  
 
   const deleteIt = async () => {
     try {
@@ -29,17 +29,19 @@ const Note = ({ note }: any) => {
         },
         body: JSON.stringify({ id }),
       });
-  
-      const answer = await result.json();
-      console.log("answer from the fetch call to delete a note at components/note", answer);
-      setIsDelete(true);
+      
+      if (result.ok) {
+        // Call the callback provided by the parent component
+        onDelete(id);
+        console.log("Note successfully deleted!")
+      } else {
+        console.error('Error deleting note:', result.statusText);
+      }
     } catch (error) {
       console.error('Error deleting note:', error);
     }
   };
   
-
-  console.log("esta es la nota que llega al note component", note);
   const twnd = "h-40 w-auto"
 
   return (
