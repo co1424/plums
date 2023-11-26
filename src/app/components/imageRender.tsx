@@ -1,12 +1,24 @@
 import React from 'react'
+export interface image {
+  id: string
+  image: string
+  description: string
+}
+interface prop{
+  image: image
+  twnd: string
+}
 
-const ImageRender = ({ image }: any) => {
-    const { id, image: content, description } = image || {};
-console.log("this is the image content at the imageRender level",image)
+
+const ImageRender = (prop: prop) => {
+    const { id, image: content, description } = prop.image || {};
+console.log("this is the image content at the imageRender level",prop.image)
+console.log("this is the twnd content at the imageRender level",prop.image)
+
   return (
-    <div id={id}>
+    <div id={id} >
         <a href="#">
-            <img loading='lazy' src={content} alt="an image inside a note" />
+            <img className={prop.twnd} loading='lazy' src={content} alt="an image inside a note" />
         </a>
         <br />
         {description && <p>{description}</p>}
