@@ -12,7 +12,7 @@ model Tag {
   name    String
   description     String?
   image     String?
-  author   User      @relation(fields: [authorId], references: [id])
+  author   User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId String    @db.ObjectId
   noteIDs String[]   @db.ObjectId
   notes  Note[] @relation(fields: [noteIDs], references: [id])
@@ -32,7 +32,7 @@ model Note {
   content String
   tagIds  String[] @db.ObjectId
   tags Tag[]   @relation(fields: [tagIds], references: [id])
-  author   User      @relation(fields: [authorId], references: [id])
+  author   User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId String    @db.ObjectId
   images Image[]
   files File[]
@@ -42,7 +42,7 @@ model Note {
 
 model Image {
   id      String @id @default(auto()) @map("_id") @db.ObjectId
-  note   Note      @relation(fields: [noteId], references: [id])
+  note   Note      @relation(fields: [noteId], references: [id], onDelete: Cascade)
   noteId String    @db.ObjectId
   image String
   description String?
@@ -50,7 +50,7 @@ model Image {
 
 model File {
   id      String @id @default(auto()) @map("_id") @db.ObjectId
-  note   Note      @relation(fields: [noteId], references: [id])
+  note   Note      @relation(fields: [noteId], references: [id], onDelete: Cascade)
   noteId String    @db.ObjectId
   file String
   description String?
@@ -58,7 +58,7 @@ model File {
 
 model Url {
   id      String @id @default(auto()) @map("_id") @db.ObjectId
-  note   Note      @relation(fields: [noteId], references: [id])
+  note   Note      @relation(fields: [noteId], references: [id], onDelete: Cascade)
   noteId String    @db.ObjectId
   url String
   description String?
