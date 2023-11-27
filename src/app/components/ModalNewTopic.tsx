@@ -20,7 +20,7 @@ interface CardModalProps {
 
 
 
-function CardModalNewTopic ({ onCloseModal, showCloseButton = true }: CardModalProps) {
+function CardModalNewTopic ({ onCloseModal, showCloseButton = true, onNewTag }: any ) {
   const [email, setEmail] = useState('');
 
   function onClose() {
@@ -78,10 +78,11 @@ function CardModalNewTopic ({ onCloseModal, showCloseButton = true }: CardModalP
         body: JSON.stringify({ name, image, description }),
       });
       const data = await response.json();
-      console.log("the answer from the api data", data)
+      console.log("the answer from the api after creating a new tag", data)
       if (response.ok) {
-        console.log('Tag created successfully:', data.message);
-        router.replace("/welcome"); // Use replace instead of refresh for client-side navigation
+        onNewTag(data.result)
+        console.log('Tag created successfully:');
+        onCloseModal();
       } else {
         console.error('Failed to create tag:', data.message);
       }
@@ -117,7 +118,6 @@ function CardModalNewTopic ({ onCloseModal, showCloseButton = true }: CardModalP
               <FileInput 
               onChange={handleImageChange} 
               id="file" 
-              required
             />
             </div>
 

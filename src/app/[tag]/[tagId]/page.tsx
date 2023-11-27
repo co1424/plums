@@ -54,7 +54,7 @@ const NotesByTopic = ({ params }: NoteProps) => {
       // If the deletion was successful, update the state to trigger a re-render
       setNotes((prevNotes) => prevNotes.filter((note) => note.id !== noteId));
     } catch (error) {
-      console.error('Error deleting note:', error);
+      console.error('Error updating notes by tag:', error);
     }
   };
 
