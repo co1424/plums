@@ -6,6 +6,7 @@ import { Flowbite, Button } from 'flowbite-react';
 import { buttonTheme } from '../components/themes';
 import CardModalNewTopic from '../components/ModalNewTopic';
 import CardModalNewNote from '../components/ModalNewNote';
+import CardModalNote from '../components/ModalNote';
 // import TagList from '../components/TagList';
 
 function Welcome() {
@@ -50,14 +51,14 @@ function Welcome() {
         <br />
         <h1 className="text-xl font-bold">Welcome!</h1>
         <br />
-        <Flowbite theme={{ theme: buttonTheme }}>
+        <Flowbite theme={{ theme: buttonTheme }} >
         <Button
           className={`${buttonTheme.button.color.primary}`}
           onClick={() => setOpenModalNewTopic(true)}
         >
           Create New Topic/Tag
         </Button>
-      </Flowbite>
+      </Flowbite >
       {openModalNewTopic && (
         <CardModalNewTopic
           onCloseModal={() => setOpenModalNewTopic(false)}
@@ -75,7 +76,7 @@ function Welcome() {
         </Button>
       </Flowbite>
       {openModalNewNote && (
-        <CardModalNewNote
+        <CardModalNote
           onCloseModal={() => setOpenModalNewNote(false)}
           showCloseButton={false}
         />

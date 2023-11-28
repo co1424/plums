@@ -158,7 +158,7 @@ function CardModalNote({ onCloseModal, showCloseButton = true }: CardModalProps)
   return (
     <>
 
-      <Modal show={true} size="xl" onClose={onCloseModal} popup>
+      <Modal show={true} size="xl" onClose={onCloseModal} popup dismissible>
         <Modal.Header />
         <Modal.Body>
           <form onSubmit={handleSubmit} className="space-y-6 p-4 bg-white dark:bg-gray-800 rounded-lg md:max-w-md mx-auto">

@@ -94,11 +94,11 @@ function CardModalNewTopic ({ onCloseModal, showCloseButton = true, onNewTag }: 
   };
   return (
     <>
-      <Modal show={true} size="md" onClose={onCloseModal} popup>
+      <Modal show={true} onClose={onCloseModal} popup dismissible className='mx-auto p-[80px] bg-white'>
         <Modal.Header />
         <Modal.Body>
-          <form onSubmit={handleSubmit} className="space-y-6 p-4 bg-white dark:bg-gray-800 rounded-lg md:max-w-md mx-auto">
-            <h2 className="text-xl font-medium text-black dark:text-white mb-4">
+          <form onSubmit={handleSubmit} className="space-y-6 p-4 bg-white dark:bg-gray-800 rounded-lg md:max-w-md mx-auto ">
+            <h2 className="text-xl font-medium text-black dark:text-white mb-4 ">
               Add New Topic/Tag
             </h2>
             <div id='add-name'>

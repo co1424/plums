@@ -30,7 +30,7 @@ function CardModalNewNote({
 
   return (
     <>
-      <Modal show={true} size="md" onClose={onCloseModal} popup>
+      <Modal show={true} size="md" onClose={onCloseModal} popup dismissible>
         <Modal.Header />
         <Modal.Body>
           <form className="space-y-6 p-4 bg-white dark:bg-gray-800 rounded-lg md:max-w-md mx-auto">
