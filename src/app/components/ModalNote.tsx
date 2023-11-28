@@ -14,6 +14,9 @@ import Note from './Note';
 import TagDropdown from './TagDropdown';
 import prisma from "@/app/data";
 import router from 'next/router';
+import { FaImage } from 'react-icons/fa';
+import { AiOutlineUpload } from 'react-icons/ai';
+import { FaLink } from 'react-icons/fa';
 
 interface CardModalProps {
   onCloseModal: () => void;
@@ -158,86 +161,100 @@ function CardModalNote({ onCloseModal, showCloseButton = true }: CardModalProps)
   return (
     <>
 
-      <Modal show={true} size="xl" onClose={onCloseModal} popup dismissible>
+      <Modal show={true} size="xl" onClose={onCloseModal} popup dismissible
+      className="p-[80px] max-w-[400px] min-w-[600px] mx-auto rounded-lg text-black items-center ">
         <Modal.Header />
         <Modal.Body>
-          <form onSubmit={handleSubmit} className="space-y-6 p-4 bg-white dark:bg-gray-800 rounded-lg md:max-w-md mx-auto">
-            
+          <form onSubmit={handleSubmit} className="space-y-6 p-4 bg-white rounded-lg max-w-[400px] mx-auto ">
+          <h2 className="text-2xl font-semibold mb-4">Create New Note</h2>
             <div id='add-title'>
-            <Label htmlFor="title">Title</Label>
+            <Label htmlFor="title" className="text-black dark:text-black">Title:</Label>
             <TextInput
               type="text"
               id="title"
               placeholder="  Enter topic name"
               onChange={handleTitleChange}
+              className="text-black dark:text-black"
+            />
+            </div>
+            <div id='add-notes'>
+            <Label htmlFor="topic_notes" className="text-black dark:text-black">Notes</Label>
+            <Textarea
+              id="topic_notes"
+              placeholder="Enter your personal notes here:"
+              onChange={handleContentChange}
+              className="text-black dark:text-black"
             />
             </div>
 
             <div id='add-url'>
-            <Label htmlFor="topic_url">Topic URL</Label>
+            <Label htmlFor="topic_url" className="text-black dark:text-black"></Label>
+            <div className="flex items-center">
+            <FaLink size={20} className="mr-2" />
             <TextInput 
             type="text" 
             id="topic_url" 
             placeholder="Enter new URL" 
             onChange={handleUrlChange}
+            className="text-black dark:text-black mt-2 hidden"
             />
+            </div>
             </div>
 
             <div id='add-urlNote'>
-            <Label htmlFor="topic_url">URL Notes</Label>
+            <Label htmlFor="topic_url" className="text-black dark:text-black">URL Notes</Label>
             <TextInput 
             type="text" 
             id="topic_urlNote" 
             placeholder="Optional" 
             onChange={handleUrlNoteChange}
+            className="text-black dark:text-black"
             />
             </div>
 
             <div id="upload-image">
-              <Label htmlFor="file" value="Upload Image" />
+              <label htmlFor="file" className="text-black dark:text-black cursor-pointer"
+              >
+              <FaImage size={24} className="inline-block mr-2" /></label>
               <FileInput 
               onChange={handleImageChange}
-              id="file" 
+              id="file" className="text-black dark:text-black mt-2 hidden"
               />
             </div>
 
             <div id='add-imageNote'>
-            <Label htmlFor="topic_notes">Image Notes</Label>
+            <Label htmlFor="topic_notes" className="text-black dark:text-black ">Image Description</Label>
             <Textarea
               id="topic_imageNotes"
               placeholder="Optional"
               onChange={handleImageNoteChange}
+              className="text-black dark:text-black"
             />
             </div>
 
             <div id="upload-file">
-              <Label htmlFor="file" value="Upload File" />
+              <label htmlFor="file" className="text-black dark:text-black cursor-pointer"> <AiOutlineUpload size={24} className="inline-block mr-2" /> </label>
               <FileInput 
               id="file" 
               onChange={handleFileChange}
+              className="text-black dark:text-black mt-2 hidden"
               />
             </div>
 
             <div id='add-fileNote'>
-            <Label htmlFor="topic_notes">File Notes</Label>
+            <Label htmlFor="topic_notes" className="text-black dark:text-black">File Notes</Label>
             <Textarea
               id="topic_fileNotes"
               placeholder="Optional"
               onChange={handleFileNoteChange}
+              className="text-black dark:text-black"
             />
             </div>
 
-            <div id='add-notes'>
-            <Label htmlFor="topic_notes">Notes</Label>
-            <Textarea
-              id="topic_notes"
-              placeholder="Enter your personal notes here:"
-              onChange={handleContentChange}
-            />
-            </div>
+            
 
             <div id='tagSelect'>
-              <Label htmlFor="tagSelect"></Label>
+              <Label htmlFor="tagSelect" className="text-black dark:text-black"></Label >
               <div className="relative inline-block text-left">
                 <div>
                   <span className="rounded-md shadow-sm">
@@ -297,23 +314,6 @@ function CardModalNote({ onCloseModal, showCloseButton = true }: CardModalProps)
 
       </Modal>
 
-
-      <style jsx>{`
-        .custom-overlay {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: rgba(
-            255,
-            255,
-            255,
-            0.5
-          ); /* Adjust the alpha value for reduced opacity */
-          z-index: 999;
-        }
-      `}</style>
     </>
   );
 }

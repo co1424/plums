@@ -46,13 +46,18 @@ const Note = ({ note, onDelete }: any) => {
   const twnd = "h-40 w-auto"
 
   return (
-    <div className=" mt-4 bg-white border-1 rounded-lg max-w-xs min-w-80 p-3 max-h-[500px] overflow-hidden relative group shadow-md">
+    <div className=" mt-4 bg-white border-1 border-purple-600 rounded-lg max-w-xs min-w-80 p-4 max-h-auto overflow-hidden relative group transition duration-300 ease-in-out transform hover:scale-105 shadow-md">
       <Link href={`/notes/${id}`}>
         <div>
-          <h2 className="font-bold text-center m-2">{title}</h2>
-          <p>{content}</p><br />
+        <h1 className="font-bold text-center text-2xl mb-2">{title}</h1>
+          <hr />
+          <br />
+          <p className='italic text-gray-500 mb-2 text-xs'>Notes:</p>
+          <p>{content}</p>
           
           {/* Conditionally render URL */}
+          <br />
+          <p className='italic text-gray-500 mb-2 text-xs'>Your Links:</p>
           {urls.length > 0 && (
             urls.map((url: { id: any; }) => {
               return (<UrlRender key={url.id} url={url} />);
@@ -60,13 +65,17 @@ const Note = ({ note, onDelete }: any) => {
           )}
           
           {/* Conditionally render image */}
+          <p className='italic text-gray-500 mb-2 text-xs'>Your Images:</p>
+          <div className='flex justify-center'>
           {images.length > 0 && (
             images.map((image: image) => {
               return (<ImageRender key={image.id} image={image} twnd={twnd} />);
             })
           )}
+          </div>
           
           {/* Conditionally render file */}
+          <p className='italic text-gray-500 mb-2 text-xs'>Your Files:</p>
           {files.length > 0 && (
             files.map((file: { id: any; }) => {
               return (<FileRender key={file.id} file={file} />);

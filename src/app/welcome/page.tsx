@@ -91,7 +91,7 @@ function Welcome() {
       <div className="flex flex-row flex-wrap justify-center">
         {tags.map((tag: tagResponse) => (
           // this means that I need a [topic] file so the url says the topic I'm in
-          <div className="min-w-[350px] max-w-[350px] bg-white overflow-hidden border-1 shadow-md sm:rounded-lg p-4 m-4">
+          <div className="min-w-[350px] max-w-[350px] bg-white overflow-hidden border-1 shadow-md sm:rounded-lg p-4 m-4 transition duration-300 ease-in-out transform hover:scale-105">
             <a key={tag.id} href={`/${tag.name}/${tag.id}`} className="block">
               <div>
                 <p className="text-xl font-semibold text-black-500 mb-2 text-center">

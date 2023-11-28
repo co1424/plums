@@ -20,7 +20,7 @@ function Header() {
 <header className="sticky top-0 bg-white z-50" >
     <nav>
         <ul className={headerStyle}>
-            <li><a href="./welcome" className="pi pi-home" style={{ fontSize: '3rem', padding: '10px' }}></a></li>
+            <li><a href="./welcome" className="pi pi-home" style={{ fontSize: '2rem', padding: '10px' }}></a></li>
 
 
             <li>

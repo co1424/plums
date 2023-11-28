@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 body {
-  background-color: #FAF5FF;
+  background-color: #eae2f3;
 }
 
+.TextInput {
+  color: black;
+}
