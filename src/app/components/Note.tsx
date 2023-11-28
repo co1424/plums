@@ -1,22 +1,15 @@
 'use client';
-import Link from 'next/link';
 import React from 'react';
-import CardModal from './ModalNote';
-import { Flowbite, Button } from 'flowbite-react';
+import ModalEditNote from './ModalEditNote';
 import 'primeicons/primeicons.css';
 import { useState } from 'react';
-import { buttonTheme } from './themes';
 import UrlRender from './UrlRender';
 import ImageRender, { image } from './ImageRender';
 import FileRender from './FileRender';
-import { FaTrashAlt } from "react-icons/fa";
 import { TbTrash } from "react-icons/tb";
 
 const Note = ({ note, onDelete }: any) => {
   const { id, title, content, urls, images, files } = note;
-  // const { id: urlId, url, description: urlDescription } = urls || {};
-  // const { id: imageId, image, description: imageDescription } = images || {};
-  // const { id: fileId, file, description: fileDescription } = files || {};
   const [openModal, setOpenModal] = useState(false);
   
 
@@ -45,8 +38,8 @@ const Note = ({ note, onDelete }: any) => {
   const twnd = "h-40 w-auto"
 
   return (
-    <div className="border-2 rounded-lg max-w-xs min-w-80 p-3 max-h-[500px] overflow-hidden relative group">
-      <Link href={`/notes/${id}`}>
+    <div className="border-2 rounded-lg max-w-xs min-w-80 p-3 max-h-[500px] overflow-hidden relative group cursor-pointer">
+      <a onClick={() => setOpenModal(true)} >
         <div>
           <h2 className="font-bold">{title}</h2>
           <p>{content}</p><br />
@@ -73,19 +66,13 @@ const Note = ({ note, onDelete }: any) => {
           )}
 
         </div>
-      </Link>
-      <Flowbite theme={{ theme: buttonTheme }}>
-        <Button
-          className={`${buttonTheme.button.color.primary}`}
-          onClick={() => setOpenModal(true)}
-        >
-          View Details
-        </Button>
-      </Flowbite>
+      </a>
+
       {openModal && (
-        <CardModal
+        <ModalEditNote 
           onCloseModal={() => setOpenModal(false)}
           showCloseButton={false}
+          note={note}
         />
       )}
 
