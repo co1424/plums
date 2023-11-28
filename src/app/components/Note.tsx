@@ -46,10 +46,10 @@ const Note = ({ note, onDelete }: any) => {
   const twnd = "h-40 w-auto"
 
   return (
-    <div className="border-2 rounded-lg max-w-xs min-w-80 p-3 max-h-[500px] overflow-hidden relative group">
+    <div className=" mt-4 bg-white border-1 rounded-lg max-w-xs min-w-80 p-3 max-h-[500px] overflow-hidden relative group shadow-md">
       <Link href={`/notes/${id}`}>
         <div>
-          <h2 className="font-bold">{title}</h2>
+          <h2 className="font-bold text-center m-2">{title}</h2>
           <p>{content}</p><br />
           
           {/* Conditionally render URL */}
