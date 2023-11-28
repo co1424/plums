@@ -1,23 +1,16 @@
 'use client';
-import Link from 'next/link';
 import React from 'react';
-import CardModal from './ModalNote';
-import { Flowbite, Button } from 'flowbite-react';
+import ModalEditNote from './ModalEditNote';
 import 'primeicons/primeicons.css';
 import { useState } from 'react';
-import { buttonTheme } from './themes';
 import UrlRender from './UrlRender';
 import ImageRender, { image } from './ImageRender';
 import FileRender from './FileRender';
-import { FaTrashAlt } from "react-icons/fa";
 import { TbTrash } from "react-icons/tb";
 import { AiOutlineEdit } from "react-icons/ai";
 
 const Note = ({ note, onDelete }: any) => {
   const { id, title, content, urls, images, files } = note;
-  // const { id: urlId, url, description: urlDescription } = urls || {};
-  // const { id: imageId, image, description: imageDescription } = images || {};
-  // const { id: fileId, file, description: fileDescription } = files || {};
   const [openModal, setOpenModal] = useState(false);
   
 
@@ -90,9 +83,10 @@ const Note = ({ note, onDelete }: any) => {
       <AiOutlineEdit size={28} color="black" />
       </button>
       {openModal && (
-        <CardModal
+        <ModalEditNote 
           onCloseModal={() => setOpenModal(false)}
           showCloseButton={false}
+          note={note}
         />
       )}
         <button onClick={deleteIt} className='hover:bg-black hover:bg-opacity-10 rounded-md active:bg-white p-1 mx-2 opacity-0 group-hover:opacity-100 group-hover:transition-opacity group-hover:duration-500'>

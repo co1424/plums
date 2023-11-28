@@ -6,7 +6,7 @@ import { Flowbite, Button } from 'flowbite-react';
 import { buttonTheme } from '../components/themes';
 import CardModalNewTopic from '../components/ModalNewTopic';
 import CardModalNewNote from '../components/ModalNewNote';
-import CardModalNote from '../components/ModalNote';
+import CardModal from '../components/ModalNote';
 // import TagList from '../components/TagList';
 import { TbTrash } from 'react-icons/tb';
 import { Spinner } from '../components/spinner';
@@ -85,7 +85,7 @@ function Welcome() {
         </Button>
       </Flowbite>
       {openModalNewNote && (
-        <CardModalNote
+        <CardModal
           onCloseModal={() => setOpenModalNewNote(false)}
           showCloseButton={false}
         />
