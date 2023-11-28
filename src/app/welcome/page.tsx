@@ -9,6 +9,7 @@ import CardModalNewNote from '../components/ModalNewNote';
 import CardModalNote from '../components/ModalNote';
 // import TagList from '../components/TagList';
 import { TbTrash } from 'react-icons/tb';
+import { Spinner } from '../components/spinner';
 
 function Welcome() {
   const [openModalNewTopic, setOpenModalNewTopic] = useState(false);
@@ -44,6 +45,14 @@ function Welcome() {
   const handleNewTag = async (newTag: tagResponse) => {
     setTags((prevTags) => [...prevTags, newTag]);
   };
+
+  if (tags.length === 0) {
+    return (
+      <div className="h-full flex items-center justify-center p-4">
+        <Spinner size="lg" />
+      </div>
+    );
+  }
 
   return (
     <main className="flex flex-col items-center justify-center ">

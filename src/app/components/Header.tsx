@@ -1,6 +1,7 @@
 "use client";
 import exp from "constants";
 import { useScrollTop } from "./use-scroll-top";
+import Link from "next/link";
 
 const purpleBackgroundColor = {
   backgroundColor: 'rgba(250, 245, 255, 1)',
@@ -20,7 +21,7 @@ function Header() {
 <header className="sticky top-0 bg-white z-50" >
     <nav>
         <ul className={headerStyle}>
-            <li><a href="./welcome" className="pi pi-home" style={{ fontSize: '2rem', padding: '10px' }}></a></li>
+            <li><Link href="welcome" className="pi pi-home" style={{ fontSize: '2rem', padding: '10px' }}></Link></li>
 
 
             <li>
