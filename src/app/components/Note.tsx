@@ -11,6 +11,7 @@ import ImageRender, { image } from './ImageRender';
 import FileRender from './FileRender';
 import { FaTrashAlt } from "react-icons/fa";
 import { TbTrash } from "react-icons/tb";
+import { AiOutlineEdit } from "react-icons/ai";
 
 const Note = ({ note, onDelete }: any) => {
   const { id, title, content, urls, images, files } = note;
@@ -74,22 +75,17 @@ const Note = ({ note, onDelete }: any) => {
 
         </div>
       </Link>
-      <Flowbite theme={{ theme: buttonTheme }}>
-        <Button
-          className={`${buttonTheme.button.color.primary}`}
-          onClick={() => setOpenModal(true)}
-        >
-          View Details
-        </Button>
-      </Flowbite>
+
+      <div className=' h-16 w-full absolute bottom-0 right-0 justify-end items-center  flex'>
+      <button onClick={() => setOpenModal(true)} className="focus:outline-none hover:bg-black hover:bg-opacity-10 rounded-md active:bg-white p-1 mx-2 opacity-0 group-hover:opacity-100 group-hover:transition-opacity group-hover:duration-500">
+      <AiOutlineEdit size={28} color="black" />
+      </button>
       {openModal && (
         <CardModal
           onCloseModal={() => setOpenModal(false)}
           showCloseButton={false}
         />
       )}
-
-      <div className='bg-white h-16 w-full absolute bottom-0 right-0 justify-end items-center  flex'>
         <button onClick={deleteIt} className='hover:bg-black hover:bg-opacity-10 rounded-md active:bg-white p-1 mx-2 opacity-0 group-hover:opacity-100 group-hover:transition-opacity group-hover:duration-500'>
         <TbTrash size={"2em"}/>
         </button>
