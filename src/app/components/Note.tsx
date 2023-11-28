@@ -8,6 +8,7 @@ import ImageRender, { image } from './ImageRender';
 import FileRender from './FileRender';
 import { TbTrash } from "react-icons/tb";
 import { AiOutlineEdit } from "react-icons/ai";
+import Link from 'next/link';
 
 const Note = ({ note, onDelete }: any) => {
   const { id, title, content, urls, images, files } = note;
@@ -40,7 +41,8 @@ const Note = ({ note, onDelete }: any) => {
 
   return (
     <div className=" mt-4 bg-white border-1 border-purple-600 rounded-lg max-w-xs min-w-80 p-4 max-h-auto overflow-hidden relative group transition duration-300 ease-in-out transform hover:scale-105 shadow-md">
-      <Link href={`/notes/${id}`}>
+      
+      <a onClick={() => setOpenModal(true)}>
         <div>
         <h1 className="font-bold text-center text-2xl mb-2">{title}</h1>
           <hr />
@@ -76,12 +78,12 @@ const Note = ({ note, onDelete }: any) => {
           )}
 
         </div>
-      </Link>
+      </a>
 
       <div className=' h-16 w-full absolute bottom-0 right-0 justify-end items-center  flex'>
-      <button onClick={() => setOpenModal(true)} className="focus:outline-none hover:bg-black hover:bg-opacity-10 rounded-md active:bg-white p-1 mx-2 opacity-0 group-hover:opacity-100 group-hover:transition-opacity group-hover:duration-500">
+      {/* <button onClick={() => setOpenModal(true)} className="focus:outline-none hover:bg-black hover:bg-opacity-10 rounded-md active:bg-white p-1 mx-2 opacity-0 group-hover:opacity-100 group-hover:transition-opacity group-hover:duration-500">
       <AiOutlineEdit size={28} color="black" />
-      </button>
+      </button> */}
       {openModal && (
         <ModalEditNote 
           onCloseModal={() => setOpenModal(false)}
