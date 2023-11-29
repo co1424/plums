@@ -1,13 +1,14 @@
-"use client";
+'use client';
 import React, { useEffect, useState } from 'react';
 import Note from '@/app/components/Note';
-import prisma from "@/app/data";
+import prisma from '@/app/data';
+import { Spinner } from '@/app/components/spinner';
 
 interface NoteProps {
   params: {
-    tag: string
-    tagId: string
-  }
+    tag: string;
+    tagId: string;
+  };
 }
 
 interface NoteType {
@@ -15,31 +16,49 @@ interface NoteType {
   title: string;
   content: string;
   authorId: string;
-  images: { id: string; noteId: string; image: string; description: string | null }[];
-  files: { id: string; noteId: string; file: string; description: string | null }[];
-  urls: { id: string; noteId: string; url: string; description: string | null }[];
+  images: {
+    id: string;
+    noteId: string;
+    image: string;
+    description: string | null;
+  }[];
+  files: {
+    id: string;
+    noteId: string;
+    file: string;
+    description: string | null;
+  }[];
+  urls: {
+    id: string;
+    noteId: string;
+    url: string;
+    description: string | null;
+  }[];
 }
 
 const NotesByTopic = ({ params }: NoteProps) => {
   const { tagId } = params;
   const [notes, setNotes] = useState<NoteType[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchNotes = async () => {
     try {
-      const result = await fetch(`http://localhost:3000/api/note?tagId=${encodeURIComponent(tagId)}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const result = await fetch(
+        `http://localhost:3000/api/note?tagId=${encodeURIComponent(tagId)}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
 
       if (result.ok) {
-        const notesByTag = await result.json()
-        console.log("Notes by tag successfully fetched! tag/tagId/page")
+        const notesByTag = await result.json();
+        console.log('Notes by tag successfully fetched! tag/tagId/page');
 
         setNotes(notesByTag.result);
       }
-
     } catch (error) {
       console.error('Error fetching notes by tag tag/tagId/page', error);
     }
@@ -58,15 +77,29 @@ const NotesByTopic = ({ params }: NoteProps) => {
     }
   };
 
-  console.log("I'm the result from the search of notes by tag at tag/tagId/page", notes)
+  console.log(
+    "I'm the result from the search of notes by tag at tag/tagId/page",
+    notes
+  );
+
 
   return (
-    <div className=' h-screen  overflow-y-auto'>
-      <div className='flex flex-wrap gap-4 justify-center  mx-4'>
-        {notes.map((note) => {
-          return <Note key={note.id} note={note} onDelete={handleNoteDelete} />
-        })}
-      </div>
+    <div className="h-screen overflow-y-auto">
+      {notes.length === 0 && (
+        <div className="h-full flex items-center justify-center p-4">
+          <div className="h-full flex items-center justify-center p-4">
+            <Spinner size="lg" />
+          </div>
+          <p>Loading... There might not be any notes found under this tag.</p>
+        </div>
+      )}
+      {notes.length > 0 && (
+        <div className="flex flex-wrap gap-4 justify-center mx-4">
+          {notes.map((note) => (
+            <Note key={note.id} note={note} onDelete={handleNoteDelete} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
