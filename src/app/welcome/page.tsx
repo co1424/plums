@@ -10,6 +10,7 @@ import CardModal from '../components/ModalNote';
 // import TagList from '../components/TagList';
 import { TbTrash } from 'react-icons/tb';
 import { Spinner } from '../components/spinner';
+import { AiOutlineEdit } from 'react-icons/ai';
 
 function Welcome() {
   const [openModalNewTopic, setOpenModalNewTopic] = useState(false);
@@ -50,6 +51,7 @@ function Welcome() {
     return (
       <div className="h-full flex items-center justify-center p-4">
         <Spinner size="lg" />
+        <p>Loading... </p>
       </div>
     );
   }
@@ -100,13 +102,22 @@ function Welcome() {
       <div className="flex flex-row flex-wrap justify-center">
         {tags.map((tag: tagResponse) => (
           // this means that I need a [topic] file so the url says the topic I'm in
-          <div className="min-w-[350px] max-w-[350px] bg-white overflow-hidden border-1 shadow-md sm:rounded-lg p-4 m-4 transition duration-300 ease-in-out transform hover:scale-105">
+          <div className="group min-w-[350px] max-w-[350px] bg-white overflow-hidden border-1 shadow-md sm:rounded-lg p-4 m-4 transition duration-300 ease-in-out transform hover:scale-105">
             <a key={tag.id} href={`/${tag.name}/${tag.id}`} className="block">
               <div>
                 <p className="text-xl font-semibold text-black-500 mb-2 text-center">
                   {tag.name}
                 </p>
                 <p className="text-gray-700">{tag.description}</p>
+                <br />
+                <div className="flex items-center justify-between">
+                  <button className="hover:bg-black hover:bg-opacity-10 rounded-md active:bg-white p-1 mx-2 opacity-0 group-hover:opacity-100 group-hover:transition-opacity group-hover:duration-500 ml-auto">
+                    <TbTrash size={'2em'} />
+                  </button>
+                  <button className="focus:outline-none hover:bg-black hover:bg-opacity-10 rounded-md active:bg-white p-1 mx-2 opacity-0 group-hover:opacity-100 group-hover:transition-opacity group-hover:duration-500">
+                    <AiOutlineEdit size={28} color="black" />
+                  </button>
+                </div>
               </div>
             </a>
           </div>
