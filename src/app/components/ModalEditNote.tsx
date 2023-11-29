@@ -100,7 +100,7 @@ const handleUrlChange = (index: number, field: keyof UrlObject, value: string) =
 };
 
 // Toggle the editing state for a specific URL
-const toggleUrlEditing = (index: number) => {
+const toggleUrlEditing =  (index: number) => {
   const updatedUrlStates = [...urlStates] as UrlObject[];
   updatedUrlStates[index] = {
     ...updatedUrlStates[index],
@@ -109,21 +109,67 @@ const toggleUrlEditing = (index: number) => {
   setUrlStates(updatedUrlStates);
 };
 
+const checkPayload = () => {
+  const urlStatesWithoutIsEditing = urlStates.map(({ isEditing, ...rest }) => rest);
+  const data =  JSON.stringify({ 
+    id,
+    titleEdited,
+    urlStates: urlStatesWithoutIsEditing,
+    contentEdited,
+  })
+  console.log(data)
+}
+
+const handleEdit = async () => {
+  try {
+    // Exclude isEditing property from urlStates
+    const urlStatesWithoutIsEditing = urlStates.map(({ isEditing, ...rest }) => rest);
+
+    const response = await fetch('http://localhost:3000/api/note', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ 
+        id,
+        titleEdited,
+        urlStates: urlStatesWithoutIsEditing,
+        contentEdited,
+      }),
+    });
+
+    const data = await response.json();
+    console.log("the answer from the api after attempting an UPDATE", data);
+
+    if (response.ok) {
+      console.log('Note updated successfully:', data);
+      onCloseModal();
+    } else {
+      console.error('Failed to update note:', data);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
+
+
   return (
     <>
       <Modal className='bg-gray-500 sm:px-[10%] lg:px-[30%] group' show={true} onClose={onCloseModal} popup dismissible>
         <div className='w-full mx-auto h-[600px]  rounded-lg'>
 
-          <div className='title text-center my-6'>
+          <div className='title text-center border-gray-300 border-b-2 mt-6'>
             <textarea
-              className='text-lg font-bold w-full text-center p-0 resize-none border-gray-300 border-b-2 focus:outline-none'
+              className='text-lg font-bold w-full text-center p-0 resize-none  focus:outline-none '
               value={titleEdited}
               onChange={(e) => setTitleEdited(e.target.value)}
               rows={2}
             />
           </div>
 
-          <div className='content/urls overflow-y-auto h-80'>
+          <div className='content/urls overflow-y-auto h-80 pt-6'>
             <textarea
               className='text-base h-full w-full px-7 resize-none focus:outline-none'
               value={contentEdited}
@@ -194,6 +240,9 @@ const toggleUrlEditing = (index: number) => {
           <div className=' h-16 w-full absolute bottom-0 right-0 justify-end items-center  flex rounded-lg '>
             <button onClick={() => {}} className='hover:bg-black hover:bg-opacity-10 rounded-md active:bg-white p-1 mx-2 opacity-0 group-hover:opacity-100 group-hover:transition-opacity group-hover:duration-500 '>
               <TbTrash size={"2em"} />
+            </button>
+            <button onClick={handleEdit} className='hover:bg-black hover:bg-opacity-10 rounded-md active:bg-white p-1 mx-2 opacity-0 group-hover:opacity-100 group-hover:transition-opacity group-hover:duration-500 font-bold'>
+              Save
             </button>
           </div>
         </div>

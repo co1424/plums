@@ -55,6 +55,47 @@ export const POST = async (req: NextRequest) => {
     }
 }
 
+
+interface UrlState {
+  id: string;
+  url: string;
+  description: string;
+}
+interface urlStates {id: string, url: string, description: string}[];
+export const PUT = async (req: NextRequest) => {
+  try {
+    const body = await req.json();
+    console.log("here's the request content after req.json() in api/note/UPDATE", body);
+    const { id, titleEdited: title, urlStates, contentEdited: content } = body;
+  
+    // Update the note and the URLs (upsert operation)
+    const result = await prisma.note.update({
+      where: {
+        id: id,
+      },
+      data: {
+        title,
+        content,
+        urls: {
+          upsert: urlStates.map(({ id, url, description }: UrlState) => ({
+            where: { id },
+            create: { url, description },
+            update: { url, description },
+          })),
+        },
+      },
+    });
+
+    console.log("note/PUT response", result);
+    return NextResponse.json({ result });
+  } catch (err) {
+    return NextResponse.json({ message: "PUT Error", err }, { status: 500 });
+  }
+};
+
+
+
+
 export const DELETE = async (req: NextRequest) => {
     try {
         const body = await req.json()
@@ -69,7 +110,7 @@ export const DELETE = async (req: NextRequest) => {
         console.log("note/DELETE response", NextResponse.json({ result }))
         return NextResponse.json({ result })
     } catch (err) {
-     return NextResponse.json({message: "POST Error", err}, {status: 500})   
+     return NextResponse.json({message: "DELETE Error", err}, {status: 500})   
     }
 }
 
@@ -110,6 +151,9 @@ export const GET = async (req: NextRequest) => {
     return NextResponse.json({ message: 'Error fetching notes by tag', error }, { status: 500 });
   }
 };
+
+
+
 
 
 
