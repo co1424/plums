@@ -57,9 +57,11 @@ interface props{
   onCloseModal: () => void
   showCloseButton: boolean
   note:note
+  updateTitle: any 
+  updateContent: any
 }
 
-function ModalEditNote({ onCloseModal, showCloseButton = false, note }: props) {
+function ModalEditNote({ onCloseModal, showCloseButton = false, note,  updateTitle, updateContent }: props) {
   const { id, title, content, urls, images, files } = note;
   const [titleEdited, setTitleEdited] = useState(title);
   const [contentEdited, setContentEdited] = useState(content);
@@ -139,10 +141,13 @@ const handleEdit = async () => {
     });
 
     const data = await response.json();
-    console.log("the answer from the api after attempting an UPDATE", data);
 
     if (response.ok) {
       console.log('Note updated successfully:', data);
+      console.log('Note updated successfully:', data.title);
+      
+      updateTitle(data.result.title)
+      updateContent(data.result.content)
       onCloseModal();
     } else {
       console.error('Failed to update note:', data);

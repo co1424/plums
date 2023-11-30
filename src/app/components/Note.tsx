@@ -13,6 +13,8 @@ import Link from 'next/link';
 const Note = ({ note, onDelete }: any) => {
   const { id, title, content, urls, images, files } = note;
   const [openModal, setOpenModal] = useState(false);
+  const [mutableTitle, setMutableTitle] = useState(title);
+  const [mutableContent, setMutableContent] = useState(content);
   
 
   const deleteIt = async () => {
@@ -36,6 +38,8 @@ const Note = ({ note, onDelete }: any) => {
       console.error('Error deleting note:', error);
     }
   };
+
+  
   
   const twnd = "h-40 w-auto"
 
@@ -44,11 +48,11 @@ const Note = ({ note, onDelete }: any) => {
       
       <a onClick={() => setOpenModal(true)}>
         <div>
-        <h1 className="font-bold text-center text-2xl mb-2">{title}</h1>
+        <h1 className="font-bold text-center text-2xl mb-2">{mutableTitle}</h1>
           <hr />
-          <br />
+          <hr />
           <p className='italic text-gray-500 mb-2 text-xs'>Notes:</p>
-          <p>{content}</p>
+          <p>{mutableContent}</p>
           
           {/* Conditionally render URL */}
           <br />
@@ -89,6 +93,8 @@ const Note = ({ note, onDelete }: any) => {
           onCloseModal={() => setOpenModal(false)}
           showCloseButton={false}
           note={note}
+          updateTitle={(newTitle: string) => setMutableTitle(newTitle)}
+          updateContent={(newComponent: string) => setMutableContent(newComponent)}
         />
       )}
         <button onClick={deleteIt} className='hover:bg-black hover:bg-opacity-10 rounded-md active:bg-white p-1 mx-2 opacity-0 group-hover:opacity-100 group-hover:transition-opacity group-hover:duration-500'>

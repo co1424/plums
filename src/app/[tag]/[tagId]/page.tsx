@@ -40,7 +40,7 @@ const NotesByTopic = ({ params }: NoteProps) => {
   const { tagId } = params;
   const [notes, setNotes] = useState<NoteType[]>([]);
   const [loading, setLoading] = useState(true);
-
+  
   const fetchNotes = async () => {
     try {
       const result = await fetch(
@@ -76,6 +76,8 @@ const NotesByTopic = ({ params }: NoteProps) => {
       console.error('Error updating notes by tag:', error);
     }
   };
+
+
 
   console.log(
     "I'm the result from the search of notes by tag at tag/tagId/page",
