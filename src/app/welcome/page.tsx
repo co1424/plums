@@ -15,6 +15,8 @@ import { AiOutlineEdit } from 'react-icons/ai';
 function Welcome() {
   const [openModalNewTopic, setOpenModalNewTopic] = useState(false);
   const [openModalNewNote, setOpenModalNewNote] = useState(false);
+  const [tagIdToDelete, setTagIdToDelete] = useState<string | null>(null);
+
 
   interface tagResponse {
     id: string;
@@ -40,12 +42,36 @@ function Welcome() {
       setTags(tagsData);
     };
     fetchData();
-  }, []); // Run once when the component mounts
+  }, [tagIdToDelete]); // Run once when the component mounts
   console.log(tags);
 
   const handleNewTag = async (newTag: tagResponse) => {
     setTags((prevTags) => [...prevTags, newTag]);
   };
+
+  const deleteIt = async (tagId: string) => {
+    try {
+      const result = await fetch('http://localhost:3000/api/tag', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id: tagId }), // Pass the tagId here
+      });
+  
+      if (result.ok) {
+        console.log('Tag successfully deleted!');
+        // Call a function to update your state and remove the deleted tag
+        setTagIdToDelete(tagId);
+      } else {
+        console.error('Error deleting tag:', result.statusText);
+      }
+    } catch (error) {
+      console.error('Error deleting tag:', error);
+    }
+  };
+  
+  
 
   if (tags.length === 0) {
     return (
@@ -110,16 +136,19 @@ function Welcome() {
                 </p>
                 <p className="text-gray-700">{tag.description}</p>
                 <br />
-                <div className="flex items-center justify-between">
-                  <button className="hover:bg-black hover:bg-opacity-10 rounded-md active:bg-white p-1 mx-2 opacity-0 group-hover:opacity-100 group-hover:transition-opacity group-hover:duration-500 ml-auto">
-                    <TbTrash size={'2em'} />
-                  </button>
-                  <button className="focus:outline-none hover:bg-black hover:bg-opacity-10 rounded-md active:bg-white p-1 mx-2 opacity-0 group-hover:opacity-100 group-hover:transition-opacity group-hover:duration-500">
-                    <AiOutlineEdit size={28} color="black" />
-                  </button>
-                </div>
               </div>
             </a>
+            <div className="flex items-center justify-between">
+              <button
+                onClick={() => deleteIt(tag.id)}
+                className="hover:bg-black hover:bg-opacity-10 rounded-md active:bg-white p-1 mx-2 opacity-0 group-hover:opacity-100 group-hover:transition-opacity group-hover:duration-500 ml-auto"
+              >
+                <TbTrash size={'2em'} />
+              </button>
+              <button className="focus:outline-none hover:bg-black hover:bg-opacity-10 rounded-md active:bg-white p-1 mx-2 opacity-0 group-hover:opacity-100 group-hover:transition-opacity group-hover:duration-500">
+                <AiOutlineEdit size={28} color="black" />
+              </button>
+            </div>
           </div>
         ))}
       </div>

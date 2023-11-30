@@ -37,3 +37,19 @@ export const GET = async () => {
         return NextResponse.json({message: "GET Error", err}, {status: 500})
     }
 }
+
+export const DELETE = async (req: NextRequest) => {
+    try {
+        const body = await req.json()
+        const { id } = body;
+
+        const result = await prisma.tag.delete({
+            where: {
+                id
+            }
+        })
+        return NextResponse.json({ result })
+    } catch (err) {
+        return NextResponse.json({message: "DELETE Error for deleting a tag", err}, {status: 500})
+    }
+}
