@@ -19,16 +19,7 @@ interface CardModalProps {
 }
 
 
-interface note{
-  id: string
-  title: string
-  content: string
-  tagIds: string[]
-  authorId: string
-  images: image[]
-  files: file[]
-  urls: url[]
-}
+
 interface image{
   id: string
   noteId: string
@@ -53,16 +44,29 @@ type UrlObject = {
   description: string;
   isEditing: boolean;
 };
+interface note{
+  id: string
+  mutableTitle: string
+  mutableContent: string
+  tagIds: string[]
+  authorId: string
+  images: image[]
+  files: file[]
+  mutableUrls: url[]
+}
 interface props{
   onCloseModal: () => void
   showCloseButton: boolean
   note:note
   updateTitle: any 
   updateContent: any
+  updateUrls: any
+  updateNote:any
 }
 
-function ModalEditNote({ onCloseModal, showCloseButton = false, note,  updateTitle, updateContent }: props) {
-  const { id, title, content, urls, images, files } = note;
+function ModalEditNote({ onCloseModal, showCloseButton = false, note,  updateTitle, updateContent, updateUrls, updateNote }: props) {
+  const { id, mutableTitle:title, mutableContent:content, mutableUrls:urls, images, files } = note;
+  
   const [titleEdited, setTitleEdited] = useState(title);
   const [contentEdited, setContentEdited] = useState(content);
 
@@ -83,6 +87,7 @@ function ModalEditNote({ onCloseModal, showCloseButton = false, note,  updateTit
   useEffect(() => {
     setUrlStates(
       urls.map((url) => ({ id: url.id, url: url.url, description: url.description, isEditing: false }))
+
     );
   }, [urls]);
   
@@ -126,6 +131,7 @@ const handleEdit = async () => {
   try {
     // Exclude isEditing property from urlStates
     const urlStatesWithoutIsEditing = urlStates.map(({ isEditing, ...rest }) => rest);
+    console.log("urlStatesWithoutIsEditing",urlStatesWithoutIsEditing)
 
     const response = await fetch('http://localhost:3000/api/note', {
       method: 'PUT',
@@ -143,11 +149,11 @@ const handleEdit = async () => {
     const data = await response.json();
 
     if (response.ok) {
-      console.log('Note updated successfully:', data);
-      console.log('Note updated successfully:', data.title);
       
       updateTitle(data.result.title)
       updateContent(data.result.content)
+      updateUrls(urlStatesWithoutIsEditing)
+      updateNote();
       onCloseModal();
     } else {
       console.error('Failed to update note:', data);
