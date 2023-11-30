@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import ModalEditNote from './ModalEditNote';
 import 'primeicons/primeicons.css';
 import { useState } from 'react';
@@ -13,8 +13,19 @@ import Link from 'next/link';
 const Note = ({ note, onDelete }: any) => {
   const { id, title, content, urls, images, files } = note;
   const [openModal, setOpenModal] = useState(false);
-  
+  const [mutableTitle, setMutableTitle] = useState(title);
+  const [mutableContent, setMutableContent] = useState(content);
+  const [ mutableUrls, setMutableUrls] = useState(urls);
+  const [mutableNote, setMutableNote] = useState(note)
+  const [isEdited, setIsEdited] = useState(true)
 
+
+    
+  if(isEdited){
+    setMutableNote({ id, mutableTitle, mutableContent, mutableUrls, images, files });
+    setIsEdited(false)
+  }
+  
   const deleteIt = async () => {
     try {
       const result = await fetch(`http://localhost:3000/api/note`, {
@@ -36,7 +47,7 @@ const Note = ({ note, onDelete }: any) => {
       console.error('Error deleting note:', error);
     }
   };
-  
+
   const twnd = "h-40 w-auto"
 
   return (
@@ -44,17 +55,17 @@ const Note = ({ note, onDelete }: any) => {
       
       <a onClick={() => setOpenModal(true)}>
         <div>
-        <h1 className="font-bold text-center text-2xl mb-2">{title}</h1>
+        <h1 className="font-bold text-center text-2xl mb-2">{mutableTitle}</h1>
           <hr />
-          <br />
+          <hr />
           <p className='italic text-gray-500 mb-2 text-xs'>Notes:</p>
-          <p>{content}</p>
+          <p>{mutableContent}</p>
           
           {/* Conditionally render URL */}
           <br />
           <p className='italic text-gray-500 mb-2 text-xs'>Your Links:</p>
-          {urls.length > 0 && (
-            urls.map((url: { id: any; }) => {
+          {mutableUrls.length > 0 && (
+            mutableUrls.map((url: { id: any; }) => {
               return (<UrlRender key={url.id} url={url} />);
             })
           )}
@@ -88,7 +99,11 @@ const Note = ({ note, onDelete }: any) => {
         <ModalEditNote 
           onCloseModal={() => setOpenModal(false)}
           showCloseButton={false}
-          note={note}
+          note={mutableNote}
+          updateTitle={(newTitle: string) => setMutableTitle(newTitle)}
+          updateContent={(newComponent: string) => setMutableContent(newComponent)}
+          updateUrls= {(newUrls: string[]) => setMutableUrls(newUrls)}
+          updateNote={() => setIsEdited(true)}
         />
       )}
         <button onClick={deleteIt} className='hover:bg-black hover:bg-opacity-10 rounded-md active:bg-white p-1 mx-2 opacity-0 group-hover:opacity-100 group-hover:transition-opacity group-hover:duration-500'>
