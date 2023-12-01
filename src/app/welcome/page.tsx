@@ -86,7 +86,7 @@ function Welcome() {
     <main className="flex flex-col items-center justify-center ">
       <br />
       <br />
-      <h1 className="text-xl font-bold">Welcome!</h1>
+      <h1 className="text-xl font-bold">Welcome! Are you ready to take notes?</h1>
       <br />
       <Flowbite theme={{ theme: buttonTheme }}>
         <Button

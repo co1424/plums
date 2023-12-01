@@ -1,38 +1,57 @@
-"use client";
-import exp from "constants";
-import { useScrollTop } from "./use-scroll-top";
-import Link from "next/link";
+'use client';
+import exp from 'constants';
+import { useScrollTop } from './use-scroll-top';
+import Link from 'next/link';
 
 const purpleBackgroundColor = {
   backgroundColor: 'rgba(250, 245, 255, 1)',
 };
 
-
-
 function Header() {
-
   const scrolled = useScrollTop();
   const headerStyle = `flex justify-between items-center px-11 py-5 min-h-fit${
     scrolled ? ' border-b shadow' : ''
   }`;
 
-  console.log(scrolled)
+  console.log(scrolled);
   return (
-<header className="sticky top-0 bg-white z-50" >
-    <nav>
-        <ul className={headerStyle}>
-            <li><Link href="welcome" className="pi pi-home" style={{ fontSize: '2rem', padding: '10px' }}></Link></li>
+    <header className="sticky top-0 bg-white z-50">
+      <nav>
+        <ul
+          className={
+            headerStyle + ' flex justify-between items-center p-4 bg-white'
+          }
+        >
+          {/* Home button on the left */}
+          <li>
+            <Link
+              href="welcome"
+              className="pi pi-home text-black"
+              style={{ fontSize: '2rem', padding: '10px' }}
+            ></Link>
+          </li>
 
+          {/* Plums title and image */}
+          <li className="flex items-center">
+            {/* Plums title (centered on small screens) */}
+            <div className="sm:inline-block rounded-full p-2">
+              <img
+                src="../images/plums-title.png"
+                alt="title"
+                className="w-80 md:w-40"
+              />
+            </div>
 
-            <li>
-              <div className="rounded-full p-2" style={purpleBackgroundColor}>
-                <img src="../images/plum_profile.svg" alt="Plum-Image" className="w-20 md:w-120" />
-              </div>  
-            </li>
-
+            {/* Plum image on the right */}
+            <img
+              src="../images/plum_profile.svg"
+              alt="Plum-Image"
+              className="w-12 md:w-120 ml-auto"
+            />
+          </li>
         </ul>
-    </nav>
-</header>
+      </nav>
+    </header>
   );
 }
 
