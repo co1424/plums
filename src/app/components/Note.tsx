@@ -9,6 +9,7 @@ import FileRender from './FileRender';
 import { TbTrash } from "react-icons/tb";
 import { AiOutlineEdit } from "react-icons/ai";
 import Link from 'next/link';
+import ReactModal from './ReactModal';
 
 const Note = ({ note, onDelete }: any) => {
   const { id, title, content, urls, images, files } = note;
@@ -16,13 +17,14 @@ const Note = ({ note, onDelete }: any) => {
   const [mutableTitle, setMutableTitle] = useState(title);
   const [mutableContent, setMutableContent] = useState(content);
   const [ mutableUrls, setMutableUrls] = useState(urls);
+  const [ mutableImages, setMutableImages] = useState(images);
   const [mutableNote, setMutableNote] = useState(note)
   const [isEdited, setIsEdited] = useState(true)
 
 
     
   if(isEdited){
-    setMutableNote({ id, mutableTitle, mutableContent, mutableUrls, images, files });
+    setMutableNote({ id, mutableTitle, mutableContent, mutableUrls, mutableImages, files });
     setIsEdited(false)
   }
   
@@ -48,12 +50,13 @@ const Note = ({ note, onDelete }: any) => {
     }
   };
 
-  const twnd = "h-40 w-auto"
+  
 
   return (
     <div className=" mt-4 bg-white border-1 border-purple-600 rounded-lg max-w-xs min-w-80 p-4 max-h-auto overflow-hidden relative group transition duration-300 ease-in-out transform hover:scale-105 shadow-md">
       
       <a onClick={() => setOpenModal(true)}>
+        
         <div>
         <h1 className="font-bold text-center text-2xl mb-2">{mutableTitle}</h1>
           <hr />
@@ -73,9 +76,9 @@ const Note = ({ note, onDelete }: any) => {
           {/* Conditionally render image */}
           <p className='italic text-gray-500 mb-2 text-xs'>Your Images:</p>
           <div className='flex justify-center'>
-          {images.length > 0 && (
-            images.map((image: image) => {
-              return (<ImageRender key={image.id} image={image} twnd={twnd} />);
+          {mutableImages.length > 0 && (
+            mutableImages.map((image: image) => {
+              return (<ImageRender key={image.id} image={image} withDescription={false} twnd={"h-32 w-auto"} />);
             })
           )}
           </div>
@@ -103,6 +106,7 @@ const Note = ({ note, onDelete }: any) => {
           updateTitle={(newTitle: string) => setMutableTitle(newTitle)}
           updateContent={(newComponent: string) => setMutableContent(newComponent)}
           updateUrls= {(newUrls: string[]) => setMutableUrls(newUrls)}
+          updateImages= {(newImages: string[]) => setMutableImages(newImages)}
           updateNote={() => setIsEdited(true)}
         />
       )}

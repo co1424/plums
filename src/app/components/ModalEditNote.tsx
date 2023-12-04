@@ -12,6 +12,7 @@ import { useState, useEffect } from 'react';
 import { buttonTheme } from './themes';
 import Note from './Note';
 import { TbTrash } from 'react-icons/tb';
+import ImageRender from './ImageRender';
 
 interface CardModalProps {
   onCloseModal: () => void;
@@ -50,7 +51,7 @@ interface note{
   mutableContent: string
   tagIds: string[]
   authorId: string
-  images: image[]
+  mutableImages: image[]
   files: file[]
   mutableUrls: url[]
 }
@@ -62,17 +63,23 @@ interface props{
   updateContent: any
   updateUrls: any
   updateNote:any
+  updateImages:any
 }
 
-function ModalEditNote({ onCloseModal, showCloseButton = false, note,  updateTitle, updateContent, updateUrls, updateNote }: props) {
-  const { id, mutableTitle:title, mutableContent:content, mutableUrls:urls, images, files } = note;
+function ModalEditNote({ onCloseModal, showCloseButton = false, note,  updateTitle, updateContent, updateUrls, updateNote, updateImages }: props) {
+  const { id, mutableTitle:title, mutableContent:content, mutableUrls:urls, mutableImages:images, files } = note;
   
   const [titleEdited, setTitleEdited] = useState(title);
   const [contentEdited, setContentEdited] = useState(content);
+  const [imageModal, setImageModal] = useState(false);
 
   // Use state variables to track each URL and its description
   const [urlStates, setUrlStates] = useState(
     urls.map((url) => ({ id: url.id, url: url.url, description: url.description, isEditing: false }))
+  );
+  // Use state variables to track each image and its description
+  const [imageStates, setImageStates] = useState(
+    images.map((image) => ({ id: image.id, image: image.image, description: image.description }))
   );
 
   useEffect(() => {
@@ -91,6 +98,14 @@ function ModalEditNote({ onCloseModal, showCloseButton = false, note,  updateTit
     );
   }, [urls]);
   
+  // Update the image state when images prop changes
+  useEffect(() => {
+    setImageStates(
+      images.map((image) => ({ id: image.id, image: image.image, description: image.description }))
+
+    );
+  }, [images]);
+  
 
   function onClose() {
     onCloseModal();
@@ -104,6 +119,16 @@ const handleUrlChange = (index: number, field: keyof UrlObject, value: string) =
     [field]: value,
   };
   setUrlStates(updatedUrlStates);
+};
+
+// Handle changes for a specific image
+const handleImageChange = (index: number, field: keyof image, value: string) => {
+  const updatedImageStates = [...imageStates] as image[];
+  updatedImageStates[index] = {
+    ...updatedImageStates[index],
+    [field]: value,
+  };
+  setImageStates(updatedImageStates);
 };
 
 // Toggle the editing state for a specific URL
@@ -143,6 +168,7 @@ const handleEdit = async () => {
         titleEdited,
         urlStates: urlStatesWithoutIsEditing,
         contentEdited,
+        imageStates
       }),
     });
 
@@ -153,6 +179,7 @@ const handleEdit = async () => {
       updateTitle(data.result.title)
       updateContent(data.result.content)
       updateUrls(urlStatesWithoutIsEditing)
+      updateImages(imageStates)
       updateNote();
       onCloseModal();
     } else {
@@ -168,8 +195,10 @@ const handleEdit = async () => {
 
   return (
     <>
-      <Modal className='bg-gray-500 sm:px-[10%] lg:px-[30%] group' show={true} onClose={onCloseModal} popup dismissible>
-        <div className='w-full mx-auto h-[600px]  rounded-lg'>
+      <Modal className=' sm:px-[10%] lg:px-[30%] mt-16 group' show={true} onClose={onCloseModal} popup dismissible>
+      <div onClick={() => onCloseModal()} className='bg-gray-950 opacity-60 h-full w-full fixed top-0 left-0 z-40'></div>
+
+        <div className='w-full mx-auto h-[600px] z-50 bg-white rounded-lg'>
 
           <div className='title text-center border-gray-300 border-b-2 mt-6'>
             <textarea
@@ -228,21 +257,53 @@ const handleEdit = async () => {
           </div>
 
           {/* New container for images */}
-          <div className='documents-container flex justify-between  absolute w-full bottom-16'>
-            <div className='images-container w-full'>
-              {/* Map through images and display them */}
-              {images.map((image) => (
-                <div key={image.id} >
-                  <img src={image.image} alt={image.description} className=' h-[80px] ' />
+          <div className='documents-container flex justify-between  absolute w-full bottom-16  h-32'>
+          <div className='flex w-full'>
+          {imageStates.length > 0 && (
+            imageStates.map((image, index) => {
+              return (
+              <>
+              <a onClick={()=> setImageModal(true)}>
+                <ImageRender key={image.id} image={image} withDescription={false} twnd={"h-32 w-auto"} />
+              </a>
+              <Modal 
+              show={imageModal} 
+              onClose={() => setImageModal(false)} 
+              popup 
+              dismissible 
+              className=' h-screen overflow-visible px-[30%] pt-20 pb-96'
+              >
+                 <div onClick={() => setImageModal(false)} className='bg-gray-950 opacity-90 h-full w-full fixed top-0 left-0 z-40'></div>
+                <div className=' max-h-[700px] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 flex flex-col gap-3  '>
+                  
+                  <div className='relative'>
+                    <textarea name="imageDescription" id="imageDescription" cols={50} rows={2}
+                      className='rounded-lg bg-transparent text-white border-2 border-slate-600 p-3 focus:outline-none w-full pr-11'
+                      onChange={(e) => handleImageChange(index, 'description', e.target.value)}
+                    >
+                      {image.description}
+                    </textarea>
+
+                  </div>
+
+
+                  <img src={image.image} alt={image.description} />
                 </div>
-              ))}
-            </div>
+              </Modal>
+              
+              </>
+              );
+              
+            })
+          )}
+          
+          </div>
 
             <div className='files-container w-full '>
               {/* Map through files and display them */}
               {files.map((file) => (
                 <div key={file.id} >
-                  <img src={file.file} alt={file.description} className=' h-[80px] self-end ' />
+                  <img src={file.file} alt={file.description} className=' h-32 self-end ' />
                 </div>
               ))}
             </div>

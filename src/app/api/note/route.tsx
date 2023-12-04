@@ -61,12 +61,17 @@ interface UrlState {
   url: string;
   description: string;
 }
-interface urlStates {id: string, url: string, description: string}[];
+interface ImageState {
+  id: string;
+  image: string;
+  description: string;
+}
+
 export const PUT = async (req: NextRequest) => {
   try {
     const body = await req.json();
     console.log("here's the request content after req.json() in api/note/UPDATE", body);
-    const { id, titleEdited: title, urlStates, contentEdited: content } = body;
+    const { id, titleEdited: title, urlStates, contentEdited: content, imageStates } = body;
   
     // Update the note and the URLs (upsert operation)
     const result = await prisma.note.update({
@@ -81,6 +86,13 @@ export const PUT = async (req: NextRequest) => {
             where: { id },
             create: { url, description },
             update: { url, description },
+          })),
+        },
+        images: {
+          upsert: imageStates.map(({ id, image, description }: ImageState) => ({
+            where: { id },
+            create: { image, description },
+            update: { image, description },
           })),
         },
       },

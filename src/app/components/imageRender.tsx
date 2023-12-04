@@ -7,11 +7,13 @@ export interface image {
 interface prop{
   image: image
   twnd: string
+  withDescription: boolean
 }
 
 
 const ImageRender = (prop: prop) => {
     const { id, image: content, description } = prop.image || {};
+    
 console.log("this is the image content at the imageRender level",prop.image)
 console.log("this is the twnd content at the imageRender level",prop.image)
 
@@ -21,7 +23,7 @@ console.log("this is the twnd content at the imageRender level",prop.image)
             <img className={prop.twnd} loading='lazy' src={content} alt="an image inside a note" />
         </a>
         <br />
-        {description && <p>{description}</p>}
+        {prop.withDescription && <p>{description}</p>}
         <br />
     </div>
   )
