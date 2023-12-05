@@ -160,7 +160,7 @@ const handleImageDelete = async (id:string, index: number) => {
       
       console.log("Image successfully deleted!")
       updateImagesModal(index)
-      updateImages(imageStates)
+      // updateImages(imageStates)
       updateNote();
     } else {
       console.error('Error deleting image:', result.statusText);
@@ -185,6 +185,8 @@ const updateImagesModal = (index: number) => {
   setImageStates((prevImageStates: thisImage[]) => {
     // Create a new array with the item at the specified index removed
     const updatedImageStates = [...prevImageStates.slice(0, index), ...prevImageStates.slice(index + 1)];
+    console.log("updateimagesmodal what I updated it to", updatedImageStates)
+    updateImages(updatedImageStates)
     return updatedImageStates;
   });
 };
