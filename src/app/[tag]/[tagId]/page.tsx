@@ -35,6 +35,12 @@ interface NoteType {
     description: string | null;
   }[];
 }
+interface   images {
+  id: string;
+  noteId: string;
+  image: string;
+  description: string | null;
+}
 
 const NotesByTopic = ({ params }: NoteProps) => {
   const { tagId } = params;
@@ -76,6 +82,21 @@ const NotesByTopic = ({ params }: NoteProps) => {
       console.error('Error updating notes by tag:', error);
     }
   };
+  
+  const handleImageDelete = async (newImages: images[], noteId: string) => {
+    try {
+      // If the deletion was successful, update the state to trigger a re-render
+      const previousNotes = notes.map((note) => {
+        if (note.id === noteId) {
+          note.images = newImages;
+        }
+        return note; // Ensure you return the note, whether modified or not
+      });
+      setNotes(previousNotes)      
+    } catch (error) {
+      console.error('Error updating notes by tag:', error);
+    }
+  };
 
 
 
@@ -98,7 +119,7 @@ const NotesByTopic = ({ params }: NoteProps) => {
       {notes.length > 0 && (
         <div className="flex flex-wrap gap-4 justify-center mx-4">
           {notes.map((note) => (
-            <Note key={note.id} note={note} onDelete={handleNoteDelete} />
+            <Note key={note.id} note={note} onDelete={handleNoteDelete} onImageDelete={handleImageDelete} />
           ))}
         </div>
       )}
