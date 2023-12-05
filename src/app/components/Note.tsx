@@ -87,7 +87,7 @@ const Note = ({ note, onDelete, onImageDelete }: any) => {
           <div className='flex justify-center'>
           {mutableImages.length > 0 && (
             mutableImages.map((image: any) => {
-              return (<Image key={image.id} src={image.image} alt={image.description} className=' h-32 self-end ' />);
+              return (<div className=' h-32 self-end '><Image fill={true} key={image.id} src={image.image} alt={image.description} /></div>);
             })
           )}
           </div>

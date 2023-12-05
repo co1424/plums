@@ -38,23 +38,23 @@ function Header() {
           <li className="flex items-center">
             {/* Plums title (centered on small screens) */}
             <div className="sm:inline-block rounded-full p-2">
-              <Image
-                src={plumsTitle}
-                alt="title"
-                width={320}
-                height={160}
-                // className="w-80 md:w-40"
-              />
+              <div className="w-80 md:w-40">
+                <Image
+                  src={plumsTitle}
+                  alt="title"
+                  fill={true}
+                />
+              </div>
             </div>
 
             {/* Plum image on the right */}
-            <Image
-              src={plumsProfile}
-              alt="Plum-Image"
-              width={48}
-              height={50}
-              // className="w-12 md:w-120 ml-auto"
-            />
+            <div className="w-12 md:w-120 ml-auto">
+              <Image
+                src={plumsProfile}
+                alt="Plum-Image"
+                fill={true}
+              />
+            </div>
           </li>
         </ul>
       </nav>
