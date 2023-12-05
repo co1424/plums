@@ -14,14 +14,6 @@ import Note from './Note';
 import { TbTrash } from 'react-icons/tb';
 import Image from 'next/image';
 
-
-interface CardModalProps {
-  onCloseModal: () => void;
-  showCloseButton?: boolean;
-}
-
-
-
 interface image{
   id: string
   noteId: string
@@ -161,7 +153,7 @@ const handleImageDelete = async (id:string, index: number) => {
       
       console.log("Image successfully deleted!")
       updateImagesModal(index)
-      updateImages(imageStates)
+      // updateImages(imageStates)
       updateNote();
     } else {
       console.error('Error deleting image:', result.statusText);
@@ -171,56 +163,16 @@ const handleImageDelete = async (id:string, index: number) => {
   }
 };
 
-// Handle image deletion for a specific index
-// const updateImagesModal = (index: number) => {
-//   // const updatedImageStates = [...imageStates] as image[];
-//   // updatedImageStates.splice(index, 1); // Remove the image at the specified index
-//   setImageStates((prevImageStates:image[]) => {
-//     prevImageStates.splice(index,1);
-//   });
-
-// };
 
 // Handle image deletion for a specific index
 const updateImagesModal = (index: number) => {
   setImageStates((prevImageStates: thisImage[]) => {
     // Create a new array with the item at the specified index removed
     const updatedImageStates = [...prevImageStates.slice(0, index), ...prevImageStates.slice(index + 1)];
+    updateImages(updatedImageStates)
     return updatedImageStates;
   });
 };
-
-
-// setImageStates((prevImageStates) => {
-//   const updatedImageStates = [...prevImageStates];
-//   updatedImageStates[index] = {
-//     ...updatedImageStates[index],
-//     [field]: value,
-//   };
-//   return updatedImageStates;
-// });
-
-
-
-// const handleImageDelete = (id: string, index: number) => {
-//   imageDelete(id);
-//   handleImageDeleteRefresh(index)
-//   updateImages(imageStates)
-// }
-
-
-
-
-const checkPayload = () => {
-  const urlStatesWithoutIsEditing = urlStates.map(({ isEditing, ...rest }) => rest);
-  const data =  JSON.stringify({ 
-    id,
-    titleEdited,
-    urlStates: urlStatesWithoutIsEditing,
-    contentEdited,
-  })
-  console.log(data)
-}
 
 const handleEdit = async () => {
   try {
@@ -338,7 +290,7 @@ const handleEdit = async () => {
                 <Image src={image.image} alt={image.description} className='h-32 w-auto'/>
               </a>
 
-              <button onClick={() => handleImageDelete(image.id, index)} className='absolute bottom-0 right-0 bg-slate-200 rounded-md p-1 mx-1 hover:bg-white opacity-0 group-hover/imgTrash:opacity-100 group-hover/imgTrash:transition-opacity group-hover/imgTrash:duration-500'>
+              <button onClick={() => handleImageDelete(image.id, index)} className='absolute bottom-0 right-0 bg-slate-200 active:bg-slate-200 rounded-md p-1 mx-1 hover:bg-white opacity-0 group-hover/imgTrash:opacity-100 group-hover/imgTrash:transition-opacity group-hover/imgTrash:duration-500'>
               <TbTrash size={"1.5em"} />
             </button>
 
