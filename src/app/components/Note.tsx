@@ -73,7 +73,7 @@ const Note = ({ note, onDelete, onImageDelete }: any) => {
           {mutableUrls.length > 0 && (
             mutableUrls.map((url: { id: string, url:any, description:string }) => {
                 return  (              
-              <div id={id} >
+              <div id={id} key={id} >
               <a target='_blank' key={id} href={url.url}>{url.url}</a>
               <br />
               {url.description && <p>{url.description}</p>} 
