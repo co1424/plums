@@ -279,7 +279,7 @@ const handleEdit = async () => {
           </div>
 
           {/* New container for images */}
-          <div className='documents-container flex justify-between  absolute w-full bottom-16  h-32'>
+          <div className='documents-container flex justify-between  absolute w-full bottom-16  h-auto'>
           <div className='flex w-full'>
           {imageStates.length > 0 && (
             imageStates.map((image, index) => {
@@ -287,9 +287,9 @@ const handleEdit = async () => {
               <>
               <div className=' relative group/imgTrash'>
               <a onClick={()=> setImageModal(true)} > 
-                <div className='h-32 w-auto'>
-                  <Image fill={true} src={image.image} alt={image.description} />
-                </div>
+                
+                  <Image width={128} height={128} src={image.image} alt={image.description} />
+                
               </a>
 
               <button onClick={() => handleImageDelete(image.id, index)} className='absolute bottom-0 right-0 bg-slate-200 active:bg-slate-200 rounded-md p-1 mx-1 hover:bg-white opacity-0 group-hover/imgTrash:opacity-100 group-hover/imgTrash:transition-opacity group-hover/imgTrash:duration-500'>
@@ -311,14 +311,15 @@ const handleEdit = async () => {
                   
                   
                     <textarea name="imageDescription" id="imageDescription" cols={50} rows={2}
-                      className='rounded-lg bg-transparent text-white border-2 border-slate-600 p-3 focus:outline-none w-full pr-11'
+                      className='rounded-lg bg-transparent text-white border-2 border-slate-600 p-3 focus:outline-none w-96 pr-11 mx-auto'
                       onChange={(e) => handleImageChange(index, 'description', e.target.value)}
                     >
                       {image.description}
                     </textarea>
 
-                  
-                  <Image fill={true} src={image.image} alt={image.description} />
+                  <div className=' mx-auto relative bg-white rounded-[50px]'>
+                    <Image width={384} height={384} src={image.image} alt={image.description} />
+                  </div>
                 </div>
               </Modal>
               
@@ -333,8 +334,8 @@ const handleEdit = async () => {
             <div className='files-container w-full '>
               {/* Map through files and display them */}
               {files.map((file) => (
-                <div key={file.id} className=' h-32 self-end '>
-                  <Image fill={true} src={file.file} alt={file.description} />
+                <div key={file.id} className=' '>
+                  <Image width={128} height={128} src={file.file} alt={file.description} />
                 </div>
               ))}
             </div>
