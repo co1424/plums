@@ -12,7 +12,7 @@ import { useState, useEffect } from 'react';
 import { buttonTheme } from './themes';
 import Note from './Note';
 import { TbTrash } from 'react-icons/tb';
-import ImageRender from './ImageRender';
+
 
 interface CardModalProps {
   onCloseModal: () => void;
@@ -24,6 +24,11 @@ interface CardModalProps {
 interface image{
   id: string
   noteId: string
+  image: string
+  description: string
+}
+interface thisImage{
+  id: string
   image: string
   description: string
 }
@@ -141,6 +146,70 @@ const toggleUrlEditing =  (index: number) => {
   setUrlStates(updatedUrlStates);
 };
 
+const handleImageDelete = async (id:string, index: number) => {
+  try {
+    const result = await fetch(`http://localhost:3000/api/image`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id }),
+    });
+    
+    if (result.ok) {
+      
+      console.log("Image successfully deleted!")
+      updateImagesModal(index)
+      updateImages(imageStates)
+      updateNote();
+    } else {
+      console.error('Error deleting image:', result.statusText);
+    }
+  } catch (error) {
+    console.error('Error deleting image:', error);
+  }
+};
+
+// Handle image deletion for a specific index
+// const updateImagesModal = (index: number) => {
+//   // const updatedImageStates = [...imageStates] as image[];
+//   // updatedImageStates.splice(index, 1); // Remove the image at the specified index
+//   setImageStates((prevImageStates:image[]) => {
+//     prevImageStates.splice(index,1);
+//   });
+
+// };
+
+// Handle image deletion for a specific index
+const updateImagesModal = (index: number) => {
+  setImageStates((prevImageStates: thisImage[]) => {
+    // Create a new array with the item at the specified index removed
+    const updatedImageStates = [...prevImageStates.slice(0, index), ...prevImageStates.slice(index + 1)];
+    return updatedImageStates;
+  });
+};
+
+
+// setImageStates((prevImageStates) => {
+//   const updatedImageStates = [...prevImageStates];
+//   updatedImageStates[index] = {
+//     ...updatedImageStates[index],
+//     [field]: value,
+//   };
+//   return updatedImageStates;
+// });
+
+
+
+// const handleImageDelete = (id: string, index: number) => {
+//   imageDelete(id);
+//   handleImageDeleteRefresh(index)
+//   updateImages(imageStates)
+// }
+
+
+
+
 const checkPayload = () => {
   const urlStatesWithoutIsEditing = urlStates.map(({ isEditing, ...rest }) => rest);
   const data =  JSON.stringify({ 
@@ -195,10 +264,10 @@ const handleEdit = async () => {
 
   return (
     <>
-      <Modal className=' sm:px-[10%] lg:px-[30%] mt-16 group' show={true} onClose={onCloseModal} popup dismissible>
+      <Modal className=' sm:px-[10%] lg:px-[30%] mt-16' show={true} onClose={onCloseModal} popup dismissible>
       <div onClick={() => onCloseModal()} className='bg-gray-950 opacity-60 h-full w-full fixed top-0 left-0 z-40'></div>
 
-        <div className='w-full mx-auto h-[600px] z-50 bg-white rounded-lg'>
+        <div className='w-full mx-auto h-[600px] z-50 bg-white rounded-lg group/whiteBand'>
 
           <div className='title text-center border-gray-300 border-b-2 mt-6'>
             <textarea
@@ -263,9 +332,18 @@ const handleEdit = async () => {
             imageStates.map((image, index) => {
               return (
               <>
-              <a onClick={()=> setImageModal(true)}>
-                <ImageRender key={image.id} image={image} withDescription={false} twnd={"h-32 w-auto"} />
+              <div className=' relative group/imgTrash'>
+              <a onClick={()=> setImageModal(true)} >
+                <img src={image.image} alt={image.description} className='h-32 w-auto'/>
               </a>
+
+              <button onClick={() => handleImageDelete(image.id, index)} className='absolute bottom-0 right-0 bg-slate-200 rounded-md p-1 mx-1 hover:bg-white opacity-0 group-hover/imgTrash:opacity-100 group-hover/imgTrash:transition-opacity group-hover/imgTrash:duration-500'>
+              <TbTrash size={"1.5em"} />
+            </button>
+
+              
+              </div>
+
               <Modal 
               show={imageModal} 
               onClose={() => setImageModal(false)} 
@@ -276,15 +354,13 @@ const handleEdit = async () => {
                  <div onClick={() => setImageModal(false)} className='bg-gray-950 opacity-90 h-full w-full fixed top-0 left-0 z-40'></div>
                 <div className=' max-h-[700px] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 flex flex-col gap-3  '>
                   
-                  <div className='relative'>
+                  
                     <textarea name="imageDescription" id="imageDescription" cols={50} rows={2}
                       className='rounded-lg bg-transparent text-white border-2 border-slate-600 p-3 focus:outline-none w-full pr-11'
                       onChange={(e) => handleImageChange(index, 'description', e.target.value)}
                     >
                       {image.description}
                     </textarea>
-
-                  </div>
 
 
                   <img src={image.image} alt={image.description} />
@@ -310,10 +386,10 @@ const handleEdit = async () => {
           </div>
 
           <div className=' h-16 w-full absolute bottom-0 right-0 justify-end items-center  flex rounded-lg '>
-            <button onClick={() => {}} className='hover:bg-black hover:bg-opacity-10 rounded-md active:bg-white p-1 mx-2 opacity-0 group-hover:opacity-100 group-hover:transition-opacity group-hover:duration-500 '>
+            <button onClick={() => {}} className='hover:bg-black hover:bg-opacity-10 rounded-md active:bg-white p-1 mx-2 opacity-0 group-hover/whiteBand:opacity-100 group-hover/whiteBand:transition-opacity group-hover/whiteBand:duration-500 '>
               <TbTrash size={"2em"} />
             </button>
-            <button onClick={handleEdit} className='hover:bg-black hover:bg-opacity-10 rounded-md active:bg-white p-1 mx-2 opacity-0 group-hover:opacity-100 group-hover:transition-opacity group-hover:duration-500 font-bold'>
+            <button onClick={handleEdit} className='hover:bg-black hover:bg-opacity-10 rounded-md active:bg-white p-1 mx-2 opacity-0 group-hover/whiteBand:opacity-100 group-hover/whiteBand:transition-opacity group-hover/whiteBand:duration-500 font-bold'>
               Save
             </button>
           </div>
