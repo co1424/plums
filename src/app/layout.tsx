@@ -4,7 +4,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Footer from '@/app/components/Footer'
 import 'primeicons/primeicons.css';
-        
+import { UserProvider } from '@auth0/nextjs-auth0/client';
 import fav from "./favicon.ico"
 
 
@@ -22,6 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <UserProvider>
       <body className={inter.className}>
         
         <Header/> 
@@ -29,6 +30,7 @@ export default function RootLayout({
         <Footer/>     
       
       </body>
+      </UserProvider>
     </html>
   )
 }
