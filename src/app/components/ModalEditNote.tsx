@@ -12,6 +12,7 @@ import { useState, useEffect } from 'react';
 import { buttonTheme } from './themes';
 import Note from './Note';
 import { TbTrash } from 'react-icons/tb';
+import Image from 'next/image';
 
 
 interface CardModalProps {
@@ -334,7 +335,7 @@ const handleEdit = async () => {
               <>
               <div className=' relative group/imgTrash'>
               <a onClick={()=> setImageModal(true)} >
-                <img src={image.image} alt={image.description} className='h-32 w-auto'/>
+                <Image src={image.image} alt={image.description} className='h-32 w-auto'/>
               </a>
 
               <button onClick={() => handleImageDelete(image.id, index)} className='absolute bottom-0 right-0 bg-slate-200 rounded-md p-1 mx-1 hover:bg-white opacity-0 group-hover/imgTrash:opacity-100 group-hover/imgTrash:transition-opacity group-hover/imgTrash:duration-500'>
@@ -363,7 +364,7 @@ const handleEdit = async () => {
                     </textarea>
 
 
-                  <img src={image.image} alt={image.description} />
+                  <Image src={image.image} alt={image.description} />
                 </div>
               </Modal>
               
@@ -379,7 +380,7 @@ const handleEdit = async () => {
               {/* Map through files and display them */}
               {files.map((file) => (
                 <div key={file.id} >
-                  <img src={file.file} alt={file.description} className=' h-32 self-end ' />
+                  <Image src={file.file} alt={file.description} className=' h-32 self-end ' />
                 </div>
               ))}
             </div>
