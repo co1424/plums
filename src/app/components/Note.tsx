@@ -73,7 +73,7 @@ const Note = ({ note, onDelete, onImageDelete }: any) => {
           {mutableUrls.length > 0 && (
             mutableUrls.map((url: { id: string, url:any, description:string }) => {
                 return  (              
-              <div id={id} >
+              <div id={id} key={id} >
               <a target='_blank' key={id} href={url.url}>{url.url}</a>
               <br />
               {url.description && <p>{url.description}</p>} 
@@ -87,7 +87,7 @@ const Note = ({ note, onDelete, onImageDelete }: any) => {
           <div className='flex justify-center'>
           {mutableImages.length > 0 && (
             mutableImages.map((image: any) => {
-              return (<Image key={image.id} src={image.image} alt={image.description} className=' h-32 self-end ' />);
+              return (<div className=' h-32 self-end '><Image fill={true} key={image.id} src={image.image} alt={image.description} /></div>);
             })
           )}
           </div>

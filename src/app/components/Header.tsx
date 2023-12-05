@@ -3,6 +3,8 @@ import exp from 'constants';
 import { useScrollTop } from './use-scroll-top';
 import Link from 'next/link';
 import Image from 'next/image';
+import plumsTitle from '../../../public/images/plums-title.png'
+import plumsProfile from '../../../public/images/plum_profile.svg'
 
 const purpleBackgroundColor = {
   backgroundColor: 'rgba(250, 245, 255, 1)',
@@ -36,19 +38,23 @@ function Header() {
           <li className="flex items-center">
             {/* Plums title (centered on small screens) */}
             <div className="sm:inline-block rounded-full p-2">
-              <Image
-                src="../images/plums-title.png"
-                alt="title"
-                className="w-80 md:w-40"
-              />
+              <div className="w-80 md:w-40">
+                <Image
+                  src={plumsTitle}
+                  alt="title"
+                  fill={true}
+                />
+              </div>
             </div>
 
             {/* Plum image on the right */}
-            <Image
-              src="../images/plum_profile.svg"
-              alt="Plum-Image"
-              className="w-12 md:w-120 ml-auto"
-            />
+            <div className="w-12 md:w-120 ml-auto">
+              <Image
+                src={plumsProfile}
+                alt="Plum-Image"
+                fill={true}
+              />
+            </div>
           </li>
         </ul>
       </nav>

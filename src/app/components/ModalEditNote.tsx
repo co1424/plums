@@ -286,8 +286,10 @@ const handleEdit = async () => {
               return (
               <>
               <div className=' relative group/imgTrash'>
-              <a onClick={()=> setImageModal(true)} >
-                <Image src={image.image} alt={image.description} className='h-32 w-auto'/>
+              <a onClick={()=> setImageModal(true)} > 
+                <div className='h-32 w-auto'>
+                  <Image fill={true} src={image.image} alt={image.description} />
+                </div>
               </a>
 
               <button onClick={() => handleImageDelete(image.id, index)} className='absolute bottom-0 right-0 bg-slate-200 active:bg-slate-200 rounded-md p-1 mx-1 hover:bg-white opacity-0 group-hover/imgTrash:opacity-100 group-hover/imgTrash:transition-opacity group-hover/imgTrash:duration-500'>
@@ -315,8 +317,8 @@ const handleEdit = async () => {
                       {image.description}
                     </textarea>
 
-
-                  <Image src={image.image} alt={image.description} />
+                  
+                  <Image fill={true} src={image.image} alt={image.description} />
                 </div>
               </Modal>
               
@@ -331,8 +333,8 @@ const handleEdit = async () => {
             <div className='files-container w-full '>
               {/* Map through files and display them */}
               {files.map((file) => (
-                <div key={file.id} >
-                  <Image src={file.file} alt={file.description} className=' h-32 self-end ' />
+                <div key={file.id} className=' h-32 self-end '>
+                  <Image fill={true} src={file.file} alt={file.description} />
                 </div>
               ))}
             </div>
