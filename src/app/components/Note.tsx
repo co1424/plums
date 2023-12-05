@@ -7,7 +7,6 @@ import { useState } from 'react';
 import { TbTrash } from "react-icons/tb";
 import { AiOutlineEdit } from "react-icons/ai";
 import Link from 'next/link';
-import ReactModal from './ReactModal';
 import Image from 'next/image';
 
 const Note = ({ note, onDelete, onImageDelete }: any) => {
@@ -88,7 +87,7 @@ const Note = ({ note, onDelete, onImageDelete }: any) => {
           <div className='flex justify-center'>
           {mutableImages.length > 0 && (
             mutableImages.map((image: any) => {
-              return (<Image src={image.image} alt={image.description} className=' h-32 self-end ' />);
+              return (<Image key={image.id} src={image.image} alt={image.description} className=' h-32 self-end ' />);
             })
           )}
           </div>
@@ -97,7 +96,7 @@ const Note = ({ note, onDelete, onImageDelete }: any) => {
           <p className='italic text-gray-500 mb-2 text-xs'>Your Files:</p>
           {files.length > 0 && (
             files.map((file: { id: any, file:string, description:string }) => {
-              return (    <div id={id} >
+              return (    <div id={id} key={file.id} >
                 <a target='_blank' href={content}>*</a>
                 <br />
                 {file.description && <p>{file.description}</p>}
