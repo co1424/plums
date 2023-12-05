@@ -119,6 +119,14 @@ function Welcome() {
         />
       )}
       <br />
+      <Flowbite theme={{ theme: buttonTheme }}>
+        <Button
+          className={`${buttonTheme.button.color.primary}`}
+          href='/topic'
+        >
+          View All Notes
+        </Button>
+      </Flowbite>
       <br />
       <br />
 
