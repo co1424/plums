@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import plumMain from "/public/images/plum.svg"
+import plumMain from "/public/images/Plum.svg"
 import signingoogle from "/public/images/signInGoogle.svg"
 import signinapple from "/public/images/signInApple.svg"
 import topMain from "/public/images/topMain.svg"
