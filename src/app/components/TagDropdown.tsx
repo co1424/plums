@@ -1,6 +1,7 @@
 import { Flowbite } from 'flowbite-react';
 import React, { useEffect, useState } from 'react';
 import { buttonTheme } from './themes';
+import apiUrl from '../config';
 
 
 
@@ -17,7 +18,7 @@ const TagDropdown = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await fetch('http://localhost:3000/api/tag', {
+      const result = await fetch(`${apiUrl}api/tag`, {
         cache: 'no-store',
         method: 'GET',
         headers: {

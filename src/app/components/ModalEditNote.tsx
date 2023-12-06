@@ -13,6 +13,7 @@ import { buttonTheme } from './themes';
 import Note from './Note';
 import { TbTrash } from 'react-icons/tb';
 import Image from 'next/image';
+import apiUrl from '@/app/config'
 
 interface image{
   id: string
@@ -141,7 +142,7 @@ const toggleUrlEditing =  (index: number) => {
 
 const handleImageDelete = async (id:string, index: number) => {
   try {
-    const result = await fetch(`http://localhost:3000/api/image`, {
+    const result = await fetch(`${apiUrl}api/image`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -180,7 +181,7 @@ const handleEdit = async () => {
     const urlStatesWithoutIsEditing = urlStates.map(({ isEditing, ...rest }) => rest);
     console.log("urlStatesWithoutIsEditing",urlStatesWithoutIsEditing)
 
-    const response = await fetch('http://localhost:3000/api/note', {
+    const response = await fetch(`${apiUrl}api/note`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

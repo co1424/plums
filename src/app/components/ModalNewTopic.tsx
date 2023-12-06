@@ -12,6 +12,7 @@ import { useState } from 'react';
 import { buttonTheme } from './themes';
 import { FaImage } from 'react-icons/fa';
 import { useRouter, redirect } from 'next/navigation';
+import apiUrl from '../config';
 
 interface CardModalProps {
   onCloseModal: () => void;
@@ -73,7 +74,7 @@ function CardModalNewTopic({
     console.log(JSON.stringify({ data }));
 
     try {
-      const response = await fetch('http://localhost:3000/api/tag', {
+      const response = await fetch(`${apiUrl}api/tag`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

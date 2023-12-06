@@ -11,6 +11,7 @@ import CardModal from '../components/ModalNote';
 import { TbTrash } from 'react-icons/tb';
 import { Spinner } from '../components/spinner';
 import { AiOutlineEdit } from 'react-icons/ai';
+import apiUrl from '../config';
 
 function Welcome() {
   const [openModalNewTopic, setOpenModalNewTopic] = useState(false);
@@ -30,7 +31,7 @@ function Welcome() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await fetch('http://localhost:3000/api/tag', {
+      const result = await fetch(`${apiUrl}api/tag`, {
         cache: 'no-store',
         method: 'GET',
         headers: {
@@ -51,7 +52,7 @@ function Welcome() {
 
   const deleteIt = async (tagId: string) => {
     try {
-      const result = await fetch('http://localhost:3000/api/tag', {
+      const result = await fetch(`${apiUrl}api/tag`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

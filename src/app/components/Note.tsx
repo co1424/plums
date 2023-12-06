@@ -8,6 +8,7 @@ import { TbTrash } from "react-icons/tb";
 import { AiOutlineEdit } from "react-icons/ai";
 import Link from 'next/link';
 import Image from 'next/image';
+import apiUrl from '../config';
 
 const Note = ({ note, onDelete, onImageDelete }: any) => {
   const { id, title, content, urls, images, files } = note;
@@ -33,7 +34,7 @@ const Note = ({ note, onDelete, onImageDelete }: any) => {
   
   const deleteIt = async () => {
     try {
-      const result = await fetch(`http://localhost:3000/api/note`, {
+      const result = await fetch(`${apiUrl}api/note`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

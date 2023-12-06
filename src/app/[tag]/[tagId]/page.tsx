@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Note from '@/app/components/Note';
 import prisma from '@/app/data';
 import { Spinner } from '@/app/components/spinner';
+import apiUrl from '@/app/config'
 
 interface NoteProps {
   params: {
@@ -50,7 +51,7 @@ const NotesByTopic = ({ params }: NoteProps) => {
   const fetchNotes = async () => {
     try {
       const result = await fetch(
-        `http://localhost:3000/api/note?tagId=${encodeURIComponent(tagId)}`,
+        `${apiUrl}api/note?tagId=${encodeURIComponent(tagId)}`,
         {
           method: 'GET',
           headers: {

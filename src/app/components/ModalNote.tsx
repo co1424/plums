@@ -17,6 +17,7 @@ import router from 'next/router';
 import { FaImage } from 'react-icons/fa';
 import { AiOutlineUpload } from 'react-icons/ai';
 import { FaLink } from 'react-icons/fa';
+import apiUrl from '../config';
 
 interface CardModalProps {
   onCloseModal: () => void;
@@ -48,7 +49,7 @@ function CardModalNote({ onCloseModal, showCloseButton = true }: CardModalProps)
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await fetch('http://localhost:3000/api/tag', {
+      const result = await fetch(`${apiUrl}api/tag`, {
         cache: 'no-store',
         method: 'GET',
         headers: {
@@ -129,7 +130,7 @@ function CardModalNote({ onCloseModal, showCloseButton = true }: CardModalProps)
     event.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:3000/api/note', {
+      const response = await fetch(`${apiUrl}api/note`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
