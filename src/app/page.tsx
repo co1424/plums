@@ -7,6 +7,7 @@ import bottomMain from "/public/images/bottomMain.svg"
 
 function Home() {
   return (
+    
     <main className='absolute top-0 left-0 right-0 bottom-0 bg-white'>
       <div className='z-10 w-full absolute -top-0'>
         <Image
