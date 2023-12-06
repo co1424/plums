@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Note from '@/app/components/Note';
 import prisma from '@/app/data';
 import { Spinner } from '@/app/components/spinner';
+import apiUrl from '@/app/config'
 
 interface NoteProps {
   params: {
@@ -50,7 +51,7 @@ const NotesByTopic = ({ params }: NoteProps) => {
   const fetchNotes = async () => {
     try {
       const result = await fetch(
-        `http://localhost:3000/api/note?tagId=${encodeURIComponent(tagId)}`,
+        `${apiUrl}api/note?tagId=${encodeURIComponent(tagId)}`,
         {
           method: 'GET',
           headers: {
@@ -97,17 +98,8 @@ const NotesByTopic = ({ params }: NoteProps) => {
       console.error('Error updating notes by tag:', error);
     }
   };
-
-
-
-  console.log(
-    "I'm the result from the search of notes by tag at tag/tagId/page",
-    notes
-  );
-
-
   return (
-    <div className="h-screen overflow-y-auto">
+    <div >
       {notes.length === 0 && (
         <div className="h-full flex items-center justify-center p-4">
           <div className="h-full flex items-center justify-center p-4">
@@ -117,7 +109,7 @@ const NotesByTopic = ({ params }: NoteProps) => {
         </div>
       )}
       {notes.length > 0 && (
-        <div className="flex flex-wrap gap-4 justify-center mx-4">
+        <div className="flex flex-wrap gap-4 justify-center m-4 pb-8">
           {notes.map((note) => (
             <Note key={note.id} note={note} onDelete={handleNoteDelete} onImageDelete={handleImageDelete} />
           ))}

@@ -8,6 +8,7 @@ import { TbTrash } from "react-icons/tb";
 import { AiOutlineEdit } from "react-icons/ai";
 import Link from 'next/link';
 import Image from 'next/image';
+import apiUrl from '../config';
 
 const Note = ({ note, onDelete, onImageDelete }: any) => {
   const { id, title, content, urls, images, files } = note;
@@ -33,7 +34,7 @@ const Note = ({ note, onDelete, onImageDelete }: any) => {
   
   const deleteIt = async () => {
     try {
-      const result = await fetch(`http://localhost:3000/api/note`, {
+      const result = await fetch(`${apiUrl}api/note`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -56,7 +57,7 @@ const Note = ({ note, onDelete, onImageDelete }: any) => {
   
 
   return (
-    <div  className=" mt-4 bg-white border-1 cursor-pointer border-purple-600 rounded-lg max-w-xs min-w-80 p-4 max-h-auto overflow-hidden relative group transition duration-300 ease-in-out transform hover:scale-105 shadow-md">
+    <div  className=" mt-4 bg-white border-1 cursor-pointer border-purple-600 rounded-lg max-w-sm w-80  min-w-80 p-4 max-h-[405px] overflow-hidden relative group transition duration-300 ease-in-out transform hover:scale-105 shadow-md">
       
       <a onClick={() => setOpenModal(true)}>
         
@@ -87,7 +88,7 @@ const Note = ({ note, onDelete, onImageDelete }: any) => {
           <div className='flex justify-center'>
           {mutableImages.length > 0 && (
             mutableImages.map((image: any) => {
-              return (<div className=' h-32 self-end '><Image fill={true} key={image.id} src={image.image} alt={image.description} /></div>);
+              return (<div ><Image width={128} height={128} key={image.id} src={image.image} alt={image.description} /></div>);
             })
           )}
           </div>
