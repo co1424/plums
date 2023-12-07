@@ -307,6 +307,7 @@ const handleEdit = async () => {
               dismissible 
               className=' h-screen overflow-visible px-[30%] pt-20 pb-96'
               >
+                {/* blackground for the modals OPEN!!! */}
                  <div onClick={() => setImageModal(false)} className='bg-gray-950 opacity-90 h-full w-full fixed top-0 left-0 z-40'></div>
                 <div className=' max-h-[700px] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 flex flex-col gap-3  '>
                   

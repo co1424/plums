@@ -3,26 +3,70 @@ import exp from 'constants';
 import { useScrollTop } from './use-scroll-top';
 import Link from 'next/link';
 import Image from 'next/image';
-import plumsTitle from '../../../public/images/plums-title.png'
-import plumsProfile from '../../../public/images/plum_profile.svg'
+import plumsTitle from '../../../public/images/plums-title.png';
+import plumsProfile from '../../../public/images/plum_profile.svg';
+
+import CardModalNewTopic from '../components/ModalNewTopic';
+
+import CardModal from '../components/ModalNote';
+import { useState } from 'react';
+import React, { useEffect } from 'react';
+import apiUrl from '../config';
 
 const purpleBackgroundColor = {
   backgroundColor: 'rgba(250, 245, 255, 1)',
 };
 
 function Header() {
+  const [openModalNewTopic, setOpenModalNewTopic] = useState(false);
+  const [openModalNewNote, setOpenModalNewNote] = useState(false);
+  const [tagIdToDelete, setTagIdToDelete] = useState<string | null>(null);
   const scrolled = useScrollTop();
-  const headerStyle = `flex justify-between items-center px-11 py-5 min-h-fit${
+  const headerStyle = `flex justify-between items-center px-1 py-1 min-h-fit${
     scrolled ? ' border-b shadow' : ''
   }`;
 
+  interface tagResponse {
+    id: string;
+    name: string;
+    description: string;
+    image: string;
+    authorId: string;
+  }
+
+  const [tags, setTags] = useState<tagResponse[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await fetch(`${apiUrl}api/tag`, {
+        cache: 'no-store',
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const tagsData: tagResponse[] = await result.json();
+      setTags(tagsData);
+    };
+    fetchData();
+  }, [tagIdToDelete]); // Run once when the component mounts
+  console.log(tags);
+
+  const handleNewTag = async (newTag: tagResponse) => {
+    setTags((prevTags) => [...prevTags, newTag]);
+  };
+  console.log(tags);
+
   console.log(scrolled);
+
+
   return (
     <header className="sticky top-0 bg-white z-50">
       <nav>
         <ul
           className={
-            headerStyle + ' flex justify-between items-center p-4 bg-white'
+            headerStyle + ' flex justify-between items-center p-2 bg-white'
           }
         >
           {/* Home button on the left */}
@@ -34,26 +78,53 @@ function Header() {
             ></Link>
           </li>
 
-          {/* Plums title and image */}
+          {/* Centered items */}
+          <ul className="flex justify-evenly items-center space-x-4 flex-grow">
+            {/* Notes buttons */}
+            <li
+              className="border p-2 flex rounded-md cursor-pointer hover:bg-plum-light"
+              onClick={() => setOpenModalNewTopic(true)}
+            >
+              New Tag
+            </li>
+
+            {openModalNewTopic && (
+              <CardModalNewTopic
+                onCloseModal={() => setOpenModalNewTopic(false)}
+                showCloseButton={false}
+                onNewTag={handleNewTag}
+              />
+            )}
+
+            <li
+              className="border p-2 rounded-md cursor-pointer"
+              onClick={() => setOpenModalNewNote(true)}
+            >
+              New Note
+            </li>
+
+            {openModalNewNote && (
+              <CardModal
+                onCloseModal={() => setOpenModalNewNote(false)}
+                showCloseButton={false}
+              />
+            )}
+
+            <li className="border p-2 rounded-md cursor-pointer">All Notes</li>
+          </ul>
+
+          {/* Plums title and image on the right */}
           <li className="flex items-center">
             {/* Plums title (centered on small screens) */}
-            <div className="sm:inline-block rounded-full p-2">
-              <div className="w-80 md:w-40">
-                <Image
-                  src={plumsTitle}
-                  alt="title"
-                  fill={true}
-                />
+            <div className="hidden md:block p-2">
+              <div className="w-40">
+                <Image src={plumsTitle} alt="title" />
               </div>
             </div>
 
             {/* Plum image on the right */}
-            <div className="w-12 md:w-120 ml-auto">
-              <Image
-                src={plumsProfile}
-                alt="Plum-Image"
-                fill={true}
-              />
+            <div className="w-12 md:w-20 ml-auto">
+              <Image src={plumsProfile} alt="Plum-Image" />
             </div>
           </li>
         </ul>

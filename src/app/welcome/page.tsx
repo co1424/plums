@@ -2,11 +2,7 @@
 import React, { useEffect } from 'react';
 import 'primeicons/primeicons.css';
 import { useState } from 'react';
-import { Flowbite, Button } from 'flowbite-react';
-import { buttonTheme } from '../components/themes';
-import CardModalNewTopic from '../components/ModalNewTopic';
-import CardModalNewNote from '../components/ModalNewNote';
-import CardModal from '../components/ModalNote';
+
 // import TagList from '../components/TagList';
 import { TbTrash } from 'react-icons/tb';
 import { Spinner } from '../components/spinner';
@@ -14,8 +10,6 @@ import { AiOutlineEdit } from 'react-icons/ai';
 import apiUrl from '../config';
 
 function Welcome() {
-  const [openModalNewTopic, setOpenModalNewTopic] = useState(false);
-  const [openModalNewNote, setOpenModalNewNote] = useState(false);
   const [tagIdToDelete, setTagIdToDelete] = useState<string | null>(null);
 
 
@@ -45,10 +39,6 @@ function Welcome() {
     fetchData();
   }, [tagIdToDelete]); // Run once when the component mounts
   console.log(tags);
-
-  const handleNewTag = async (newTag: tagResponse) => {
-    setTags((prevTags) => [...prevTags, newTag]);
-  };
 
   const deleteIt = async (tagId: string) => {
     try {
@@ -88,47 +78,7 @@ function Welcome() {
       <br />
       <br />
       <h1 className="text-xl font-bold">Welcome! Are you ready to take notes?</h1>
-      <br />
-      <Flowbite theme={{ theme: buttonTheme }}>
-        <Button
-          className={`${buttonTheme.button.color.primary}`}
-          onClick={() => setOpenModalNewTopic(true)}
-        >
-          Create New Topic/Tag
-        </Button>
-      </Flowbite>
-      {openModalNewTopic && (
-        <CardModalNewTopic
-          onCloseModal={() => setOpenModalNewTopic(false)}
-          showCloseButton={false}
-          onNewTag={handleNewTag}
-        />
-      )}
-      <br />
-      <Flowbite theme={{ theme: buttonTheme }}>
-        <Button
-          className={`${buttonTheme.button.color.primary}`}
-          onClick={() => setOpenModalNewNote(true)}
-        >
-          Create New Note
-        </Button>
-      </Flowbite>
-      {openModalNewNote && (
-        <CardModal
-          onCloseModal={() => setOpenModalNewNote(false)}
-          showCloseButton={false}
-        />
-      )}
-      <br />
-      <Flowbite theme={{ theme: buttonTheme }}>
-        <Button
-          className={`${buttonTheme.button.color.primary}`}
-          href='/topic'
-        >
-          View All Notes
-        </Button>
-      </Flowbite>
-      <br />
+
       <br />
 
       <h2 className="text-xl font-bold">Your existing topics:</h2>
