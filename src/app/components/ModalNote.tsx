@@ -84,6 +84,7 @@ function CardModalNote({ onCloseModal, showCloseButton = true }: CardModalProps)
     setUrlNote(event.target.value);
   };
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("handleImageChange was called")
     const fileInput = event.target;
     if (fileInput.files && fileInput.files.length > 0) {
       const selectedFile = fileInput.files[0];
@@ -100,7 +101,9 @@ function CardModalNote({ onCloseModal, showCloseButton = true }: CardModalProps)
     }
   };
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("handleFileChange was called")
     const fileInput = event.target;
+    console.log("file input", event.target)
     if (fileInput.files && fileInput.files.length > 0) {
       const selectedFile = fileInput.files[0];
       let fileReader = new FileReader();
@@ -128,7 +131,15 @@ function CardModalNote({ onCloseModal, showCloseButton = true }: CardModalProps)
   
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+    // console.log("the content of the request before calling the api",JSON.stringify({ title,
+    //   url,
+    //   urlNote,
+    //   image,
+    //   imageNote,
+    //   file,
+    //   fileNote,
+    //   content,
+    //   selectedTags }))
     try {
       const response = await fetch(`${apiUrl}api/note`, {
         method: 'POST',
@@ -167,7 +178,7 @@ function CardModalNote({ onCloseModal, showCloseButton = true }: CardModalProps)
         <Modal.Header />
         <Modal.Body>
           <form onSubmit={handleSubmit} className="space-y-6 p-4 bg-white rounded-lg max-w-[400px] mx-auto ">
-          <h2 className="text-2xl font-semibold mb-4">Create New Note</h2>
+            <h2 className="text-2xl font-semibold mb-4">Create New Note</h2>
             <div id='add-title'>
             <Label htmlFor="title" className="text-black dark:text-black">Title:</Label>
             <TextInput
@@ -214,12 +225,12 @@ function CardModalNote({ onCloseModal, showCloseButton = true }: CardModalProps)
             </div>
 
             <div id="upload-image">
-              <label htmlFor="file" className="text-black dark:text-black cursor-pointer"
-              >
-              <FaImage size={24} className="inline-block mr-2" /></label>
+              <label htmlFor="file" className="text-black dark:text-black cursor-pointer">
+              <FaImage onClick={() => {console.log("file Icon clicked 24")}} size={24} className="inline-block mr-2" /></label>
               <FileInput 
               onChange={handleImageChange}
-              id="file" className="text-black dark:text-black mt-2 hidden"
+              id="image" 
+              className="text-black dark:text-black mt-2 hidden"
               />
             </div>
 
@@ -234,10 +245,11 @@ function CardModalNote({ onCloseModal, showCloseButton = true }: CardModalProps)
             </div>
 
             <div id="upload-file">
-              <label htmlFor="file" className="text-black dark:text-black cursor-pointer"> <AiOutlineUpload size={24} className="inline-block mr-2" /> </label>
+              <label htmlFor="file" className="text-black dark:text-black cursor-pointer"> 
+              <AiOutlineUpload onClick={() => {console.log("file Icon clicked 28")}} size={24} className="inline-block mr-2" /> </label>
               <FileInput 
-              id="file" 
               onChange={handleFileChange}
+              id="file" 
               className="text-black dark:text-black mt-2 hidden"
               />
             </div>
