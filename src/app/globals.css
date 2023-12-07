@@ -1,9 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 body {
   background-color: #eae2f3;
+  font-family: 'Roboto', sans-serif;
+}
+
+nav button, form button {
+  border: none;
+  border-radius: 45px;
+  cursor: pointer;
+  flex-shrink: 0;
+  outline: none;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+  background: linear-gradient(90deg, #ad8d96, #cecacd); 
+  color: white; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+nav button:hover {
+  background: linear-gradient(90deg, #bc9ba5, #e5d3e8); /* Lighter gradient on hover */
+}
+
+nav button:active {
+  transform: scale(0.98); /* Slight scale down on click for a pressing effect */
 }
 
 .TextInput {

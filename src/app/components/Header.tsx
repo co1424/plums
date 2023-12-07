@@ -66,7 +66,7 @@ function Header() {
       <nav>
         <ul
           className={
-            headerStyle + ' flex justify-between items-center p-2 bg-white'
+            headerStyle + ' flex justify-between items-center bg-white'
           }
         >
           {/* Home button on the left */}
@@ -81,12 +81,14 @@ function Header() {
           {/* Centered items */}
           <ul className="flex justify-evenly items-center space-x-4 flex-grow">
             {/* Notes buttons */}
-            <li
-              className="border p-2 flex rounded-md cursor-pointer hover:bg-plum-light"
+            <button
+            
+              className="p-1 flex-shrink-0 text-lg"
               onClick={() => setOpenModalNewTopic(true)}
+              
             >
               New Tag
-            </li>
+            </button>
 
             {openModalNewTopic && (
               <CardModalNewTopic
@@ -96,12 +98,12 @@ function Header() {
               />
             )}
 
-            <li
-              className="border p-2 rounded-md cursor-pointer"
+            <button
+              className="p-1 flex-shrink-0 text-lg "
               onClick={() => setOpenModalNewNote(true)}
             >
               New Note
-            </li>
+            </button>
 
             {openModalNewNote && (
               <CardModal
@@ -110,7 +112,7 @@ function Header() {
               />
             )}
 
-            <li className="border p-2 rounded-md cursor-pointer">All Notes</li>
+            <button className="p-1 flex-shrink-0 text-lg">All Notes</button>
           </ul>
 
           {/* Plums title and image on the right */}
