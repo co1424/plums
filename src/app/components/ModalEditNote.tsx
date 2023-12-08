@@ -337,7 +337,13 @@ const handleEdit = async () => {
               {/* Map through files and display them */}
               {files.map((file) => (
                 <div key={file.id} className=' '>
-                  <Image width={128} height={128} src={file.file} alt={file.description} />
+                  {/* <Image width={128} height={128} src={file.file} alt={file.description} /> */}
+                  <iframe
+                    src={file.file}
+                    width="100%"
+                    height="600px"
+                    frameBorder="0"
+                  ></iframe>
                 </div>
               ))}
             </div>
