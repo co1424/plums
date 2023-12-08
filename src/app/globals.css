@@ -8,20 +8,21 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-nav button, form button {
+nav button {
   border: none;
-  border-radius: 45px;
+  border-bottom: 3px solid #b0a0c2;
   cursor: pointer;
   flex-shrink: 0;
   outline: none;
-  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
-  background: linear-gradient(90deg, #ad8d96, #cecacd); 
-  color: white; 
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: none;
+  color: black;
+  box-shadow: none;
+  transition: border-bottom 0.9s ease-in-out, transform 0.5s ease-in-out;
 }
 
 nav button:hover {
-  background: linear-gradient(90deg, #bc9ba5, #e5d3e8); /* Lighter gradient on hover */
+  border-bottom: 4px solid #604183;
+  transition: border-bottom 1.2s ease-in-out, transform 0.5s ease-in-out;
 }
 
 nav button:active {

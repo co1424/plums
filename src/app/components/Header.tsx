@@ -84,7 +84,7 @@ function Header() {
               className="p-1 flex-shrink-0 text-lg"
               onClick={() => setOpenModalNewTopic(true)}
             >
-              New Tag
+              <span style={{ fontWeight: 'bold' }}>&#10133;</span> Tag
             </button>
 
             {openModalNewTopic && (
@@ -99,7 +99,7 @@ function Header() {
               className="p-1 flex-shrink-0 text-lg "
               onClick={() => setOpenModalNewNote(true)}
             >
-              New Note
+              <span style={{ fontWeight: 'bold' }}>&#10133;</span> Note
             </button>
 
             {openModalNewNote && (
@@ -110,10 +110,10 @@ function Header() {
             )}
 
             <button className="p-1 flex-shrink-0 text-lg">All Notes</button>
+            <button className="p-1 flex-shrink-0 text-lg">
+              <a href="/api/auth/logout">Sign Out</a>
+            </button>
           </ul>
-          <button className="p-1 flex-shrink-0 text-lg ">
-            <a href="/api/auth/logout">Logout</a>
-          </button>
 
           {/* Plums title and image on the right */}
           <li className="flex items-center">
@@ -125,7 +125,7 @@ function Header() {
             </div>
 
             {/* Plum image on the right */}
-            <div className="w-12 md:w-20 ml-auto">
+            <div className="hidden w-12 md:block  ml-auto">
               <Image src={plumsProfile} alt="Plum-Image" />
             </div>
           </li>
