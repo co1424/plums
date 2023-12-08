@@ -2,8 +2,6 @@
 import React, { useEffect } from 'react';
 import 'primeicons/primeicons.css';
 import { useState } from 'react';
-
-// import TagList from '../components/TagList';
 import { TbTrash } from 'react-icons/tb';
 import { Spinner } from '../components/spinner';
 import { AiOutlineEdit } from 'react-icons/ai';

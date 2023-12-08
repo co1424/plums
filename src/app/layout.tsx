@@ -25,7 +25,6 @@ export default function RootLayout({
       <UserProvider>
       <body className={inter.className}>
         
-        <Header/> 
         {children}
         <Footer/>     
       

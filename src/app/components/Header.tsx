@@ -60,7 +60,6 @@ function Header() {
 
   console.log(scrolled);
 
-
   return (
     <header className="sticky top-0 bg-white z-50">
       <nav>
@@ -82,10 +81,8 @@ function Header() {
           <ul className="flex justify-evenly items-center space-x-4 flex-grow">
             {/* Notes buttons */}
             <button
-            
               className="p-1 flex-shrink-0 text-lg"
               onClick={() => setOpenModalNewTopic(true)}
-              
             >
               New Tag
             </button>
@@ -114,6 +111,9 @@ function Header() {
 
             <button className="p-1 flex-shrink-0 text-lg">All Notes</button>
           </ul>
+          <button className="p-1 flex-shrink-0 text-lg ">
+            <a href="/api/auth/logout">Logout</a>
+          </button>
 
           {/* Plums title and image on the right */}
           <li className="flex items-center">
