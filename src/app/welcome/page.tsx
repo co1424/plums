@@ -113,7 +113,7 @@ function Welcome() {
               <CardModalEditTopic
                 onCloseModal={() => setOpenModalEditTopic(false)}
                 showCloseButton={false}
-                // onNewTag={handleNewTag}
+                // onNewTag={handleEditTag}
               />)}
             </div>
           </div>
