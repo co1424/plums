@@ -2,14 +2,14 @@
 import React, { useEffect } from 'react';
 import 'primeicons/primeicons.css';
 import { useState } from 'react';
-
-// import TagList from '../components/TagList';
 import { TbTrash } from 'react-icons/tb';
 import { Spinner } from '../components/spinner';
 import { AiOutlineEdit } from 'react-icons/ai';
 import apiUrl from '../config';
+import CardModalEditTopic from '../components/ModalEditTopic';
 
 function Welcome() {
+  const [openModalEditTopic, setOpenModalEditTopic] = useState(false);
   const [tagIdToDelete, setTagIdToDelete] = useState<string | null>(null);
 
 
@@ -104,9 +104,17 @@ function Welcome() {
               >
                 <TbTrash size={'2em'} />
               </button>
-              <button className="focus:outline-none hover:bg-black hover:bg-opacity-10 rounded-md active:bg-white p-1 mx-2 opacity-0 group-hover:opacity-100 group-hover:transition-opacity group-hover:duration-500">
+              <button className="focus:outline-none hover:bg-black hover:bg-opacity-10 rounded-md active:bg-white p-1 mx-2 opacity-0 group-hover:opacity-100 group-hover:transition-opacity group-hover:duration-500"
+              onClick={() => setOpenModalEditTopic(true)}
+              >
                 <AiOutlineEdit size={28} color="black" />
               </button>
+              {openModalEditTopic && (
+              <CardModalEditTopic
+                onCloseModal={() => setOpenModalEditTopic(false)}
+                showCloseButton={false}
+                // onNewTag={handleEditTag}
+              />)}
             </div>
           </div>
         ))}
