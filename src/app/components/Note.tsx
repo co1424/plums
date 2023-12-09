@@ -70,11 +70,12 @@ const Note = ({ note, onDelete, onImageDelete }: any) => {
           
           {/* Conditionally render URL */}
           <br />
-          <p className='italic text-gray-500 mb-2 text-xs'>Your Links:</p>
+          
           {mutableUrls.length > 0 && (
             mutableUrls.map((url: { id: string, url:any, description:string }) => {
                 return  (              
               <div id={id} key={id} >
+                <p className='italic text-gray-500 mb-2 text-xs'>Links:</p>
               <a target='_blank' key={id} href={url.url}>{url.url}</a>
               <br />
               {url.description && <p>{url.description}</p>} 
@@ -84,20 +85,29 @@ const Note = ({ note, onDelete, onImageDelete }: any) => {
           )}
           
           {/* Conditionally render image */}
-          <p className='italic text-gray-500 mb-2 text-xs'>Your Images:</p>
+          
           <div className='flex justify-center'>
           {mutableImages.length > 0 && (
             mutableImages.map((image: any) => {
-              return (<Image width={128} height={128} key={image.id} src={image.image} alt={image.description} />);
+              return (
+
+                <div>
+                <p className='italic text-gray-500 mb-2 text-xs'>Images:</p>
+              
+              <Image width={128} height={128} key={image.id} src={image.image} alt={image.description} />
+              </div>
+              
+              );
             })
           )}
           </div>
           
           {/* Conditionally render file */}
-          <p className='italic text-gray-500 mb-2 text-xs'>Your Files:</p>
+          
           {files.length > 0 && (
             files.map((file: { id: any, file:string, description:string }) => {
               return (    <div id={id} key={file.id} >
+                <p className='italic text-gray-500 mb-2 text-xs'>Files:</p>
                 <a target='_blank' href={content}>*</a>
                 <br />
                 {file.description && <p>{file.description}</p>}
