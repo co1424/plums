@@ -6,13 +6,13 @@ import {
   Label,
   Textarea,
   FileInput,
-  Flowbite
+  Flowbite,
 } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { buttonTheme } from './themes';
 import Note from './Note';
 import TagDropdown from './TagDropdown';
-import prisma from "@/app/data";
+import prisma from '@/app/data';
 import router from 'next/router';
 import { FaImage } from 'react-icons/fa';
 import { AiOutlineUpload } from 'react-icons/ai';
@@ -28,7 +28,10 @@ interface tagResponse {
   name: string;
 }
 
-function CardModalNote({ onCloseModal, showCloseButton = true }: CardModalProps) {
+function CardModalNote({
+  onCloseModal,
+  showCloseButton = true,
+}: CardModalProps) {
   const [email, setEmail] = useState('');
   const [title, setTitle] = useState('');
   const [url, setUrl] = useState('');
@@ -75,7 +78,7 @@ function CardModalNote({ onCloseModal, showCloseButton = true }: CardModalProps)
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
-    console.log("handleTitleChange was called")
+    console.log('handleTitleChange was called');
   };
   const handleUrlChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUrl(event.target.value);
@@ -88,14 +91,14 @@ function CardModalNote({ onCloseModal, showCloseButton = true }: CardModalProps)
     if (fileInput.files && fileInput.files.length > 0) {
       const selectedFile = fileInput.files[0];
       let fileReader = new FileReader();
-  
+
       fileReader.onload = function (fileLoadedEvent) {
         if (fileLoadedEvent.target) {
           let srcData = fileLoadedEvent.target.result as string;
           setImage(srcData);
         }
       };
-  
+
       fileReader.readAsDataURL(selectedFile);
     }
   };
@@ -104,28 +107,33 @@ function CardModalNote({ onCloseModal, showCloseButton = true }: CardModalProps)
     if (fileInput.files && fileInput.files.length > 0) {
       const selectedFile = fileInput.files[0];
       let fileReader = new FileReader();
-  
+
       fileReader.onload = function (fileLoadedEvent) {
         if (fileLoadedEvent.target) {
           let srcData = fileLoadedEvent.target.result as string;
           setFile(srcData);
         }
       };
-  
+
       fileReader.readAsDataURL(selectedFile);
     }
   };
-  const handleContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleContentChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     setContent(event.target.value);
   };
-  const handleImageNoteChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleImageNoteChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     setImageNote(event.target.value);
   };
-  const handleFileNoteChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleFileNoteChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     setFileNote(event.target.value);
   };
 
-  
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -135,7 +143,8 @@ function CardModalNote({ onCloseModal, showCloseButton = true }: CardModalProps)
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ title,
+        body: JSON.stringify({
+          title,
           url,
           urlNote,
           image,
@@ -143,10 +152,11 @@ function CardModalNote({ onCloseModal, showCloseButton = true }: CardModalProps)
           file,
           fileNote,
           content,
-          selectedTags }),
+          selectedTags,
+        }),
       });
       const data = await response.json();
-      console.log("the answer from the api data with the note", data)
+      console.log('the answer from the api data with the note', data);
       if (response.ok) {
         console.log('Note created successfully:', data);
         // router.replace("/welcome"); // Use replace instead of refresh for client-side navigation
@@ -156,106 +166,30 @@ function CardModalNote({ onCloseModal, showCloseButton = true }: CardModalProps)
     } catch (error) {
       console.error(error);
     }
-
   };
 
   return (
     <>
-
-      <Modal show={true} size="xl" onClose={onCloseModal} popup dismissible
-      className="p-[80px] max-w-[400px] min-w-[600px] mx-auto rounded-lg text-black items-center ">
+      <Modal
+        show={true}
+        size="xl"
+        onClose={onCloseModal}
+        popup
+        dismissible
+        className="p-[80px] max-w-[400px] min-w-[600px] mx-auto rounded-lg text-black items-center "
+      >
         <Modal.Header />
         <Modal.Body>
-          <form onSubmit={handleSubmit} className="space-y-6 p-4 bg-white rounded-lg max-w-[400px] mx-auto ">
-          <h2 className="text-2xl font-semibold mb-4">Create New Note</h2>
-            <div id='add-title'>
-            <Label htmlFor="title" className="text-black dark:text-black">Title:</Label>
-            <TextInput
-              type="text"
-              id="title"
-              placeholder="  Enter topic name"
-              onChange={handleTitleChange}
-              className="text-black dark:text-black"
-            />
-            </div>
-            <div id='add-notes'>
-            <Label htmlFor="topic_notes" className="text-black dark:text-black">Notes</Label>
-            <Textarea
-              id="topic_notes"
-              placeholder="Enter your personal notes here:"
-              onChange={handleContentChange}
-              className="text-black dark:text-black"
-            />
-            </div>
-
-            <div id='add-url'>
-            <Label htmlFor="topic_url" className="text-black dark:text-black"></Label>
-            <div className="flex items-center">
-            <FaLink size={20} className="mr-2" />
-            <TextInput 
-            type="text" 
-            id="topic_url" 
-            placeholder="Enter new URL" 
-            onChange={handleUrlChange}
-            className="text-black dark:text-black mt-2 hidden"
-            />
-            </div>
-            </div>
-
-            <div id='add-urlNote'>
-            <Label htmlFor="topic_url" className="text-black dark:text-black">URL Notes</Label>
-            <TextInput 
-            type="text" 
-            id="topic_urlNote" 
-            placeholder="Optional" 
-            onChange={handleUrlNoteChange}
-            className="text-black dark:text-black"
-            />
-            </div>
-
-            <div id="upload-image">
-              <label htmlFor="file" className="text-black dark:text-black cursor-pointer"
-              >
-              <FaImage size={24} className="inline-block mr-2" /></label>
-              <FileInput 
-              onChange={handleImageChange}
-              id="file" className="text-black dark:text-black mt-2 hidden"
-              />
-            </div>
-
-            <div id='add-imageNote'>
-            <Label htmlFor="topic_notes" className="text-black dark:text-black ">Image Description</Label>
-            <Textarea
-              id="topic_imageNotes"
-              placeholder="Optional"
-              onChange={handleImageNoteChange}
-              className="text-black dark:text-black"
-            />
-            </div>
-
-            <div id="upload-file">
-              <label htmlFor="file" className="text-black dark:text-black cursor-pointer"> <AiOutlineUpload size={24} className="inline-block mr-2" /> </label>
-              <FileInput 
-              id="file" 
-              onChange={handleFileChange}
-              className="text-black dark:text-black mt-2 hidden"
-              />
-            </div>
-
-            <div id='add-fileNote'>
-            <Label htmlFor="topic_notes" className="text-black dark:text-black">File Notes</Label>
-            <Textarea
-              id="topic_fileNotes"
-              placeholder="Optional"
-              onChange={handleFileNoteChange}
-              className="text-black dark:text-black"
-            />
-            </div>
-
-            
-
-            <div id='tagSelect'>
-              <Label htmlFor="tagSelect" className="text-black dark:text-black"></Label >
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-6 p-4 bg-white rounded-lg max-w-[400px] mx-auto "
+          >
+            <h2 className="text-2xl font-semibold mb-4">Create New Note</h2>
+            <div id="tagSelect">
+              <Label
+                htmlFor="tagSelect"
+                className="text-black dark:text-black"
+              ></Label>
               <div className="relative inline-block text-left">
                 <div>
                   <span className="rounded-md shadow-sm">
@@ -264,6 +198,7 @@ function CardModalNote({ onCloseModal, showCloseButton = true }: CardModalProps)
                       className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                       id="options-menu"
                       onClick={handleDropdownToggle}
+                      
                     >
                       Select Tag
                     </button>
@@ -276,24 +211,146 @@ function CardModalNote({ onCloseModal, showCloseButton = true }: CardModalProps)
                         key={tag.id}
                         className="block px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100"
                       >
-                      <div className='flex '>
+                        <div className="flex ">
+                          <input
+                            type="checkbox"
+                            value={tag.id}
+                            checked={selectedTags.includes(tag.id)}
+                            onChange={() => handleTagSelection(tag.id)}
+                            className="mr-2 form-checkbox"
+                          />
 
-                      <input
-                          type="checkbox"
-                          value={tag.id}
-                          checked={selectedTags.includes(tag.id)}
-                          onChange={() => handleTagSelection(tag.id)}
-                          className="mr-2 form-checkbox"
-                        />
-
-                        {tag.name}
-                      </div>
+                          {tag.name}
+                        </div>
                       </label>
                     ))}
                   </div>
                 )}
               </div>
             </div>
+
+            <div id="add-title">
+              <Label htmlFor="title" className="text-black dark:text-black">
+                Title:
+              </Label>
+              <TextInput
+                type="text"
+                id="title"
+                placeholder="  Enter topic name"
+                onChange={handleTitleChange}
+                className="text-black dark:text-black"
+              />
+            </div>
+            <div id="add-notes">
+              <Label
+                htmlFor="topic_notes"
+                className="text-black dark:text-black"
+              >
+                Notes
+              </Label>
+              <Textarea
+                id="topic_notes"
+                placeholder="Enter your personal notes here:"
+                onChange={handleContentChange}
+                className="text-black dark:text-black"
+              />
+            </div>
+            <div className="flex items-center">
+
+                <div id="add-url">
+                  <Label
+                    htmlFor="topic_url"
+                    className="text-black dark:text-black "
+                  ></Label>
+                  <div className="flex items-center">
+                    <FaLink size={20} className="mr-2 " />
+                    <TextInput
+                      type="text"
+                      id="topic_url"
+                      placeholder="Enter new URL"
+                      onChange={handleUrlChange}
+                      className="text-black dark:text-black mt-2 "
+                    />
+                  </div>
+                </div>
+
+                <div id="add-urlNote">
+                  <Label
+                    htmlFor="topic_url"
+                    className="text-black dark:text-black"
+                  ></Label>
+                  <TextInput
+                    type="text"
+                    id="topic_urlNote"
+                    placeholder="Description"
+                    onChange={handleUrlNoteChange}
+                    className="text-black dark:text-black"
+                  />
+                </div>
+              </div>
+              <div className="flex flex-row items-center">
+                <div id="upload-image">
+                  <label
+                    htmlFor="file"
+                    className="text-black dark:text-black cursor-pointer"
+                  >
+                    <FaImage size={24} className=" mr-2" />
+                  </label>
+                  <FileInput
+                    onChange={handleImageChange}
+                    id="file"
+                    className="text-black dark:text-black mt-2 hidden"
+                  />
+                </div>
+
+                <div id="add-imageNote">
+                  <Label
+                    htmlFor="topic_notes"
+                    className="text-black dark:text-black "
+                  ></Label>
+                  <Textarea
+                    id="topic_imageNotes"
+                    placeholder="Description"
+                    onChange={handleImageNoteChange}
+                    className="text-black dark:text-black"
+                  />
+                </div>
+              </div>
+              <div className="flex flex-row items-center">
+                <div id="upload-file">
+                  <label
+                    htmlFor="file"
+                    className="text-black dark:text-black cursor-pointer"
+                  >
+                    {' '}
+                    <AiOutlineUpload
+                      size={24}
+                      className="inline-block mr-2"
+                    />{' '}
+                  </label>
+                  <FileInput
+                    id="file"
+                    onChange={handleFileChange}
+                    className="text-black dark:text-black mt-2 hidden"
+                  />
+                </div>
+
+                <div id="add-fileNote">
+                  <Label
+                    htmlFor="topic_notes"
+                    className="text-black dark:text-black"
+                  >
+                
+                  </Label>
+                  <Textarea
+                    id="topic_fileNotes"
+                    placeholder="Description"
+                    onChange={handleFileNoteChange}
+                    className="text-black dark:text-black"
+                  />
+                </div>
+              </div>
+
 
             {/* Always render the close button */}
             {showCloseButton && (
@@ -307,14 +364,16 @@ function CardModalNote({ onCloseModal, showCloseButton = true }: CardModalProps)
 
             <br />
             <Flowbite theme={{ theme: buttonTheme }}>
-                <button type='submit' className={`mb-4 ${buttonTheme.button.color.primary}`}>Create Note</button>
+              <button
+                type="submit"
+                className={`mb-4 ${buttonTheme.button.color.primary}`}
+              >
+                Create Note
+              </button>
             </Flowbite>
           </form>
-          
         </Modal.Body>
-
       </Modal>
-
     </>
   );
 }
