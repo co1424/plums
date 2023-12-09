@@ -92,19 +92,21 @@ const Note = ({ note, onDelete, onImageDelete }: any) => {
             })
           )}
           </div>
-          
+
           {/* Conditionally render file */}
-          <p className='italic text-gray-500 mb-2 text-xs'>Your Files:</p>
-          {files.length > 0 && (
-            files.map((file: { id: any, file:string, description:string }) => {
-              return (    <div id={id} key={file.id} >
-                <a target='_blank' href={content}>*</a>
-                <br />
-                {file.description && <p>{file.description}</p>}
-                <br />
-            </div>);
-            })
-          )}
+            <p className='italic text-gray-500 mb-2 text-xs'>Your Files:</p>
+            {files.length > 0 && (
+              files.map((file: { id: any, file:string, description:string }) => {
+                return (    <div id={id} key={file.id} >
+                  <a target='_blank' href={content}>*</a>
+                  <br />
+                  {file.description && <p>{file.description}</p>}
+                  <br />
+              </div>);
+              })
+            )}
+          
+
 
         </div>
       </a>
