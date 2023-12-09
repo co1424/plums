@@ -101,7 +101,7 @@ const Note = ({ note, onDelete, onImageDelete }: any) => {
             })
           )}
           </div>
-          
+
           {/* Conditionally render file */}
           
           {files.length > 0 && (

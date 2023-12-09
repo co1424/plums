@@ -87,6 +87,7 @@ function CardModalNote({
     setUrlNote(event.target.value);
   };
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("handleImageChange was called")
     const fileInput = event.target;
     if (fileInput.files && fileInput.files.length > 0) {
       const selectedFile = fileInput.files[0];
@@ -103,7 +104,9 @@ function CardModalNote({
     }
   };
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("handleFileChange was called")
     const fileInput = event.target;
+    console.log("file input", event.target)
     if (fileInput.files && fileInput.files.length > 0) {
       const selectedFile = fileInput.files[0];
       let fileReader = new FileReader();
@@ -136,7 +139,15 @@ function CardModalNote({
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+    // console.log("the content of the request before calling the api",JSON.stringify({ title,
+    //   url,
+    //   urlNote,
+    //   image,
+    //   imageNote,
+    //   file,
+    //   fileNote,
+    //   content,
+    //   selectedTags }))
     try {
       const response = await fetch(`${apiUrl}api/note`, {
         method: 'POST',

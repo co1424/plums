@@ -14,6 +14,12 @@ import Note from './Note';
 import { TbTrash } from 'react-icons/tb';
 import Image from 'next/image';
 import apiUrl from '@/app/config'
+import downloadWord from '../../../public/images/downloadWord.png'
+import downloadExcel from '../../../public/images/excel.png'
+import downloadPPT from '../../../public/images/ppt.png'
+import downloadFile from '../../../public/images/file.png'
+import downloadPDF from '../../../public/images/pdf.png'
+import { AiOutlineEdit } from 'react-icons/ai';
 
 interface image{
   id: string
@@ -213,13 +219,9 @@ const handleEdit = async () => {
   }
 };
 
-
-
-
   return (
-    <>
-      <Modal className=' sm:px-[10%] lg:px-[30%] mt-16' show={true} onClose={onCloseModal} popup dismissible>
-      <div onClick={() => onCloseModal()} className='bg-gray-950 opacity-60 h-full w-full fixed top-0 left-0 z-40'></div>
+      <Modal className=' sm:px-[10%] lg:px-[30%] mt-16' show={true}  popup dismissible>
+        <div onClick={() => onCloseModal()} className='bg-gray-950 opacity-60 h-full w-full fixed top-0 left-0 z-40'></div>
 
         <div className='w-full mx-auto h-[600px] z-50 bg-white rounded-lg group/whiteBand'>
 
@@ -241,23 +243,26 @@ const handleEdit = async () => {
             />
 
             {/* Map through URL states and render textareas or clickable URLs based on the isEditing state */}
-            <p className='text-xs text-gray-500 px-5'>Url</p>
+            {urlStates[0] &&(<p className='text-xs text-gray-500 px-5'>Url</p>)}
             {urlStates.map((url, index) => (
-              <div key={url.id}>
+              <div key={url.id} className='flex hover:bg-slate-200 py-5  justify-between'>
                 {url.isEditing ? (
                   <>
-                    <textarea
-                      className='text-base w-full px-7 resize-none focus:outline-none'
-                      value={url.url}
-                      onChange={(e) => handleUrlChange(index, 'url', e.target.value)}
-                      rows={2}
-                    />
-                    <textarea
-                      className='text-base w-full px-7 resize-none focus:outline-none'
-                      value={url.description}
-                      onChange={(e) => handleUrlChange(index, 'description', e.target.value)}
-                      rows={2}
-                    />
+                    <div>
+                      <textarea
+                        className='text-base w-96 px-7 resize-none focus:outline-none'
+                        value={url.url}
+                        onChange={(e) => handleUrlChange(index, 'url', e.target.value)}
+                        rows={2}
+                      />
+                      {url.description &&(<p className='text-xs text-gray-500 px-5'>Description</p>)}
+                      <textarea
+                        className='text-base w-full px-7 resize-none focus:outline-none'
+                        value={url.description}
+                        onChange={(e) => handleUrlChange(index, 'description', e.target.value)}
+                        rows={2}
+                      />
+                    </div>
                   </>
                 ) : (
                   <>
@@ -272,12 +277,29 @@ const handleEdit = async () => {
                     <p className='px-7'>{url.description}</p>
                   </>
                 )}
-                <button className='px-7' onClick={() => toggleUrlEditing(index)}>
-                  {url.isEditing ? 'Save' : 'Edit'}
+                <button className='hover:bg-white rounded-md active:bg-slate-200 p-1 mx-2 duration-500 ml-auto h-8 my-auto' onClick={() => toggleUrlEditing(index)}>
+                  {url.isEditing ? 'Save' : <AiOutlineEdit size={28} color="black" />}
                 </button>
               </div>
             ))}
-          </div>
+
+            <div className='files-container w-full '>
+                {/* Map through files and display them */}
+                
+                {files.map((file) => (
+                  
+                  <div key={file.id} className='flex flex-row-reverse mt-3'>      
+                  {file.file.includes("wordprocessingml") && ( <a href={file.file} target='_blank' rel="noopener noreferrer" download={"word_document"}><Image src={downloadWord} className='rounded-xl' width={128} height={128} alt='download Word document icon'></Image></a>)}
+                  {file.file.includes("spreadsheetml") && ( <a href={file.file} target='_blank' rel="noopener noreferrer" download={"word_document"}><Image src={downloadExcel} className='rounded-xl' width={128} height={128} alt='download Excel document icon'></Image></a>)}
+                  {file.file.includes("presentationml") && ( <a href={file.file} target='_blank' rel="noopener noreferrer" download={"word_document"}><Image src={downloadPPT} className='rounded-xl' width={128} height={128} alt='download PPT document icon'></Image></a>)}
+                  {!file.file.includes("pdf;")&& !file.file.includes("wordprocessingml") && !file.file.includes("spreadsheetml") && !file.file.includes("presentationml") && ( <a href={file.file} target='_blank' rel="noopener noreferrer" download={"document"}><Image src={downloadFile} className='rounded-xl' width={128} height={128} alt='download PPT document icon'></Image></a>)}
+                  {file.file.includes("pdf;") && ( <a href={file.file} target='_blank' rel="noopener noreferrer" download={"word_document"}><Image src={downloadPDF} className='rounded-xl' width={128} height={128} alt='download PPT document icon'></Image></a>)}
+                  <p>{file.description}</p>
+
+                  </div>
+                ))}
+              </div>
+            </div>
 
           {/* New container for images */}
           <div className='documents-container flex justify-between  absolute w-full bottom-16  h-auto'>
@@ -299,7 +321,7 @@ const handleEdit = async () => {
 
               
               </div>
-
+              {/* Expaded image */}
               <Modal 
               show={imageModal} 
               onClose={() => setImageModal(false)} 
@@ -332,15 +354,6 @@ const handleEdit = async () => {
           )}
           
           </div>
-
-            <div className='files-container w-full '>
-              {/* Map through files and display them */}
-              {files.map((file) => (
-                <div key={file.id} className=' '>
-                  <Image width={128} height={128} src={file.file} alt={file.description} />
-                </div>
-              ))}
-            </div>
           </div>
 
           <div className=' h-16 w-full absolute bottom-0 right-0 justify-end items-center  flex rounded-lg '>
@@ -353,7 +366,7 @@ const handleEdit = async () => {
           </div>
         </div>
       </Modal>
-    </>
+    
   );
 }
 
