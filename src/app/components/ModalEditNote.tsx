@@ -19,6 +19,7 @@ import downloadExcel from '../../../public/images/excel.png'
 import downloadPPT from '../../../public/images/ppt.png'
 import downloadFile from '../../../public/images/file.png'
 import downloadPDF from '../../../public/images/pdf.png'
+import { AiOutlineEdit } from 'react-icons/ai';
 
 interface image{
   id: string
@@ -244,21 +245,24 @@ const handleEdit = async () => {
             {/* Map through URL states and render textareas or clickable URLs based on the isEditing state */}
             {urlStates[0] &&(<p className='text-xs text-gray-500 px-5'>Url</p>)}
             {urlStates.map((url, index) => (
-              <div key={url.id}>
+              <div key={url.id} className='flex hover:bg-slate-200 py-5  justify-between'>
                 {url.isEditing ? (
                   <>
-                    <textarea
-                      className='text-base w-full px-7 resize-none focus:outline-none'
-                      value={url.url}
-                      onChange={(e) => handleUrlChange(index, 'url', e.target.value)}
-                      rows={2}
-                    />
-                    <textarea
-                      className='text-base w-full px-7 resize-none focus:outline-none'
-                      value={url.description}
-                      onChange={(e) => handleUrlChange(index, 'description', e.target.value)}
-                      rows={2}
-                    />
+                    <div>
+                      <textarea
+                        className='text-base w-96 px-7 resize-none focus:outline-none'
+                        value={url.url}
+                        onChange={(e) => handleUrlChange(index, 'url', e.target.value)}
+                        rows={2}
+                      />
+                      {url.description &&(<p className='text-xs text-gray-500 px-5'>Description</p>)}
+                      <textarea
+                        className='text-base w-full px-7 resize-none focus:outline-none'
+                        value={url.description}
+                        onChange={(e) => handleUrlChange(index, 'description', e.target.value)}
+                        rows={2}
+                      />
+                    </div>
                   </>
                 ) : (
                   <>
@@ -273,8 +277,8 @@ const handleEdit = async () => {
                     <p className='px-7'>{url.description}</p>
                   </>
                 )}
-                <button className='px-7' onClick={() => toggleUrlEditing(index)}>
-                  {url.isEditing ? 'Save' : 'Edit'}
+                <button className='hover:bg-white rounded-md active:bg-slate-200 p-1 mx-2 duration-500 ml-auto h-8 my-auto' onClick={() => toggleUrlEditing(index)}>
+                  {url.isEditing ? 'Save' : <AiOutlineEdit size={28} color="black" />}
                 </button>
               </div>
             ))}
