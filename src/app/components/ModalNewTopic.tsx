@@ -87,6 +87,7 @@ function CardModalNewTopic({
         onNewTag(data.result);
         console.log('Tag created successfully:');
         onCloseModal();
+        window.location.reload();
       } else {
         console.error('Failed to create tag:', data.message);
       }
