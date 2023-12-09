@@ -62,7 +62,7 @@ const NotesByTopic = ({ params }: NoteProps) => {
 
       if (result.ok) {
         const notesByTag = await result.json();
-        console.log('Notes by tag successfully fetched! tag/tagId/page');
+        console.log('Notes by tag successfully fetched! tag/tagId/page', notesByTag);
 
         setNotes(notesByTag.result);
       }

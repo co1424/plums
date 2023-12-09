@@ -65,14 +65,14 @@ function Header() {
       <nav>
         <ul
           className={
-            headerStyle + ' flex justify-between items-center bg-white'
+            headerStyle + ' flex justify-between items-center bg-white px-16'
           }
         >
           {/* Home button on the left */}
           <li>
             <Link
-              href="welcome"
-              className="pi pi-home text-black"
+              href="/welcome"
+              className="pi pi-home text-black "
               style={{ fontSize: '2rem', padding: '10px' }}
             ></Link>
           </li>

@@ -170,6 +170,7 @@ function CardModalNote({
       console.log('the answer from the api data with the note', data);
       if (response.ok) {
         console.log('Note created successfully:', data);
+        window.location.reload();
         // router.replace("/welcome"); // Use replace instead of refresh for client-side navigation
       } else {
         console.error('Failed to create note:', data);
@@ -189,11 +190,10 @@ function CardModalNote({
         dismissible
         className="p-[80px] max-w-[400px] min-w-[600px] mx-auto rounded-lg text-black items-center "
       >
-        <Modal.Header />
-        <Modal.Body>
+        <div onClick={onCloseModal} className='bg-gray-950 opacity-60 h-full w-full fixed top-0 left-0 z-40'></div>
           <form
             onSubmit={handleSubmit}
-            className="space-y-6 p-4 bg-white rounded-lg max-w-[400px] mx-auto "
+            className="space-y-6 p-4 bg-white rounded-lg max-w-[400px] mx-auto z-50 "
           >
             <h2 className="text-2xl font-semibold mb-4">Create New Note</h2>
             <div id="tagSelect">
@@ -302,14 +302,14 @@ function CardModalNote({
               <div className="flex flex-row items-center">
                 <div id="upload-image">
                   <label
-                    htmlFor="file"
+                    htmlFor="image"
                     className="text-black dark:text-black cursor-pointer"
                   >
                     <FaImage size={24} className=" mr-2" />
                   </label>
                   <FileInput
                     onChange={handleImageChange}
-                    id="file"
+                    id="image"
                     className="text-black dark:text-black mt-2 hidden"
                   />
                 </div>
@@ -383,7 +383,6 @@ function CardModalNote({
               </button>
             </Flowbite>
           </form>
-        </Modal.Body>
       </Modal>
     </>
   );

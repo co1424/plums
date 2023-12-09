@@ -106,11 +106,10 @@ function CardModalNewTopic({
         dismissible
         className="p-[80px] max-w-[400px] min-w-[600px] mx-auto rounded-lg text-black items-center "
       >
-        <Modal.Header />
-        <Modal.Body>
+        <div onClick={onCloseModal} className='bg-gray-950 opacity-60 h-full w-full fixed top-0 left-0 z-40'></div>                
           <form
             onSubmit={handleSubmit}
-            className="space-y-6 p-4 bg-white rounded-lg max-w-[400px] mx-auto "
+            className="space-y-6 p-4 bg-white rounded-lg max-w-[400px] mx-auto z-50 "
           >
             <h2 className="text-2xl font-semibold mb-4">Add New Topic/Tag</h2>
             <div id="add-name">
@@ -182,7 +181,6 @@ function CardModalNewTopic({
               </button>
             </Flowbite>
           </form>
-        </Modal.Body>
       </Modal>
     </>
   );

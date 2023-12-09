@@ -9,6 +9,11 @@ import { AiOutlineEdit } from "react-icons/ai";
 import Link from 'next/link';
 import Image from 'next/image';
 import apiUrl from '../config';
+import downloadWord from '../../../public/images/downloadWord.png'
+import downloadExcel from '../../../public/images/excel.png'
+import downloadPPT from '../../../public/images/ppt.png'
+import downloadFile from '../../../public/images/file.png'
+import downloadPDF from '../../../public/images/pdf.png'
 
 const Note = ({ note, onDelete, onImageDelete }: any) => {
   const { id, title, content, urls, images, files } = note;
@@ -57,7 +62,10 @@ const Note = ({ note, onDelete, onImageDelete }: any) => {
   
 
   return (
-    <div  className=" mt-4 bg-white border-1 cursor-pointer border-purple-600 rounded-lg max-w-sm w-80  min-w-80 p-4 max-h-[405px] overflow-y-auto relative group transition duration-300 ease-in-out transform hover:scale-105 shadow-md">
+    <div className='h-[405px] relative group hover:scale-105 transition duration-300 ease-in-out transform  shadow-md'>
+
+    
+    <div  className=" mt-4 bg-white border-1 cursor-pointer border-purple-600 rounded-lg max-w-sm w-80  min-w-80 p-4 max-h-[405px] h-[405px] overflow-y-auto  transition duration-300 ease-in-out transform  shadow-md">
       
       <a onClick={() => setOpenModal(true)}>
         
@@ -107,10 +115,13 @@ const Note = ({ note, onDelete, onImageDelete }: any) => {
           {files.length > 0 && (
             files.map((file: { id: any, file:string, description:string }) => {
               return (    <div id={id} key={file.id} >
-                <p className='italic text-gray-500 mb-2 text-xs'>Files:</p>
-                <a target='_blank' href={content}>*</a>
-                <br />
+                <p className='italic text-gray-500 mb-2 text-xs'>Files:</p>                
                 {file.description && <p>{file.description}</p>}
+                {file.file.includes("wordprocessingml") && ( <a href={file.file} target='_blank' rel="noopener noreferrer" download={"word_document"}><Image src={downloadWord} className='rounded-xl' width={100} height={100} alt='download Word document icon'></Image></a>)}
+                  {file.file.includes("spreadsheetml") && ( <a href={file.file} target='_blank' rel="noopener noreferrer" download={"word_document"}><Image src={downloadExcel} className='rounded-xl' width={100} height={100} alt='download Excel document icon'></Image></a>)}
+                  {file.file.includes("presentationml") && ( <a href={file.file} target='_blank' rel="noopener noreferrer" download={"word_document"}><Image src={downloadPPT} className='rounded-xl' width={100} height={100} alt='download PPT document icon'></Image></a>)}
+                  {!file.file.includes("pdf;")&& !file.file.includes("wordprocessingml") && !file.file.includes("spreadsheetml") && !file.file.includes("presentationml") && ( <a href={file.file} target='_blank' rel="noopener noreferrer" download={"document"}><Image src={downloadFile} className='rounded-xl' width={100} height={100} alt='download PPT document icon'></Image></a>)}
+                  {file.file.includes("pdf;") && ( <a href={file.file} target='_blank' rel="noopener noreferrer" download={"word_document"}><Image src={downloadPDF} className='rounded-xl' width={100} height={100} alt='download PPT document icon'></Image></a>)}
                 <br />
             </div>);
             })
@@ -118,7 +129,7 @@ const Note = ({ note, onDelete, onImageDelete }: any) => {
 
         </div>
       </a>
-
+      
       {/* <button onClick={() => setOpenModal(true)} className="focus:outline-none hover:bg-black hover:bg-opacity-10 rounded-md active:bg-white p-1 mx-2 opacity-0 group-hover:opacity-100 group-hover:transition-opacity group-hover:duration-500">
       <AiOutlineEdit size={28} color="black" />
     </button> */}
@@ -134,9 +145,11 @@ const Note = ({ note, onDelete, onImageDelete }: any) => {
           updateNote={() => setIsEdited(true)}
         />
       )}
-    <div className=' h-16 w-full absolute bottom-0 right-0 justify-end items-center  flex'>
-        <button onClick={deleteIt} className='hover:bg-black hover:bg-opacity-10 rounded-md active:bg-white p-1 mx-2 opacity-0 group-hover:opacity-100 group-hover:transition-opacity group-hover:duration-500'>
-        <TbTrash size={"2em"}/>
+
+      </div>  
+      <div className='absolute bottom-0 right-5 justify-end items-center flex'>
+        <button onClick={deleteIt} className='hover:bg-black hover:bg-opacity-10 rounded-md active:bg-white p-1  opacity-0 group-hover:opacity-100 group-hover:transition-opacity group-hover:duration-500 group/animation'>
+          <TbTrash size={"2em"}/>
         </button>
       </div>
     </div>
