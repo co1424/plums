@@ -217,7 +217,6 @@ const handleEdit = async () => {
     console.error(error);
   }
 };
-console.log("file", files[0].file)
 
   return (
       <Modal className=' sm:px-[10%] lg:px-[30%] mt-16' show={true}  popup dismissible>
