@@ -57,7 +57,7 @@ const Note = ({ note, onDelete, onImageDelete }: any) => {
   
 
   return (
-    <div  className=" mt-4 bg-white border-1 cursor-pointer border-purple-600 rounded-lg max-w-sm w-80  min-w-80 p-4 max-h-[405px] overflow-hidden relative group transition duration-300 ease-in-out transform hover:scale-105 shadow-md">
+    <div  className=" mt-4 bg-white border-1 cursor-pointer border-purple-600 rounded-lg max-w-sm w-80  min-w-80 p-4 max-h-[405px] overflow-y-auto relative group transition duration-300 ease-in-out transform hover:scale-105 shadow-md">
       
       <a onClick={() => setOpenModal(true)}>
         
