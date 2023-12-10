@@ -12,6 +12,7 @@ import CardModal from '../components/ModalNote';
 import { useState } from 'react';
 import React, { useEffect } from 'react';
 import apiUrl from '../config';
+import { useUser } from '@auth0/nextjs-auth0/client';
 
 const purpleBackgroundColor = {
   backgroundColor: 'rgba(250, 245, 255, 1)',
@@ -56,9 +57,16 @@ function Header() {
   const handleNewTag = async (newTag: tagResponse) => {
     setTags((prevTags) => [...prevTags, newTag]);
   };
-  console.log(tags);
-
-  console.log(scrolled);
+  
+  const { user, error, isLoading } = useUser();
+  let profileImg;
+  let userInfo;
+  if(!isLoading){
+    profileImg = user?.picture;
+    userInfo = user;
+  } else {
+    profileImg = plumsProfile;
+  }
 
   return (
     <header className="sticky top-0 bg-white z-50">
@@ -126,7 +134,7 @@ function Header() {
 
             {/* Plum image on the right */}
             <div className="hidden w-12 md:block  ml-auto">
-              <Image src={plumsProfile} alt="Plum-Image" />
+              <Image src={profileImg} alt="Plum-Image" />
             </div>
           </li>
         </ul>
