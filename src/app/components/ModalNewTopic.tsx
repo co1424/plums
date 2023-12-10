@@ -23,6 +23,7 @@ function CardModalNewTopic({
   onCloseModal,
   showCloseButton = true,
   onNewTag,
+  userInfo
 }: any) {
   const [email, setEmail] = useState('');
 
@@ -79,7 +80,7 @@ function CardModalNewTopic({
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, image, description }),
+        body: JSON.stringify({ name, image, description, userInfo }),
       });
       const data = await response.json();
       console.log('the answer from the api after creating a new tag', data);
@@ -126,7 +127,7 @@ function CardModalNewTopic({
                 placeholder="Enter topic name"
                 onChange={handleNameChange}
                 required
-                className="text-black dark:text-black mt-2  rounded-md p-2"
+                className="text-black dark:text-black mt-2  rounded-md"
               />
             </div>
 

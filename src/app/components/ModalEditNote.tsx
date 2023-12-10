@@ -20,6 +20,7 @@ import downloadPPT from '../../../public/images/ppt.png'
 import downloadFile from '../../../public/images/file.png'
 import downloadPDF from '../../../public/images/pdf.png'
 import { AiOutlineEdit } from 'react-icons/ai';
+import { useUser } from '@auth0/nextjs-auth0/client';
 
 interface image{
   id: string
@@ -145,6 +146,7 @@ const toggleUrlEditing =  (index: number) => {
   };
   setUrlStates(updatedUrlStates);
 };
+const { user, error, isLoading } = useUser();
 
 const handleImageDelete = async (id:string, index: number) => {
   try {

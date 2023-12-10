@@ -4,6 +4,7 @@ import Note from '@/app/components/Note';
 import prisma from '@/app/data';
 import { Spinner } from '@/app/components/spinner';
 import apiUrl from '@/app/config'
+import { useUser } from '@auth0/nextjs-auth0/client';
 
 interface NoteProps {
   params: {
@@ -51,7 +52,7 @@ const NotesByTopic = ({ params }: NoteProps) => {
   const fetchNotes = async () => {
     try {
       const result = await fetch(
-        `${apiUrl}api/note?tagId=${encodeURIComponent(tagId)}`,
+        `${apiUrl}api/note?tagId=${encodeURIComponent(tagId)}&id=${user?.id}`,
         {
           method: 'GET',
           headers: {
@@ -98,6 +99,16 @@ const NotesByTopic = ({ params }: NoteProps) => {
       console.error('Error updating notes by tag:', error);
     }
   };
+
+  const { user, error, isLoading } = useUser();
+    if(!isLoading){
+      console.log("user from oauth", user)
+      console.log("error from oauth",error)
+    }
+  console.log("isLoading from oauth",isLoading)
+
+
+
   return (
     <div >
       {notes.length === 0 && (

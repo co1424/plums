@@ -17,7 +17,8 @@ export const POST = async (req: NextRequest) => {
           file,
           fileNote,
           content,
-          selectedTags } = body;
+          selectedTags,
+          user } = body;
             
             //handle if tag is empty
             let tagInfoFormat;
@@ -45,7 +46,7 @@ export const POST = async (req: NextRequest) => {
                   images: { create: imgInfoFormat },
                   files: { create: fileInfoFormat },
                   urls: { create: urlInfoFormat },
-                  authorId: "655bdd221f7696eacd122822", 
+                  authorId: user.id, 
                 },
               });
         
@@ -137,11 +138,16 @@ interface NoteProps {
 
 export const GET = async (req: NextRequest) => {
   try {
+
     // Convert the URL string to a URL object
-    const url = new URL(req.url);
+    // const url = new URL(req.url);
+
+    const { searchParams } = new URL(req.url);
+    const tagId =  searchParams?.get("tagId");
+    const id =  searchParams?.get("id");
     
     // Extract the tagId from the search parameters
-    const tagId = url.searchParams.get('tagId');
+    // const tagId = url.searchParams.get('tagId');
     
 
     const result = await prisma.note.findMany({
@@ -149,6 +155,7 @@ export const GET = async (req: NextRequest) => {
         tagIds: {
           has: tagId,
         },
+        authorId:id as string
       },
       include: {
         images: true,

@@ -13,6 +13,7 @@ import { buttonTheme } from './themes';
 import { FaImage } from 'react-icons/fa';
 import { useRouter, redirect } from 'next/navigation';
 import apiUrl from '../config';
+import { useUser } from '@auth0/nextjs-auth0/client';
 
 
 
@@ -69,14 +70,14 @@ function CardModalEditTopic({
       description: description,
     };
     console.log(JSON.stringify({ data }));
-
+    const { user, error, isLoading } = useUser();
     try {
       const response = await fetch(`${apiUrl}api/tag`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, image, description }),
+        body: JSON.stringify({ name, image, description, user }),
       });
       const data = await response.json();
       console.log('the answer from the api after creating a new tag', data);

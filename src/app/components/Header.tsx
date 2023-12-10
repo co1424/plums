@@ -12,6 +12,7 @@ import CardModal from '../components/ModalNote';
 import { useState } from 'react';
 import React, { useEffect } from 'react';
 import apiUrl from '../config';
+import { useUser } from '@auth0/nextjs-auth0/client';
 
 const purpleBackgroundColor = {
   backgroundColor: 'rgba(250, 245, 255, 1)',
@@ -35,30 +36,41 @@ function Header() {
   }
 
   const [tags, setTags] = useState<tagResponse[]>([]);
+  
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await fetch(`${apiUrl}api/tag`, {
-        cache: 'no-store',
+      console.log('email from the fetch', user?.email)
+      const result = await fetch(`${apiUrl}api/tag?email=${user?.email}`, {
+        
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
       });
-
+      if(result.ok){
       const tagsData: tagResponse[] = await result.json();
+      console.log("result that arrived from the api to the fetch", tagsData)
       setTags(tagsData);
+    }
     };
     fetchData();
   }, [tagIdToDelete]); // Run once when the component mounts
-  console.log(tags);
 
   const handleNewTag = async (newTag: tagResponse) => {
     setTags((prevTags) => [...prevTags, newTag]);
   };
-  console.log(tags);
+  
 
-  console.log(scrolled);
+  const { user, error, isLoading } = useUser();
+  let profileImg;
+  let userInfo;
+  if(!isLoading){
+    profileImg = user?.picture;
+    userInfo = user;
+  } else {
+    profileImg = plumsProfile;
+  }
 
   return (
     <header className="sticky top-0 bg-white z-50">
@@ -92,6 +104,7 @@ function Header() {
                 onCloseModal={() => setOpenModalNewTopic(false)}
                 showCloseButton={false}
                 onNewTag={handleNewTag}
+                userInfo={userInfo}
               />
             )}
 
@@ -106,6 +119,7 @@ function Header() {
               <CardModal
                 onCloseModal={() => setOpenModalNewNote(false)}
                 showCloseButton={false}
+                userInfo={userInfo}
               />
             )}
 
@@ -126,7 +140,7 @@ function Header() {
 
             {/* Plum image on the right */}
             <div className="hidden w-12 md:block  ml-auto">
-              <Image src={plumsProfile} alt="Plum-Image" />
+              <Image src={profileImg} alt="Plum-Image" width={48} height={48} className='rounded-3xl'/>
             </div>
           </li>
         </ul>

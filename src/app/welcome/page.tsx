@@ -7,6 +7,7 @@ import { Spinner } from '../components/spinner';
 import { AiOutlineEdit } from 'react-icons/ai';
 import apiUrl from '../config';
 import CardModalEditTopic from '../components/ModalEditTopic';
+import { useUser } from '@auth0/nextjs-auth0/client';
 
 function Welcome() {
   const [openModalEditTopic, setOpenModalEditTopic] = useState(false);
@@ -22,19 +23,22 @@ function Welcome() {
   }
 
   const [tags, setTags] = useState<tagResponse[]>([]);
-
+  const { user, error, isLoading } = useUser();
   useEffect(() => {
     const fetchData = async () => {
-      const result = await fetch(`${apiUrl}api/tag`, {
-        cache: 'no-store',
+      console.log('email from the fetch', user?.email)
+      const result = await fetch(`${apiUrl}api/tag?email=${user?.email}`, {
+        
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
       });
-
+      if(result.ok){
       const tagsData: tagResponse[] = await result.json();
+      console.log("result that arrived from the api to the fetch", tagsData)
       setTags(tagsData);
+    }
     };
     fetchData();
   }, [tagIdToDelete]); // Run once when the component mounts
@@ -85,7 +89,8 @@ function Welcome() {
       <br />
 
       <div className="flex flex-row flex-wrap justify-center">
-        {tags.map((tag: tagResponse) => (
+        {tags.length > 0 &&
+        (tags.map((tag: tagResponse) => (
           // this means that I need a [topic] file so the url says the topic I'm in
           <div key={tag.id} className="group min-w-[350px] max-w-[350px] bg-white overflow-hidden border-1 shadow-md sm:rounded-lg p-4 m-4 transition duration-300 ease-in-out transform hover:scale-105">
             <a key={tag.id} href={`/${tag.name}/${tag.id}`} className="block">
@@ -117,7 +122,7 @@ function Welcome() {
               />)}
             </div>
           </div>
-        ))}
+        )))}
       </div>
     </main>
   );

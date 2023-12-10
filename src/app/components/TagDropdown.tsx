@@ -2,6 +2,7 @@ import { Flowbite } from 'flowbite-react';
 import React, { useEffect, useState } from 'react';
 import { buttonTheme } from './themes';
 import apiUrl from '../config';
+import { useUser } from '@auth0/nextjs-auth0/client';
 
 
 
@@ -15,19 +16,22 @@ const TagDropdown = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
-
+  const { user, error, isLoading } = useUser();
   useEffect(() => {
     const fetchData = async () => {
-      const result = await fetch(`${apiUrl}api/tag`, {
-        cache: 'no-store',
+      console.log('email from the fetch', user?.email)
+      const result = await fetch(`${apiUrl}api/tag?email=${user?.email}`, {
+        
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
       });
-
+      if(result.ok){
       const tagsData: tagResponse[] = await result.json();
+      console.log("result that arrived from the api to the fetch at tagDropdown", tagsData)
       setTags(tagsData);
+    }
     };
     fetchData();
   }, []); // Run once when the component mounts

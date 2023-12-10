@@ -18,10 +18,12 @@ import { FaImage } from 'react-icons/fa';
 import { AiOutlineUpload } from 'react-icons/ai';
 import { FaLink } from 'react-icons/fa';
 import apiUrl from '../config';
+import { useUser } from '@auth0/nextjs-auth0/client';
 
 interface CardModalProps {
   onCloseModal: () => void;
   showCloseButton?: boolean;
+  userInfo: any;
 }
 interface tagResponse {
   id: string;
@@ -31,6 +33,7 @@ interface tagResponse {
 function CardModalNote({
   onCloseModal,
   showCloseButton = true,
+  userInfo
 }: CardModalProps) {
   const [email, setEmail] = useState('');
   const [title, setTitle] = useState('');
@@ -50,18 +53,24 @@ function CardModalNote({
     setEmail('');
   }
 
+  const { user, error, isLoading } = useUser();
+  
+
   useEffect(() => {
     const fetchData = async () => {
-      const result = await fetch(`${apiUrl}api/tag`, {
-        cache: 'no-store',
+      console.log('email from the fetch', user?.email)
+      const result = await fetch(`${apiUrl}api/tag?email=${user?.email}`, {
+        
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
       });
-
+      if(result.ok){
       const tagsData: tagResponse[] = await result.json();
+      console.log("result that arrived from the api to the fetch", tagsData)
       setTags(tagsData);
+    }
     };
     fetchData();
   }, []); // Run once when the component mounts
@@ -164,6 +173,7 @@ function CardModalNote({
           fileNote,
           content,
           selectedTags,
+          user
         }),
       });
       const data = await response.json();
