@@ -99,7 +99,7 @@ const Note = ({ note, onDelete, onImageDelete }: any) => {
             mutableImages.map((image: any) => {
               return (
 
-                <div>
+                <div key={image.id}>
                 <p className='italic text-gray-500 mb-2 text-xs'>Images:</p>
               
               <Image width={128} height={128} key={image.id} src={image.image} alt={image.description} />
