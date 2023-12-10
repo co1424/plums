@@ -134,7 +134,7 @@ function Header() {
 
             {/* Plum image on the right */}
             <div className="hidden w-12 md:block  ml-auto">
-              <Image src={profileImg} alt="Plum-Image" />
+              <Image src={profileImg} alt="Plum-Image" width={48} height={48} className='rounded-3xl' />
             </div>
           </li>
         </ul>
