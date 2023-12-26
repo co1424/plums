@@ -67,6 +67,7 @@ function Header() {
   } else {
     profileImg = plumsProfile;
   }
+  
 
   return (
     <header className="sticky top-0 bg-white z-50">
