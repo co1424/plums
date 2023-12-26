@@ -2,7 +2,7 @@
 import { handleAuth, handleLogin } from '@auth0/nextjs-auth0';
 
 export const GET = handleAuth({
-  async login(req, res) {
+  async callback(req, res) {
     try {
       await handleLogin(req, res, {
         // Set your custom callback URL here
