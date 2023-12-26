@@ -1,12 +1,12 @@
 // app/api/auth/[auth0]/route.js
-import { handleAuth } from '@auth0/nextjs-auth0';
+import { handleAuth, handleLogin } from '@auth0/nextjs-auth0';
 
 export const GET = handleAuth({
-  async callback(req, res) {
+  async login(req, res) {
     try {
-      await handleAuth(req, res, {
+      await handleLogin(req, res, {
         // Set your custom callback URL here
-        returnTo: 'https://plums-sepia.vercel.app/welcome',
+        returnTo: '/welcome',
       });
     } catch (error) {
       console.error(error);
