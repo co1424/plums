@@ -67,80 +67,81 @@ function Header() {
   } else {
     profileImg = plumsProfile;
   }
-
-  return (
-    <header className="sticky top-0 bg-white z-50">
-      <nav>
-        <ul
-          className={
-            headerStyle + ' flex justify-between items-center bg-white px-16'
-          }
-        >
-          {/* Home button on the left */}
-          <li>
-            <Link
-              href="/welcome"
-              className="pi pi-home text-black "
-              style={{ fontSize: '2rem', padding: '10px' }}
-            ></Link>
-          </li>
-
-          {/* Centered items */}
-          <ul className="flex justify-evenly items-center space-x-4 flex-grow">
-            {/* Notes buttons */}
-            <button
-              className="p-1 flex-shrink-0 text-lg"
-              onClick={() => setOpenModalNewTopic(true)}
-            >
-              <span style={{ fontWeight: 'bold' }}>&#10133;</span> Tag
-            </button>
-
-            {openModalNewTopic && (
-              <CardModalNewTopic
-                onCloseModal={() => setOpenModalNewTopic(false)}
-                showCloseButton={false}
-                onNewTag={handleNewTag}
-              />
-            )}
-
-            <button
-              className="p-1 flex-shrink-0 text-lg "
-              onClick={() => setOpenModalNewNote(true)}
-            >
-              <span style={{ fontWeight: 'bold' }}>&#10133;</span> Note
-            </button>
-
-            {openModalNewNote && (
-              <CardModal
-                onCloseModal={() => setOpenModalNewNote(false)}
-                showCloseButton={false}
-              />
-            )}
-
-            <button className="p-1 flex-shrink-0 text-lg">All Notes</button>
-            <button className="p-1 flex-shrink-0 text-lg">
-              <a href="/api/auth/logout">Sign Out</a>
-            </button>
-          </ul>
-
-          {/* Plums title and image on the right */}
-          <li className="flex items-center">
-            {/* Plums title (centered on small screens) */}
-            <div className="hidden md:block p-2">
-              <div className="w-40">
-                <Image src={plumsTitle} alt="title" />
+  if(user){
+    return (
+      <header className="sticky top-0 bg-white z-50">
+        <nav>
+          <ul
+            className={
+              headerStyle + ' flex justify-between items-center bg-white px-16'
+            }
+          >
+            {/* Home button on the left */}
+            <li>
+              <Link
+                href="/"
+                className="pi pi-home text-black "
+                style={{ fontSize: '2rem', padding: '10px' }}
+              ></Link>
+            </li>
+  
+            {/* Centered items */}
+            <ul className="flex justify-evenly items-center space-x-4 flex-grow">
+              {/* Notes buttons */}
+              <button
+                className="p-1 flex-shrink-0 text-lg"
+                onClick={() => setOpenModalNewTopic(true)}
+              >
+                <span style={{ fontWeight: 'bold' }}>&#10133;</span> Tag
+              </button>
+  
+              {openModalNewTopic && (
+                <CardModalNewTopic
+                  onCloseModal={() => setOpenModalNewTopic(false)}
+                  showCloseButton={false}
+                  onNewTag={handleNewTag}
+                />
+              )}
+  
+              <button
+                className="p-1 flex-shrink-0 text-lg "
+                onClick={() => setOpenModalNewNote(true)}
+              >
+                <span style={{ fontWeight: 'bold' }}>&#10133;</span> Note
+              </button>
+  
+              {openModalNewNote && (
+                <CardModal
+                  onCloseModal={() => setOpenModalNewNote(false)}
+                  showCloseButton={false}
+                />
+              )}
+  
+              <button className="p-1 flex-shrink-0 text-lg">All Notes</button>
+              <button className="p-1 flex-shrink-0 text-lg">
+                <a href="/api/auth/logout">Sign Out</a>
+              </button>
+            </ul>
+  
+            {/* Plums title and image on the right */}
+            <li className="flex items-center">
+              {/* Plums title (centered on small screens) */}
+              <div className="hidden md:block p-2">
+                <div className="w-40">
+                  <Image src={plumsTitle} alt="title" />
+                </div>
               </div>
-            </div>
-
-            {/* Plum image on the right */}
-            <div className="hidden w-12 md:block  ml-auto">
-              <Image src={profileImg} alt="Plum-Image" width={48} height={48} className='rounded-3xl' />
-            </div>
-          </li>
-        </ul>
-      </nav>
-    </header>
-  );
+  
+              {/* Plum image on the right */}
+              <div className="hidden w-12 md:block  ml-auto">
+                <Image src={profileImg} alt="Plum-Image" width={48} height={48} className='rounded-3xl' />
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </header>
+    );
+  }
 }
 
 export default Header;

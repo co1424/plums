@@ -10,7 +10,6 @@ children: React.ReactNode;
 }) {
   return (
     <>
-      <Header />
       {children}
     </>
     );
