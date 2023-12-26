@@ -6,7 +6,7 @@ export const GET = handleAuth({
     try {
       await handleCallback(req, res, {
         // Set your custom callback URL here
-        returnTo: '/welcome',
+        returnTo: 'https://plums-sepia.vercel.app/welcome',
       });
     } catch (error) {
       console.error(error);
