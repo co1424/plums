@@ -21,10 +21,9 @@ function Home() {
         id="main"
         className="mx-auto mt-10 mb-10 z-30 relative"
       />
-
-<button className="p-3 bg-purple-400 text-black rounded-md text-lg font-bold hover:bg-purple-400 transition-colors duration-300 w-64">
-        <a href="/api/auth/login">Login</a>
-      </button>
+      <a href="/api/auth/login">
+        <button className="p-3 bg-purple-400 text-black rounded-md text-lg font-bold hover:bg-purple-400 transition-colors duration-300 w-64">Login</button>
+      </a>
     </main>
   );
 }
