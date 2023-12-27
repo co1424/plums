@@ -15,6 +15,7 @@ function Home() {
   const [openModalEditTopic, setOpenModalEditTopic] = useState(false);
   const [tagIdToDelete, setTagIdToDelete] = useState<string | null>(null);
 
+  const { user, error, isLoading } = useUser();
 
   interface tagResponse {
     id: string;
@@ -76,7 +77,7 @@ function Home() {
     );
   }
 
-  const { user, error, isLoading } = useUser();
+  
   if(isLoading){
     //show the spinner
   }
